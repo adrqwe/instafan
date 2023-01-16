@@ -13,7 +13,7 @@ function App() {
       <Router>
         <Navigator />
       </Router>
-    </TransactionsProvider>
+    </TransactionsProvider> //cows
   );
 }
 
