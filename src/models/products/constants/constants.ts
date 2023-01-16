@@ -1,0 +1,15 @@
+export const MOUNTED = "KA/products/MOUNTED";
+
+export const _GET_PRODUCTS_REQUEST = "KA/products/_GET_PRODUCTS_REQUEST";
+export const _GET_PRODUCTS_SUCCESS = "KA/products/_GET_PRODUCTS_SUCCESS";
+export const _GET_PRODUCTS_FAILURE = "KA/products/_GET_PRODUCTS_FAILURE";
+
+export const _REQUEST_FOR_SINGLE_PRODUCT =
+  "KA/products/_REQUEST_FOR_SINGLE_PRODUCT ";
+
+export const _GET_SINGLE_PRODUCT_REQUEST =
+  "KA/products/_GET_SINGLE_PRODUCT_REQUEST";
+export const _GET_SINGLE_PRODUCT_SUCCESS =
+  "KA/products/_GET_SINGLE_PRODUCT_SUCCESS";
+export const _GET_SINGLE_PRODUCT_FAILURE =
+  "KA/products/_GET_SINGLE_PRODUCT_FAILURE";
