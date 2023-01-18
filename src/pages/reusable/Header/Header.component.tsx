@@ -1,7 +1,9 @@
-import { Box, Typography, Container } from "@mui/material";
+import { Box } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import { useStyles } from "./Header.style";
 import { useTranslationContext } from "../../../models/translationsContext/translationsContext";
+import routes from "../../../navigator/routes";
 
 const logo = require("../../../utils/logo.png");
 
@@ -12,7 +14,9 @@ const Header = () => {
 
   return (
     <Box className={classes.box}>
-      <img src={logo} className={classes.img} alt={translations.logo} />
+      <Link to={routes.home}>
+        <img src={logo} className={classes.img} alt={translations.logo} />
+      </Link>
     </Box>
   );
 };
