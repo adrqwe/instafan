@@ -1,5 +1,5 @@
 enum routes {
-  home = "home",
+  home = "/",
 }
 
 export default routes;
