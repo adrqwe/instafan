@@ -1,14 +1,15 @@
 export const PL_translations = {
   translations: {
-    home: {
-      currency: "PLN",
-      isFree: "Darmowe",
-    },
-    login: {
-      appName: "youAreHere",
-    },
     header: {
       logo: "Baner strony",
+    },
+    menu: {
+      homePage: "Strona Główna",
+      search: "Szukaj",
+      explore: "Eksploruj",
+      messages: "Wiadomości",
+      notifications: "Powiadomienia",
+      create: "Utwórz",
     },
   },
   availableLanguages: {

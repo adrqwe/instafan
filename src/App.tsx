@@ -1,19 +1,16 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import { TransactionsProvider } from "./models/translationsContext/translationsProvider";
 
+import { TransactionsProvider } from "./models/translationsContext/translationsProvider";
 import Navigator from "./navigator/Navigator.component";
-import Modal from "./pages/reusable/Modal";
-import HomePage from "./pages/HomePage";
-import IframeChild from "./pages/IframeChild";
 
 function App() {
   return (
-    <TransactionsProvider value={{ activeLanguage: "PL" }}>
+    <TransactionsProvider value={{ activeLanguage: "EN" }}>
       <Router>
         <Navigator />
       </Router>
-    </TransactionsProvider> //cows
+    </TransactionsProvider>
   );
 }
 
