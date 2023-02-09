@@ -2,8 +2,9 @@ import { createUseStyles } from "react-jss";
 
 export const useStyles = createUseStyles({
   box: {
-    height: "100vh",
-    position: "fixed",
-    color: "black",
+    margin: "5px",
+  },
+  menuIcon: {
+    fontSize: "40px",
   },
 });
