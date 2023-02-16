@@ -1,10 +1,9 @@
-import { IProductsSuccessPayload } from "../../models/products/types";
+import { IHomePageDataSuccessPayload } from "../../models/homePageData/types";
 
 export interface IHomePageFromState {
-  products: IProductsSuccessPayload[];
+  homePageData: IHomePageDataSuccessPayload[] | [];
 }
 export interface IHomePageFromDispatch {
   mounted: () => void;
-  requestForSingleProduct: (slug: string) => void;
 }
 export type IHomePageProps = IHomePageFromState & IHomePageFromDispatch;

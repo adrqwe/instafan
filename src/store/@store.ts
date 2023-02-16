@@ -9,11 +9,16 @@ import { IServices } from "./services";
 import { IAction as ITransactionsAction } from "./../models/transactions/types";
 import { IAction as IUrlAction } from "./../models/url/types";
 import { IAction as IProductsAction } from "./../models/products/types";
+import { IAction as IHomePageDataAction } from "../models/homePageData/types";
 
 declare module "@Store" {
   export type IState = StateType<typeof rootReducer>;
   /* @@STORE_COMPONENT@@ */
-  export type IAction = ITransactionsAction | IUrlAction | IProductsAction;
+  export type IAction =
+    | ITransactionsAction
+    | IUrlAction
+    | IProductsAction
+    | IHomePageDataAction;
 
   export type IService = IServices;
   export type IEpic = Epic<IAction, IAction, IState, IService>;
