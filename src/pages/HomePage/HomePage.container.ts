@@ -3,21 +3,17 @@ import { AnyAction, Dispatch } from "redux";
 import HomePage from "./HomePage.component";
 import _Store from "@Store";
 import { IHomePageFromState, IHomePageFromDispatch } from "./HomePage.types";
-import {
-  mounted,
-  requestForSingleProduct,
-} from "../../models/products/actions";
-import { getProducts } from "../../models/products/selectors/getProducts";
+import { mounted } from "../../models/homePageData/actions";
+import { getHomePageData } from "../../models/homePageData/selectors/getHomePageData";
 
 const mapStateToProps = (state: _Store.IState): IHomePageFromState => ({
-  products: getProducts(state),
+  homePageData: getHomePageData(state),
 });
 
 const mapDispatchToProps = (
   dispatch: Dispatch<AnyAction>
 ): IHomePageFromDispatch => ({
   mounted: () => dispatch(mounted()),
-  requestForSingleProduct: (slug) => dispatch(requestForSingleProduct(slug)),
 });
 export default connect<
   IHomePageFromState,
