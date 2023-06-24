@@ -1,24 +1,48 @@
-import React, { useEffect } from "react";
-import { Grid, Container, CssBaseline } from "@mui/material";
+import { useEffect } from "react";
+import { Box, Grid, ImageList } from "@mui/material";
 
 import MainMenu from "../reusable/MainMenu";
 import Header from "../reusable/Header";
 import { IHomePageProps } from "./HomePage.types";
+import { useStyles } from "./HomePage.style";
+import ImageListItem from "../reusable/ImageListItem";
 
-const HomePage = ({ mounted, homePageData }: IHomePageProps) => {
+const HomePage = ({ homePageData, mounted }: IHomePageProps) => {
+  const classes = useStyles();
   useEffect(() => {
     mounted();
   }, []);
-  useEffect(() => {
-    console.log(homePageData);
-  }, [homePageData]);
+
   return (
     <Grid container columns={20}>
-      <Grid item xs={4}>
-        <Header />
-        <MainMenu />
+      <Grid item xs={4} className={classes.gridMainMenuContainer}>
+        <Box className={classes.fixedMainMenu}>
+          <Header />
+          <MainMenu />
+        </Box>
       </Grid>
-      <Grid item xs={16} style={{ backgroundColor: "blue" }}></Grid>
+      <Grid item xs={16} className={classes.gridDataContainer}>
+        <ImageList
+          variant="masonry"
+          cols={3}
+          gap={20}
+          className={classes.imageList}
+        >
+          <></>
+          {homePageData.data.map(
+            ({ image, id, count_of_comments, count_of_likes }) => {
+              return (
+                <ImageListItem
+                  image={image}
+                  key={id}
+                  countOfComment={count_of_comments}
+                  countOfLikes={count_of_likes}
+                />
+              );
+            }
+          )}
+        </ImageList>
+      </Grid>
     </Grid>
   );
 };

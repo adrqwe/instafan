@@ -12,5 +12,12 @@ export interface IHomePageDataSuccessPayload {
 }
 
 export interface IHomePageDataReducer {
-  homePageData: IHomePageDataSuccessPayload[];
+  homePageData: THomePageData;
 }
+
+export type THomePageData =
+  | {
+      data: IHomePageDataSuccessPayload[];
+      status: number;
+    }
+  | { data: []; status: number };

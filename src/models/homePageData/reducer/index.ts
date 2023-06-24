@@ -4,7 +4,7 @@ import { getHomePageData } from "../actions";
 import { IHomePageDataReducer, IAction } from "../types";
 
 const initialState: IHomePageDataReducer = {
-  homePageData: [],
+  homePageData: { data: [], status: 100 },
 };
 
 const homePageDataReducer = (

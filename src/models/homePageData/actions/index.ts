@@ -6,7 +6,7 @@ import {
   _GET_HOMEPAGEDATA_REQUEST,
   _GET_HOMEPAGEDATA_SUCCESS,
 } from "../constants/constants";
-import { IHomePageDataSuccessPayload } from "../types";
+import { THomePageData } from "../types";
 
 const { createStandardAction } = deprecated;
 
@@ -16,4 +16,4 @@ export const getHomePageData = createAsyncAction(
   _GET_HOMEPAGEDATA_REQUEST,
   _GET_HOMEPAGEDATA_SUCCESS,
   _GET_HOMEPAGEDATA_FAILURE
-)<number, IHomePageDataSuccessPayload[], Error>();
+)<number, THomePageData, Error>();

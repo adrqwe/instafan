@@ -1,7 +1,7 @@
-import { IHomePageDataSuccessPayload } from "../../models/homePageData/types";
+import { THomePageData } from "../../models/homePageData/types";
 
 export interface IHomePageFromState {
-  homePageData: IHomePageDataSuccessPayload[] | [];
+  homePageData: THomePageData;
 }
 export interface IHomePageFromDispatch {
   mounted: () => void;
