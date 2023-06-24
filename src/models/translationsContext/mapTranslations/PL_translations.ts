@@ -1,5 +1,8 @@
 export const PL_translations = {
   translations: {
+    decimalPoint: {
+      point: ",",
+    },
     header: {
       logo: "Baner strony",
     },
@@ -10,6 +13,10 @@ export const PL_translations = {
       messages: "Wiadomości",
       notifications: "Powiadomienia",
       create: "Utwórz",
+    },
+    imageListItem: {
+      thousand: "tys.",
+      million: "mln",
     },
   },
   availableLanguages: {

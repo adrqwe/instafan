@@ -1,9 +1,8 @@
 import _Store from "@Store";
 import { Selector } from "reselect";
 
-import { IHomePageDataSuccessPayload } from "../types";
+import { THomePageData } from "../types";
 
-export const getHomePageData: Selector<
-  _Store.IState,
-  IHomePageDataSuccessPayload[]
-> = (state) => state.homePageData.homePageData;
+export const getHomePageData: Selector<_Store.IState, THomePageData> = (
+  state
+) => state.homePageData.homePageData;
