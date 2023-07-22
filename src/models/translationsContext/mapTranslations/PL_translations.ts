@@ -18,6 +18,27 @@ export const PL_translations = {
       thousand: "tys.",
       million: "mln",
     },
+    loginPage: {
+      appPreview: "Podgląd Aplikacji",
+      accountQuestion: "Nie masz konta?",
+      singUp: "Zarejestruj się",
+      downloadApp: "Pobierz aplikację.",
+    },
+    loginForm: {
+      login: "Numer telefonu, nazwa użytkownika lub adres email",
+      password: "Hasło",
+      saveYourLogin: "Zapisz dane logowania",
+      logIn: "Zaloguj się",
+      or: "lub",
+      forgotPassword: "Nie pamiętasz hasła?",
+      reportLinkText: "zgłosić zawartość, którą uważasz za niezgodną z prawem",
+      reportTextStart: "Możesz też",
+      reportTextEnd: "obowiązującym w Twoim kraju bez logowania się.",
+    },
+    inputField: {
+      show: "Pokaż",
+      hide: "Ukryj",
+    },
   },
   availableLanguages: {
     EN: "English",

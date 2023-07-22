@@ -15,7 +15,6 @@ export const fetchTransactionsWhenMounted: _Store.IEpic = (action$, state$) => {
   return action$.pipe(
     filter$(isActionOf(mounted)),
     mergeMap$((action) => {
-      console.log("dupa");
       return of$(getTransactions.request("procesor"));
     })
   );
@@ -29,7 +28,6 @@ export const getTransactionWhenRequest: _Store.IEpic = (
   return action$.pipe(
     filter$(isActionOf(getTransactions.request)),
     mergeMap$((action) => {
-      console.log(action);
       return from$(transactionService.getTransactions(action.payload)).pipe();
     })
   );
