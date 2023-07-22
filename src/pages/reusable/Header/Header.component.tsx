@@ -14,9 +14,11 @@ const Header = () => {
 
   return (
     <Box className={classes.box}>
-      <Link to={routes.home}>
-        <img src={logo} className={classes.img} alt={translations.logo} />
-      </Link>
+      <span className={classes.span}>
+        <Link to={routes.home}>
+          <img src={logo} className={classes.img} alt={translations.logo} />
+        </Link>
+      </span>
     </Box>
   );
 };
