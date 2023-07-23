@@ -8,6 +8,7 @@ import { useTranslationContext } from "../../models/translationsContext/translat
 import LoginForm from "../reusable/LoginForm";
 import routes from "../../navigator/routes";
 import config from "../../config";
+import Footer from "../reusable/Footer";
 
 const homePhones = require("../../utils/home-phones.png");
 const screenshot1 = require(`../../utils/screenshotsAppTeaser/screenshot1.png`);
@@ -39,7 +40,7 @@ const LoginPage = ({}: ILoginPageProps) => {
       <img
         src={screenshots[index]}
         alt={translations.appPreview}
-        className={`${classes.sliderImages} ${
+        className={`${classes.sliderImages} ${classes.noSelect} ${
           indexOfScreen === index ? classes.index : classes.opacity
         }`}
       />
@@ -54,46 +55,53 @@ const LoginPage = ({}: ILoginPageProps) => {
   }, [indexOfScreen]);
 
   return (
-    <Container className={classes.container}>
-      <Grid container columns={2} className={classes.gridContainer}>
-        <Grid item xs={1} className={classes.gridImageContainer}>
-          <div className={classes.divAppTeaser}>
-            <img src={homePhones} alt={translations.appPreview} />
-            {screenshotImage(0)}
-            {screenshotImage(1)}
-            {screenshotImage(2)}
-            {screenshotImage(3)}
-          </div>
+    <>
+      <Container className={classes.container}>
+        <Grid container columns={2} className={classes.gridContainer}>
+          <Grid item xs={1} className={classes.gridImageContainer}>
+            <div className={classes.divAppTeaser}>
+              <img
+                src={homePhones}
+                alt={translations.appPreview}
+                className={classes.noSelect}
+              />
+              {screenshotImage(0)}
+              {screenshotImage(1)}
+              {screenshotImage(2)}
+              {screenshotImage(3)}
+            </div>
+          </Grid>
+          <Grid item xs={1}>
+            <Box className={`${classes.loginFormBox} ${classes.forms}`}>
+              <LoginForm />
+            </Box>
+            <Box className={`${classes.singUpBox} ${classes.forms}`}>
+              <Typography className={classes.singUpText} fontSize="small">
+                {translations.accountQuestion}
+                <Link to={routes.home} className={classes.singUpLink}>
+                  {translations.singUp}
+                </Link>
+              </Typography>
+            </Box>
+            <Box className={classes.boxGoogleAppImage}>
+              <Typography fontSize="small" margin={1.5}>
+                {translations.downloadApp}
+              </Typography>
+              <span className={classes.spanGoogleAppImage}>
+                <Link to="/">
+                  <img
+                    src={googleApp}
+                    className={classes.googleAppImage}
+                    alt={translations.downloadApp}
+                  />
+                </Link>
+              </span>
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item xs={1}>
-          <Box className={`${classes.loginFormBox} ${classes.forms}`}>
-            <LoginForm />
-          </Box>
-          <Box className={`${classes.singUpBox} ${classes.forms}`}>
-            <Typography className={classes.singUpText} fontSize="small">
-              {translations.accountQuestion}
-              <Link to={routes.home} className={classes.singUpLink}>
-                {translations.singUp}
-              </Link>
-            </Typography>
-          </Box>
-          <Box className={classes.boxGoogleAppImage}>
-            <Typography fontSize="small" margin={1.5}>
-              {translations.downloadApp}
-            </Typography>
-            <span className={classes.spanGoogleAppImage}>
-              <Link to="/">
-                <img
-                  src={googleApp}
-                  className={classes.googleAppImage}
-                  alt={translations.downloadApp}
-                />
-              </Link>
-            </span>
-          </Box>
-        </Grid>
-      </Grid>
-    </Container>
+      </Container>
+      <Footer />
+    </>
   );
 };
 

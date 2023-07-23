@@ -1,9 +1,27 @@
+import { EN_translations } from "../models/translationsContext/mapTranslations";
 import { api } from "./api";
-import { IConfig } from "./types";
+import { IConfig, listOfActiveLanguage } from "./types";
+
+let selectedLanguage: string | null = null;
+try {
+  selectedLanguage = localStorage.getItem("selectedLanguage");
+
+  if (
+    !Object.keys(EN_translations.availableLanguages).find(
+      (e) => e === selectedLanguage
+    )
+  ) {
+    selectedLanguage = null;
+  }
+} catch {
+  selectedLanguage = null;
+}
 
 const config: IConfig = {
   api,
   defaultPartner: 1,
-  activeLanguage: "EN",
+  activeLanguage: `${
+    selectedLanguage ? (selectedLanguage as listOfActiveLanguage) : "PL"
+  }`,
 };
 export default config;
