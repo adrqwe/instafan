@@ -39,9 +39,20 @@ export const EN_translations = {
       show: "Show",
       hide: "Hide",
     },
+    footer: {
+      help: "Help",
+      about: "About",
+      blog: "Blog",
+      privacy: "Privacy",
+      terms: "Terms",
+      topAccounts: "Top Accounts",
+      credits:
+        " © 2023 Instafan by Adrian Turski (this website represents a challenge that allows me to showcase my current skills)",
+      nameOfSelect: "Switch Display Language",
+    },
   },
   availableLanguages: {
     EN: "English",
-    PL: "Polish",
+    PL: "Polski",
   },
 };

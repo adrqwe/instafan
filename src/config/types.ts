@@ -1,8 +1,10 @@
 export interface IConfig {
   api: TApiDefault;
   defaultPartner: number;
-  activeLanguage: "PL" | "EN";
+  activeLanguage: listOfActiveLanguage;
 }
 type TApiDefault = {
   default: string | undefined;
 };
+
+export type listOfActiveLanguage = "PL" | "EN";

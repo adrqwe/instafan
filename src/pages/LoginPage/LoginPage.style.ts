@@ -6,6 +6,7 @@ export const useStyles = createUseStyles({
   },
   gridContainer: {
     width: "100%",
+    marginBottom: 120,
   },
   gridImageContainer: {
     padding: "20px 0",
@@ -71,5 +72,13 @@ export const useStyles = createUseStyles({
     animationName: "$opacity",
     animationDuration: "1.5s",
     animationFillMode: "forwards",
+  },
+  noSelect: {
+    userSelect: "none",
+    "-moz-user-select": "none",
+    "-webkit-text-select": "none",
+    "-webkit-user-select": "none",
+    "-drag": "none",
+    "-webkit-user-drag": "none",
   },
 });

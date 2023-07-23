@@ -6,6 +6,7 @@ import Header from "../reusable/Header";
 import { IHomePageProps } from "./HomePage.types";
 import { useStyles } from "./HomePage.style";
 import ImageListItem from "../reusable/ImageListItem";
+import Footer from "../reusable/Footer";
 
 const HomePage = ({ homePageData, mounted }: IHomePageProps) => {
   const classes = useStyles();
@@ -42,6 +43,9 @@ const HomePage = ({ homePageData, mounted }: IHomePageProps) => {
             }
           )}
         </ImageList>
+        <Box>
+          <Footer />
+        </Box>
       </Grid>
     </Grid>
   );
