@@ -1,6 +1,0 @@
-uvicorn
-email-validator
-fastapi
-PyJWT
-python-decouple
-mysql-connector-python
