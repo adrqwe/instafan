@@ -38,12 +38,12 @@ const MainMenu = () => {
     <Box className={classes.box}>
       <MenuList>
         <MenuItem
-          route={routes.home}
+          route={routes.login}
           text={translations.homePage}
           icon={selectedMenuItem(
             <HomeOutlinedIcon className={classes.menuIcon} />,
             <HomeIcon className={classes.menuIcon} />,
-            routes.home
+            routes.login
           )}
         />
         <MenuItem

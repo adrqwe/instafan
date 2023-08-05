@@ -1,5 +1,6 @@
 enum routes {
-  home = "/",
+  login = "/",
+  signUp = "/signUp",
   search = "/search",
   explore = "/explore",
   messages = "/messages",

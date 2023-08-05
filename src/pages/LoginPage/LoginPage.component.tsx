@@ -78,7 +78,7 @@ const LoginPage = ({}: ILoginPageProps) => {
             <Box className={`${classes.singUpBox} ${classes.forms}`}>
               <Typography className={classes.singUpText} fontSize="small">
                 {translations.accountQuestion}
-                <Link to={routes.home} className={classes.singUpLink}>
+                <Link to={routes.signUp} className={classes.singUpLink}>
                   {translations.singUp}
                 </Link>
               </Typography>

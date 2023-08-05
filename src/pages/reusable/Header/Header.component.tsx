@@ -15,7 +15,7 @@ const Header = () => {
   return (
     <Box className={classes.box}>
       <span className={classes.span}>
-        <Link to={routes.home}>
+        <Link to={routes.login}>
           <img src={logo} className={classes.img} alt={translations.logo} />
         </Link>
       </span>

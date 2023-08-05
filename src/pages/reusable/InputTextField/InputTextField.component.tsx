@@ -1,5 +1,7 @@
 import { Box } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 import { useStyles } from "./InputTextField.style";
 import { IInputTextField } from "./InputTextField.types";
@@ -11,6 +13,8 @@ const InputTextField = ({
   className,
   value,
   type = "text",
+  validation,
+  valid,
   onChange,
 }: IInputTextField) => {
   const classes = useStyles();
@@ -19,8 +23,33 @@ const InputTextField = ({
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [spanShowWidth, setSpanShowWidth] = useState<number | null>(null);
+  const [checkVisible, setCheckVisible] = useState(false);
 
   const spanShowRef = useRef<HTMLSpanElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.addEventListener("focusout", () => {
+      setCheckVisible(true);
+    });
+
+    return () => {
+      inputRef.current?.addEventListener("focusout", () => {
+        setCheckVisible(true);
+      });
+    };
+  }, []);
+  useEffect(() => {
+    inputRef.current?.addEventListener("focusin", () => {
+      setCheckVisible(false);
+    });
+
+    return () => {
+      inputRef.current?.addEventListener("focusin", () => {
+        setCheckVisible(false);
+      });
+    };
+  }, []);
 
   useEffect(() => {
     if (spanShowRef.current) {
@@ -78,7 +107,26 @@ const InputTextField = ({
                 : "100%"
             }`,
           }}
+          ref={inputRef}
         />
+        {validation && (
+          <span
+            className={`${classes.checkInput} ${
+              (!checkVisible || !value) && classes.checkInputHidden
+            }`}
+            style={{
+              right: `${
+                value && type === "password" && `calc(${spanShowWidth}px + 4px)`
+              }`,
+            }}
+          >
+            {valid ? (
+              <CheckCircleOutlineIcon color={"success"} />
+            ) : (
+              <HighlightOffIcon color={"error"} />
+            )}
+          </span>
+        )}
         {type === "password" && (
           <span
             className={`${classes.showButton} ${classes.noSelect}`}
