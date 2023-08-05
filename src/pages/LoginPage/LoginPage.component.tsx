@@ -75,11 +75,11 @@ const LoginPage = ({}: ILoginPageProps) => {
             <Box className={`${classes.loginFormBox} ${classes.forms}`}>
               <LoginForm />
             </Box>
-            <Box className={`${classes.singUpBox} ${classes.forms}`}>
-              <Typography className={classes.singUpText} fontSize="small">
+            <Box className={`${classes.signUpBox} ${classes.forms}`}>
+              <Typography className={classes.signUpText} fontSize="small">
                 {translations.accountQuestion}
-                <Link to={routes.home} className={classes.singUpLink}>
-                  {translations.singUp}
+                <Link to={routes.signUp} className={classes.signUpLink}>
+                  {translations.signUp}
                 </Link>
               </Typography>
             </Box>

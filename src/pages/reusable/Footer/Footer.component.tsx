@@ -39,7 +39,6 @@ const Footer = () => {
           <KeyboardArrowDownIcon className={classes.arrowIcon} />
           <select
             onChange={(e) => {
-              console.log(e.target.value);
               localStorage.setItem("selectedLanguage", e.target.value);
               window.location.reload();
             }}

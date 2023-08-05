@@ -6,7 +6,6 @@ export const useStyles = createUseStyles({
     position: "relative",
     backgroundColor: "rgb(250, 250, 250)",
     border: "1px solid rgb(219, 219, 219)",
-    width: "60%",
     color: "rgb(100, 100, 100)",
     borderRadius: 2,
     fontFamily: "Roboto",
@@ -99,5 +98,14 @@ export const useStyles = createUseStyles({
     "&:hover": {
       color: "rgb(150, 150, 150)",
     },
+  },
+  checkInput: {
+    display: "flex",
+    position: "absolute",
+    right: 0,
+    padding: 1,
+  },
+  checkInputHidden: {
+    display: "none",
   },
 });
