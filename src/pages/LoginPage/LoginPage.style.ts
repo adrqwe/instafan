@@ -25,17 +25,17 @@ export const useStyles = createUseStyles({
     alignItems: "center",
     flexDirection: "column",
   },
-  singUpBox: {
+  signUpBox: {
     marginTop: 12,
     display: "flex",
     justifyContent: "center",
   },
-  singUpText: {
+  signUpText: {
     margin: 8,
     fontSize: 14,
     fontWeight: "bold",
   },
-  singUpLink: {
+  signUpLink: {
     marginLeft: 5,
     textDecoration: "none",
     color: "rgb(0, 149, 246)",

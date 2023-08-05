@@ -17,7 +17,7 @@ export const useStyles = createUseStyles({
     padding: "10px 30px",
     border: "1px solid rgba(0,0,0,0.2)",
   },
-  singUpTo: {
+  signUpTo: {
     margin: "0 auto",
     color: "gray",
     fontWeight: "bold",

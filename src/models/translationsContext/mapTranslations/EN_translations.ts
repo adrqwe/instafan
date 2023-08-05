@@ -21,7 +21,7 @@ export const EN_translations = {
     loginPage: {
       appPreview: "App Preview",
       accountQuestion: "Don't have an account?",
-      singUp: "Sign up",
+      signUp: "Sign up",
       downloadApp: "Get the app.",
     },
     loginForm: {
@@ -50,8 +50,8 @@ export const EN_translations = {
         " © 2023 Instafan by Adrian Turski (this website represents a challenge that allows me to showcase my current skills)",
       nameOfSelect: "Switch Display Language",
     },
-    singUp: {
-      singUpTo: "Sign up to see photos and videos from your friends.",
+    signUp: {
+      signUpTo: "Sign up to see photos and videos from your friends.",
       login: "Email",
       fullName: "Full Name",
       username: "Username",

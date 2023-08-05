@@ -18,9 +18,9 @@ export type TMonths = {
 
 const useMonthTranslate = () => {
   const { translate } = useTranslationContext();
-  const translations = translate("singUp");
+  const translations = translate("signUp");
 
-  let englishMonths = EN_translations.translations.singUp.months.split(",");
+  let englishMonths = EN_translations.translations.signUp.months.split(",");
   let translateMonths = translations.months.split(",");
   var result: any = {};
   englishMonths.forEach(

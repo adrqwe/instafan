@@ -21,7 +21,7 @@ export const PL_translations = {
     loginPage: {
       appPreview: "Podgląd Aplikacji",
       accountQuestion: "Nie masz konta?",
-      singUp: "Zarejestruj się",
+      signUp: "Zarejestruj się",
       downloadApp: "Pobierz aplikację.",
     },
     loginForm: {
@@ -50,8 +50,8 @@ export const PL_translations = {
         " © 2023 Instafan autorstwa Adrian Turski (ta strona stanowi wyzwanie, które pozwala mi zaprezentować moje aktualne umiejętności)",
       nameOfSelect: "Zmień Język Wyświetlania",
     },
-    singUp: {
-      singUpTo: "Zarejestruj się, aby przeglądać zdjęcia i filmy znajomych.",
+    signUp: {
+      signUpTo: "Zarejestruj się, aby przeglądać zdjęcia i filmy znajomych.",
       login: "E-mail",
       fullName: "Imię i nazwisko",
       username: "Nazwa użytkownika",

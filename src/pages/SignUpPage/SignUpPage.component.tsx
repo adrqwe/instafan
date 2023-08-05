@@ -32,7 +32,7 @@ const emailRegExp = new RegExp(
 const SignUpPage = ({}: ISignUpPageProps) => {
   const monthsTranslate = useMonthTranslate();
   const { translate } = useTranslationContext();
-  const translations = translate("singUp");
+  const translations = translate("signUp");
   const translationsFooter = translate("footer");
   const translationsLoginForm = translate("loginForm");
 
@@ -90,7 +90,7 @@ const SignUpPage = ({}: ISignUpPageProps) => {
   const currentScreen = () => {
     switch (next) {
       case 0:
-        return singUp();
+        return signUp();
       case 1:
         return birthDay();
       case 2:
@@ -222,11 +222,11 @@ const SignUpPage = ({}: ISignUpPageProps) => {
     </span>
   );
 
-  const singUp = () => (
+  const signUp = () => (
     <>
       <Header />
-      <Typography className={classes.singUpTo} textAlign={"center"}>
-        {translations.singUpTo}
+      <Typography className={classes.signUpTo} textAlign={"center"}>
+        {translations.signUpTo}
       </Typography>
       <Box component="form" className={classes.boxForm}>
         <InputTextField
