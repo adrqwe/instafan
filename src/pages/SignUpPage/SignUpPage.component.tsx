@@ -9,6 +9,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
+import sha256 from "crypto-js/sha256";
+import hmacSHA512 from "crypto-js/hmac-sha512";
+import Base64 from "crypto-js/enc-base64";
+import CryptoJS from "crypto-js";
+
 import { ISignUpPageProps } from "./SignUpPage.types";
 import { useStyles } from "./SignUpPage.style";
 import { useTranslationContext } from "../../models/translationsContext/translationsContext";
@@ -29,7 +34,18 @@ const emailRegExp = new RegExp(
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 );
 
-const SignUpPage = ({}: ISignUpPageProps) => {
+const SignUpPage = ({ getSignUpResponse, mountedSignUp }: ISignUpPageProps) => {
+  var message = "I love Medium";
+  var key: any = "AAAAAAAAAAAAAAAA"; //key used in Python
+  key = CryptoJS.enc.Utf8.parse(key);
+  var iv = CryptoJS.enc.Utf8.parse("BBBBBBBBBBBBBBBB");
+  var encrypted: any = CryptoJS.AES.encrypt(message, key, {
+    iv: iv,
+    mode: CryptoJS.mode.CBC,
+  });
+  encrypted = encrypted.toString();
+  console.log(encrypted);
+
   const monthsTranslate = useMonthTranslate();
   const { translate } = useTranslationContext();
   const translations = translate("signUp");
@@ -45,6 +61,22 @@ const SignUpPage = ({}: ISignUpPageProps) => {
   const [validUsername, setValidUsername] = useState(true);
   const [password, setPassword] = useState("");
   const [validPassword, setValidPassword] = useState(false);
+
+  useEffect(() => {
+    if (validLogin && fullName && validUsername && validPassword) {
+      mountedSignUp({
+        email: login,
+        fullName: fullName,
+        username: username,
+        password: password,
+      });
+    }
+  }, [validLogin, fullName, validUsername, validPassword]);
+
+  useEffect(() => {
+    console.log(getSignUpResponse);
+  }, [getSignUpResponse]);
+
   useEffect(() => {
     setValidLogin(emailRegExp.test(login));
   }, [login]);

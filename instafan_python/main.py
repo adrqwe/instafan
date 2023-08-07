@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi import FastAPI, Body, Depends
 
-from app.model import PostSchema, UserSchema, UserLoginSchema
+from app.model import PostSchema, UserSchema, UserLoginSchema, SignUpSchema
 from app.auth.auth_bearer import JWTBearer
 from app.auth.auth_handler import signJWT
 
@@ -90,5 +90,10 @@ def home():
         # mydb.close()
 
 
+@app.post("/signUp")
+def signUp(data: SignUpSchema):
+    return "cop"
+
+
 if __name__ == "__main__":
-    uvicorn.run("main:app")
+    uvicorn.run("main:app", reload=True)

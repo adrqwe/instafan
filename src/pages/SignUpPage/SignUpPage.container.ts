@@ -7,12 +7,18 @@ import {
   ISignUpPageFromState,
   ISignUpPageFromDispatch,
 } from "./SignUpPage.types";
+import { getSignUpResponse } from "../../models/signUp/selectors/getSignUpResponse";
+import { mountedSignUp } from "../../models/signUp/actions";
 
-const mapStateToProps = (state: _Store.IState): ISignUpPageFromState => ({});
+const mapStateToProps = (state: _Store.IState): ISignUpPageFromState => ({
+  getSignUpResponse: getSignUpResponse(state),
+});
 
 const mapDispatchToProps = (
   dispatch: Dispatch<AnyAction>
-): ISignUpPageFromDispatch => ({});
+): ISignUpPageFromDispatch => ({
+  mountedSignUp: (data) => dispatch(mountedSignUp(data)),
+});
 export default connect<
   ISignUpPageFromState,
   ISignUpPageFromDispatch,

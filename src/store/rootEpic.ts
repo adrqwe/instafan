@@ -3,6 +3,7 @@ import { combineEpics } from "redux-observable";
 import * as Transactions from "../models/transactions/epics";
 import * as Products from "../models/products/epics";
 import * as HomePageData from "../models/homePageData/epics";
+import * as SignUp from "../models/signUp/epics";
 
 export default combineEpics(
   Transactions.fetchTransactionsWhenMounted,
@@ -14,5 +15,8 @@ export default combineEpics(
   Products.getSingleProductWhenRequested,
 
   HomePageData.fetchHomePageDataWhenMounted,
-  HomePageData.getHomePageDataWhenRequested
+  HomePageData.getHomePageDataWhenRequested,
+
+  SignUp.fetchSignUpWhenMounted,
+  SignUp.getSignUpResponseWhenRequested
 );
