@@ -4,3 +4,4 @@ fastapi
 PyJWT
 python-decouple
 mysql-connector-python
+pycryptodome

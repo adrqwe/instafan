@@ -10,6 +10,7 @@ import { IAction as ITransactionsAction } from "./../models/transactions/types";
 import { IAction as IUrlAction } from "./../models/url/types";
 import { IAction as IProductsAction } from "./../models/products/types";
 import { IAction as IHomePageDataAction } from "../models/homePageData/types";
+import { IAction as ISignUpAction } from "../models/signUp/types";
 
 declare module "@Store" {
   export type IState = StateType<typeof rootReducer>;
@@ -18,7 +19,8 @@ declare module "@Store" {
     | ITransactionsAction
     | IUrlAction
     | IProductsAction
-    | IHomePageDataAction;
+    | IHomePageDataAction
+    | ISignUpAction;
 
   export type IService = IServices;
   export type IEpic = Epic<IAction, IAction, IState, IService>;
