@@ -2,7 +2,7 @@ import re
 from app.decrypt import decrypt
 
 from app.model import SignUpSchema
-from app.mysqlConnector import mysqlCoonector
+from app.mysqlConnector import mysqlConnector
 
 emailRegex = re.compile(
     r"([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+"
@@ -15,7 +15,7 @@ passwordRegex = re.compile(
 
 def accountChecker(data: SignUpSchema):
     sql = f'SELECT COUNT(`users`.id),`email`,`username` FROM `users` WHERE `email`="{data.email}" OR `username`="{data.username}";'
-    responseSQL = mysqlCoonector(sql)
+    responseSQL = mysqlConnector(sql)
 
     reponseDetails = {"status": 200, "detail": {}, "valid": True}
     if responseSQL["status"] == 200:
