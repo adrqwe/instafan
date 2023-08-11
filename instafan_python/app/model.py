@@ -43,3 +43,11 @@ class SignUpSchema(BaseModel):
     fullName: str
     username: str
     password: str
+
+
+class SignUpSchemaWithBirthday(BaseModel):
+    email: EmailStr
+    fullName: str
+    username: str
+    password: str
+    birthday: str

@@ -1,9 +1,16 @@
-import { TSignUpRequest } from "../../models/signUp/types";
+import {
+  ISignUpSuccessPayload,
+  ISignUpTokenSuccessPayload,
+  TSignUpRequest,
+  TSignUpRequestWithBirthday,
+} from "../../models/signUp/types";
 
 export interface ISignUpPageFromState {
-  getSignUpResponse: any;
+  getSignUpResponse: ISignUpSuccessPayload;
+  getAuthToken: ISignUpTokenSuccessPayload;
 }
 export interface ISignUpPageFromDispatch {
-  mountedSignUp: (data: TSignUpRequest) => void;
+  mountedCheckSignUp: (data: TSignUpRequest) => void;
+  mountedSignUp: (data: TSignUpRequestWithBirthday) => void;
 }
 export type ISignUpPageProps = ISignUpPageFromState & ISignUpPageFromDispatch;

@@ -7,4 +7,5 @@ export interface IInputTextField {
   validation?: boolean;
   valid?: boolean;
   onChange: React.Dispatch<React.SetStateAction<string>>;
+  onBlur?: () => void;
 }

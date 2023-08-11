@@ -9,11 +9,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
-import sha256 from "crypto-js/sha256";
-import hmacSHA512 from "crypto-js/hmac-sha512";
-import Base64 from "crypto-js/enc-base64";
-import CryptoJS from "crypto-js";
-
 import { ISignUpPageProps } from "./SignUpPage.types";
 import { useStyles } from "./SignUpPage.style";
 import { useTranslationContext } from "../../models/translationsContext/translationsContext";
@@ -23,29 +18,25 @@ import Footer from "../reusable/Footer";
 import Modal from "../reusable/Modal";
 import Select from "../reusable/Select";
 import useMonthTranslate from "../reusable/Month/Month";
+import hashPassword from "../reusable/HashPassword/HashPassword";
 
 const birthdayImage = require("../../utils/birthdayImage.png");
 const emailImage = require("../../utils/emailImage.png");
 
 const passwordRegExp = new RegExp(
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(){};:'",.<>?+=`~|/_])[A-Za-z\d!@#$%^&*(){};:'",.<>?+=`~|/_]{8,}$/
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(){};:',.<>?+=`~|/_])[A-Za-z\d!@#$%^&*(){};:',.<>?+=`~|/_]{8,}$/
 );
 const emailRegExp = new RegExp(
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 );
+const usernameRegExp = new RegExp(/^[a-zA-Z0-9]{4,}$/);
 
-const SignUpPage = ({ getSignUpResponse, mountedSignUp }: ISignUpPageProps) => {
-  var message = "I love Medium";
-  var key: any = "AAAAAAAAAAAAAAAA"; //key used in Python
-  key = CryptoJS.enc.Utf8.parse(key);
-  var iv = CryptoJS.enc.Utf8.parse("BBBBBBBBBBBBBBBB");
-  var encrypted: any = CryptoJS.AES.encrypt(message, key, {
-    iv: iv,
-    mode: CryptoJS.mode.CBC,
-  });
-  encrypted = encrypted.toString();
-  console.log(encrypted);
-
+const SignUpPage = ({
+  getSignUpResponse,
+  getAuthToken,
+  mountedSignUp,
+  mountedCheckSignUp,
+}: ISignUpPageProps) => {
   const monthsTranslate = useMonthTranslate();
   const { translate } = useTranslationContext();
   const translations = translate("signUp");
@@ -58,23 +49,70 @@ const SignUpPage = ({ getSignUpResponse, mountedSignUp }: ISignUpPageProps) => {
   const [validLogin, setValidLogin] = useState(false);
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
-  const [validUsername, setValidUsername] = useState(true);
+  const [validUsername, setValidUsername] = useState(false);
   const [password, setPassword] = useState("");
   const [validPassword, setValidPassword] = useState(false);
+  const [errorMessages, setErrorMessages] = useState<string[]>([]);
+  const [signUpDataValid, setSignUpDataValid] = useState(false);
 
-  useEffect(() => {
+  const sendCheckSignUpData = () => {
+    if (validLogin && fullName && validUsername && validPassword) {
+      mountedCheckSignUp({
+        email: login,
+        fullName: fullName,
+        username: username,
+        password: hashPassword(password),
+      });
+    }
+  };
+  const sendSignUpData = () => {
     if (validLogin && fullName && validUsername && validPassword) {
       mountedSignUp({
         email: login,
         fullName: fullName,
         username: username,
-        password: password,
+        password: hashPassword(password),
+        birthday: `${day < 10 ? `0${day}` : day}-${moment()
+          .month(month)
+          .format("MM")}-${year}`,
       });
     }
-  }, [validLogin, fullName, validUsername, validPassword]);
+  };
 
   useEffect(() => {
-    console.log(getSignUpResponse);
+    if (getSignUpResponse.status === 200) {
+      let errors: string[] = [];
+      if (
+        "email" in getSignUpResponse.detail &&
+        getSignUpResponse.detail.email.status === "bad"
+      ) {
+        errors.push(getSignUpResponse.detail.email.message);
+        setValidLogin(false);
+      }
+      if (
+        "password" in getSignUpResponse.detail &&
+        getSignUpResponse.detail.password.status === "bad"
+      ) {
+        errors.push(getSignUpResponse.detail.password.message);
+        setValidPassword(false);
+      }
+      if (
+        "username" in getSignUpResponse.detail &&
+        getSignUpResponse.detail.username.status === "bad"
+      ) {
+        errors.push(getSignUpResponse.detail.username.message);
+        setValidUsername(false);
+      }
+      if (
+        "fullname" in getSignUpResponse.detail &&
+        getSignUpResponse.detail.fullname.status === "bad"
+      ) {
+        errors.push(getSignUpResponse.detail.fullname.message);
+        setFullName("");
+      }
+      setSignUpDataValid(getSignUpResponse.valid);
+      setErrorMessages(errors);
+    }
   }, [getSignUpResponse]);
 
   useEffect(() => {
@@ -83,6 +121,20 @@ const SignUpPage = ({ getSignUpResponse, mountedSignUp }: ISignUpPageProps) => {
   useEffect(() => {
     setValidPassword(passwordRegExp.test(password));
   }, [password]);
+  useEffect(() => {
+    setValidUsername(usernameRegExp.test(username));
+  }, [username]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      sendCheckSignUpData();
+    }, 1000);
+
+    setSignUpDataValid(false);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [login, username, fullName, password]);
 
   const [modalStatus, setModalStatus] = useState(false);
   const closeModal = () => setModalStatus(false);
@@ -129,6 +181,17 @@ const SignUpPage = ({ getSignUpResponse, mountedSignUp }: ISignUpPageProps) => {
         return commitAddressEmail();
     }
   };
+
+  const errorMessageTypography = () => (
+    <>
+      {errorMessages.map((e: string, index: number) => (
+        <Typography key={index} className={classes.errorMessage}>
+          {e}
+        </Typography>
+      ))}
+    </>
+  );
+
   const reportText = () => (
     <Typography className={classes.typography}>
       {translationsLoginForm.reportTextStart}{" "}
@@ -138,13 +201,18 @@ const SignUpPage = ({ getSignUpResponse, mountedSignUp }: ISignUpPageProps) => {
       {translationsLoginForm.reportTextEnd}
     </Typography>
   );
-  const buttonNext = (valid: boolean) => {
+  const buttonNext = (valid: boolean, onClick?: () => void) => {
     return valid ? (
       <Button
         size="medium"
         variant="contained"
         className={classes.nextButton}
-        onClick={() => nextStep()}
+        onClick={() => {
+          nextStep();
+          if (onClick) {
+            onClick();
+          }
+        }}
       >
         {translations.next}
       </Button>
@@ -249,7 +317,7 @@ const SignUpPage = ({ getSignUpResponse, mountedSignUp }: ISignUpPageProps) => {
       <Typography className={classes.typography} marginBottom={1}>
         {translations.realDate}
       </Typography>
-      {buttonNext(true)}
+      {buttonNext(true, sendSignUpData)}
       {buttonBack()}
     </span>
   );
@@ -269,6 +337,7 @@ const SignUpPage = ({ getSignUpResponse, mountedSignUp }: ISignUpPageProps) => {
           onChange={setLogin}
           validation
           valid={validLogin}
+          onBlur={sendCheckSignUpData}
         />
         <InputTextField
           placeholder={translations.fullName}
@@ -278,6 +347,7 @@ const SignUpPage = ({ getSignUpResponse, mountedSignUp }: ISignUpPageProps) => {
           onChange={setFullName}
           validation
           valid
+          onBlur={sendCheckSignUpData}
         />
         <InputTextField
           placeholder={translations.username}
@@ -287,6 +357,7 @@ const SignUpPage = ({ getSignUpResponse, mountedSignUp }: ISignUpPageProps) => {
           onChange={setUsername}
           validation
           valid={validUsername}
+          onBlur={sendCheckSignUpData}
         />
         <InputTextField
           placeholder={translations.password}
@@ -297,6 +368,7 @@ const SignUpPage = ({ getSignUpResponse, mountedSignUp }: ISignUpPageProps) => {
           type="password"
           validation
           valid={validPassword}
+          onBlur={sendCheckSignUpData}
         />
         <Typography className={classes.typography}>
           {translations.peopleWhoUse}
@@ -312,7 +384,8 @@ const SignUpPage = ({ getSignUpResponse, mountedSignUp }: ISignUpPageProps) => {
           </Link>{" "}
           {translations.cookiesInformation}
         </Typography>
-        {buttonNext(validLogin && validPassword && validUsername)}
+        {buttonNext(signUpDataValid)}
+        {errorMessageTypography()}
         {reportText()}
       </Box>
     </>

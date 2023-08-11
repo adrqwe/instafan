@@ -18,5 +18,7 @@ export default combineEpics(
   HomePageData.getHomePageDataWhenRequested,
 
   SignUp.fetchSignUpWhenMounted,
-  SignUp.getSignUpResponseWhenRequested
+  SignUp.getSignUpResponseWhenRequested,
+  SignUp.fetchSignUpAuthTokenWhenMounted,
+  SignUp.getSignUpAuthTokenWhenRequested
 );

@@ -23,5 +23,7 @@ const config: IConfig = {
   activeLanguage: `${
     selectedLanguage ? (selectedLanguage as listOfActiveLanguage) : "PL"
   }`,
+  secret: process.env.REACT_APP_SECRET,
+  ivKey: process.env.REACT_APP_IVKEY,
 };
 export default config;

@@ -1,15 +1,31 @@
 import mysql.connector
 import uvicorn
+import bcrypt
+import time
+import string
+import random
+import datetime
 
+from decouple import config
 from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi import FastAPI, Body, Depends
 
-from app.model import PostSchema, UserSchema, UserLoginSchema, SignUpSchema
+from app.accountChecker import accountChecker
+from app.model import (
+    PostSchema,
+    SignUpSchemaWithBirthday,
+    UserSchema,
+    UserLoginSchema,
+    SignUpSchema,
+)
 from app.auth.auth_bearer import JWTBearer
-from app.auth.auth_handler import signJWT
+from app.auth.auth_handler import decodeJWT, signJWT
+from app.decrypt import decrypt
+from app.mysqlConnector import mysqlConnector
 
 app = FastAPI()
+
 
 origins = ["http://localhost", "http://localhost:8080", "http://localhost:3000"]
 app.add_middleware(
@@ -22,6 +38,22 @@ app.add_middleware(
 
 ##########################################
 
+
+def dateTest(date):
+    date_format = "%d-%m-%Y"
+    today = datetime.date.today()
+    year = today.year
+    month = today.month
+    day = today.day
+    min_date = f"{day}-{month}-{year-6}"
+
+    try:
+        birthday = datetime.datetime.strptime(date, date_format)
+        min_date = datetime.datetime.strptime(min_date, date_format)
+        return birthday <= min_date
+    except:
+        return None
+
 posts = []
 
 users = []
@@ -33,6 +65,37 @@ def check_user(data: UserLoginSchema):
         if user.email == data.email and user.password == data.password:
             return True
     return False
+
+
+@app.post("/signUp/check")
+def singUpCheck(data: SignUpSchema):
+    return accountChecker(data)
+
+
+@app.post("/signUp")
+def signUp(data: SignUpSchemaWithBirthday):
+    validAccount = accountChecker(data)
+
+    if validAccount["valid"] and dateTest(data.birthday):
+        salt = bytes(config("SALT"), encoding="utf-8")
+        passwd = bytes(data.password, encoding="utf-8")
+        hashed = bcrypt.hashpw(passwd, salt)
+
+        sql = f"INSERT INTO `users` (`id`, `email`, `username`, `fullName`, `password`, `activeCode`, `expires`, `birthday`) VALUES (NULL, '{data.email}', '{data.username}', '{data.fullName}', '{hashed.decode('utf-8')}', '{''.join(random.choices(string.ascii_uppercase + string.digits, k = 6))}', '{time.time() + 600}', '{data.birthday}')"  # noqa: E501
+
+        response = mysqlConnector(sql, commit=True)
+
+        if response["status"] == 200:
+            token = signJWT(data.email)
+            return {
+                "status": 200,
+                "detail": "Confirm account",
+                "token": token["access_token"],
+            }
+        else:
+            return response
+    else:
+        return {"status": 500, "detail": "Account cannot be created", "token": ""}
 
 
 @app.post("/user/signup", tags=["user"])
@@ -88,11 +151,6 @@ def home():
     finally:
         pass
         # mydb.close()
-
-
-@app.post("/signUp")
-def signUp(data: SignUpSchema):
-    return "cop"
 
 
 if __name__ == "__main__":

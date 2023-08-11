@@ -8,15 +8,18 @@ import {
   ISignUpPageFromDispatch,
 } from "./SignUpPage.types";
 import { getSignUpResponse } from "../../models/signUp/selectors/getSignUpResponse";
-import { mountedSignUp } from "../../models/signUp/actions";
+import { mountedCheckSignUp, mountedSignUp } from "../../models/signUp/actions";
+import { getAuthToken } from "../../models/signUp/selectors/getAuthToken";
 
 const mapStateToProps = (state: _Store.IState): ISignUpPageFromState => ({
   getSignUpResponse: getSignUpResponse(state),
+  getAuthToken: getAuthToken(state),
 });
 
 const mapDispatchToProps = (
   dispatch: Dispatch<AnyAction>
 ): ISignUpPageFromDispatch => ({
+  mountedCheckSignUp: (data) => dispatch(mountedCheckSignUp(data)),
   mountedSignUp: (data) => dispatch(mountedSignUp(data)),
 });
 export default connect<

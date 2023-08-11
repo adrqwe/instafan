@@ -94,4 +94,9 @@ export const useStyles = createUseStyles({
     width: "90%",
     marginBottom: 15,
   },
+  errorMessage: {
+    color: "red",
+    fontSize: 14,
+    textAlign: "center",
+  },
 });

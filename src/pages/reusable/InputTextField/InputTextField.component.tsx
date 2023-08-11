@@ -15,6 +15,7 @@ const InputTextField = ({
   type = "text",
   validation,
   valid,
+  onBlur,
   onChange,
 }: IInputTextField) => {
   const classes = useStyles();
@@ -34,7 +35,7 @@ const InputTextField = ({
     });
 
     return () => {
-      inputRef.current?.addEventListener("focusout", () => {
+      inputRef.current?.removeEventListener("focusout", () => {
         setCheckVisible(true);
       });
     };
@@ -45,7 +46,7 @@ const InputTextField = ({
     });
 
     return () => {
-      inputRef.current?.addEventListener("focusin", () => {
+      inputRef.current?.removeEventListener("focusin", () => {
         setCheckVisible(false);
       });
     };
@@ -96,6 +97,7 @@ const InputTextField = ({
       )}
       <>
         <input
+          onBlur={onBlur}
           type={passwordVisible ? "text" : type}
           className={`${classes.input} ${value && classes.scal}`}
           value={value}

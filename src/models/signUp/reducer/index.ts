@@ -1,10 +1,11 @@
 import { getType } from "typesafe-actions";
 
-import { postSignUp } from "../actions";
+import { postCheckSignUp, postSignUp } from "../actions";
 import { ISignUpReducer, IAction } from "../types";
 
 const initialState: ISignUpReducer = {
-  signUpResponse: 0,
+  signUpResponse: { status: 100, detail: null, valid: false },
+  authToken: { status: 100, token: "", detail: null },
 };
 
 const signUpReducer = (
@@ -12,10 +13,15 @@ const signUpReducer = (
   action: IAction
 ): ISignUpReducer => {
   switch (action.type) {
-    case getType(postSignUp.success):
+    case getType(postCheckSignUp.success):
       return {
         ...state,
         signUpResponse: action.payload,
+      };
+    case getType(postSignUp.success):
+      return {
+        ...state,
+        authToken: action.payload,
       };
     default:
       return state;
