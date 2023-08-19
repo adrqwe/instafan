@@ -51,6 +51,10 @@ export const PL_translations = {
       nameOfSelect: "Zmień Język Wyświetlania",
     },
     signUp: {
+      accountCratedInfo:
+        "Konto zostało utworzone pomyślnie. Zaraz zostaniesz przekierowany na stronę logowanie, gdzie będziesz mógł się połączyć, że swoim kontem.",
+      welcome: "Witamy na Instafan",
+      accountCreated: "Konto zostało utworzone",
       signUpTo: "Zarejestruj się, aby przeglądać zdjęcia i filmy znajomych.",
       login: "E-mail",
       fullName: "Imię i nazwisko",
@@ -82,6 +86,10 @@ export const PL_translations = {
       resend: "Wyślij kod ponownie.",
       confirmationCode: "Kod Potwierdzający",
       emailImage: "Obrazek pocztówki",
+    },
+    errorPage: {
+      criticalError: "Krytyczny błąd strony! Spróbuj ponownie później.",
+      altMessage: "Obrazek błędu",
     },
   },
   availableLanguages: {

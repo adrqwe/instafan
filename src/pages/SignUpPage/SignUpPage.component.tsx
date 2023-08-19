@@ -8,6 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 import { ISignUpPageProps } from "./SignUpPage.types";
 import { useStyles } from "./SignUpPage.style";
@@ -19,9 +20,11 @@ import Modal from "../reusable/Modal";
 import Select from "../reusable/Select";
 import useMonthTranslate from "../reusable/Month/Month";
 import hashPassword from "../reusable/HashPassword/HashPassword";
+import routes from "../../navigator/routes";
 
 const birthdayImage = require("../../utils/birthdayImage.png");
 const emailImage = require("../../utils/emailImage.png");
+const accountAdded = require("../../utils/accountAdded.png");
 
 const passwordRegExp = new RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(){};:',.<>?+=`~|/_])[A-Za-z\d!@#$%^&*(){};:',.<>?+=`~|/_]{8,}$/
@@ -34,9 +37,14 @@ const usernameRegExp = new RegExp(/^[a-zA-Z0-9]{4,}$/);
 const SignUpPage = ({
   getSignUpResponse,
   getAuthToken,
+  getCommitCodeResponse,
+  getResendResponse,
   mountedSignUp,
   mountedCheckSignUp,
+  mountedConfirmCodeSignUp,
+  mountedResendCodeSignUp,
 }: ISignUpPageProps) => {
+  const navigate = useNavigate();
   const monthsTranslate = useMonthTranslate();
   const { translate } = useTranslationContext();
   const translations = translate("signUp");
@@ -171,6 +179,10 @@ const SignUpPage = ({
 
   const [code, setCode] = useState("");
 
+  const sendConfirmEmailCode = () => {
+    mountedConfirmCodeSignUp({ code: code, token: getAuthToken.token });
+  };
+
   const currentScreen = () => {
     switch (next) {
       case 0:
@@ -182,7 +194,55 @@ const SignUpPage = ({
     }
   };
 
-  const errorMessageTypography = () => (
+  useEffect(() => {
+    let array = [getSignUpResponse, getAuthToken];
+
+    array.map(({ status, detail }) => {
+      if (status === 500) {
+        setErrorMessages([detail]);
+
+        if (next !== 0) {
+          setPassword("");
+        }
+
+        return setNext(0);
+      }
+      return null;
+    });
+  }, [getSignUpResponse, getAuthToken]);
+
+  const [commitError, setCommitError] = useState<string[]>([]);
+  const [commitSuccess, setCommitSuccess] = useState("");
+
+  const [modalAccountCreate, setModalAccountCreate] = useState(false);
+
+  const backToLoginPage = () => {
+    navigate(routes.login);
+    window.location.reload();
+  };
+
+  useEffect(() => {
+    if (getCommitCodeResponse.status === 500) {
+      setCommitError([getCommitCodeResponse.detail]);
+    }
+    if (getCommitCodeResponse.status === 200) {
+      setModalAccountCreate(true);
+      window.setTimeout(backToLoginPage, 6000);
+    }
+  }, [getCommitCodeResponse]);
+
+  useEffect(() => {
+    if (getResendResponse.status === 500) {
+      setCommitError([getResendResponse.detail]);
+      setCommitSuccess("");
+    }
+    if (getResendResponse.status === 200) {
+      setCommitError([]);
+      setCommitSuccess(getResendResponse.detail);
+    }
+  }, [getResendResponse]);
+
+  const errorMessageTypography = (errorMessages: string[]) => (
     <>
       {errorMessages.map((e: string, index: number) => (
         <Typography key={index} className={classes.errorMessage}>
@@ -227,6 +287,33 @@ const SignUpPage = ({
       </Button>
     );
   };
+
+  const buttonCommit = (valid: boolean, onClick?: () => void) => {
+    return valid ? (
+      <Button
+        size="medium"
+        variant="contained"
+        className={classes.nextButton}
+        onClick={() => {
+          if (onClick) {
+            onClick();
+          }
+        }}
+      >
+        {translations.next}
+      </Button>
+    ) : (
+      <Button
+        size="medium"
+        variant="contained"
+        className={classes.nextButton}
+        disabled
+      >
+        {translations.next}
+      </Button>
+    );
+  };
+
   const buttonBack = () => {
     return (
       <Button
@@ -236,6 +323,9 @@ const SignUpPage = ({
         onClick={() => {
           setPassword("");
           setNext(0);
+          setCode("");
+          setCommitError([]);
+          setCommitSuccess("");
         }}
       >
         {translations.back}
@@ -260,7 +350,11 @@ const SignUpPage = ({
         {login}
         {". "}
         <span
-          onClick={() => {}}
+          onClick={() => {
+            setCommitError([]);
+            setCommitSuccess(getResendResponse.detail);
+            mountedResendCodeSignUp({ token: getAuthToken.token });
+          }}
           className={`${classes.birthdayTypography} ${classes.modalOpenLink} ${classes.noSelect} ${classes.resendLink}`}
         >
           {translations.resend}
@@ -279,8 +373,14 @@ const SignUpPage = ({
         />
       </span>
 
-      {buttonNext(code.length === 6)}
+      {buttonCommit(code.length === 6, sendConfirmEmailCode)}
       {buttonBack()}
+      {errorMessageTypography(commitError)}
+      {commitSuccess && (
+        <Typography color="green" textAlign="center">
+          {commitSuccess}
+        </Typography>
+      )}
       {reportText()}
     </span>
   );
@@ -385,7 +485,7 @@ const SignUpPage = ({
           {translations.cookiesInformation}
         </Typography>
         {buttonNext(signUpDataValid)}
-        {errorMessageTypography()}
+        {errorMessageTypography(errorMessages)}
         {reportText()}
       </Box>
     </>
@@ -426,6 +526,27 @@ const SignUpPage = ({
             paddingX={2}
           >
             {translations.communitySafe}
+          </Typography>
+        </Modal>
+        <Modal
+          width={380}
+          open={modalAccountCreate}
+          handleClose={() => {}}
+          title={translations.accountCreated}
+        >
+          <Box className={classes.boxBirthdayImage}>
+            <img src={accountAdded} alt={translations.birthdayImage} />
+          </Box>
+          <Typography variant="h6" textAlign={"center"} marginBottom={1}>
+            {translations.welcome}
+          </Typography>
+          <Typography
+            textAlign={"center"}
+            fontSize={14}
+            marginBottom={3}
+            paddingX={2}
+          >
+            {translations.accountCratedInfo}
           </Typography>
         </Modal>
       </Container>

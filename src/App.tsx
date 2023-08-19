@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { TransactionsProvider } from "./models/translationsContext/translationsProvider";
 import Navigator from "./navigator/Navigator.component";
 import config from "./config";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Router>
         <Navigator />
       </Router>
+      <ErrorPage />
     </TransactionsProvider>
   );
 }

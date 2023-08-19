@@ -13,8 +13,12 @@ def token_response(token: str):
     return {"access_token": token}
 
 
-def signJWT(user_id: str) -> Dict[str, str]:
-    payload = {"user_id": user_id, "expires": time.time() + 600}
+def signJWT(user_id: str, account_created: bool) -> Dict[str, str]:
+    payload = {
+        "user_id": user_id,
+        "account_created": account_created,
+        "expires": time.time() + 600,
+    }
     token = jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
 
     return token_response(token)
@@ -25,4 +29,4 @@ def decodeJWT(token: str) -> dict:
         decoded_token = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
         return decoded_token if decoded_token["expires"] >= time.time() else None
     except:
-        return {}
+        return None

@@ -51,6 +51,10 @@ export const EN_translations = {
       nameOfSelect: "Switch Display Language",
     },
     signUp: {
+      accountCratedInfo:
+        "The account has been successfully created. You will be redirected to the login page shortly, where you will be able to connect with your account.",
+      welcome: "Welcome to Instafan",
+      accountCreated: "The account has been created",
       signUpTo: "Sign up to see photos and videos from your friends.",
       login: "Email",
       fullName: "Full Name",
@@ -82,6 +86,10 @@ export const EN_translations = {
       resend: "Resend Code.",
       confirmationCode: "Confirmation Code",
       emailImage: "Email Image",
+    },
+    errorPage: {
+      criticalError: "Critical Page Error! Please try again later.",
+      altMessage: "Error Image",
     },
   },
   availableLanguages: {

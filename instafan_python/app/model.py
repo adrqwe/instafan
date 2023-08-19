@@ -51,3 +51,12 @@ class SignUpSchemaWithBirthday(BaseModel):
     username: str
     password: str
     birthday: str
+
+
+class CommitCode(BaseModel):
+    code: str
+    token: str
+
+
+class ResendCode(BaseModel):
+    token: str

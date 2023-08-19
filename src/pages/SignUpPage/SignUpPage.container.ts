@@ -8,12 +8,21 @@ import {
   ISignUpPageFromDispatch,
 } from "./SignUpPage.types";
 import { getSignUpResponse } from "../../models/signUp/selectors/getSignUpResponse";
-import { mountedCheckSignUp, mountedSignUp } from "../../models/signUp/actions";
+import { getConfirmCodeResponse } from "../../models/signUp/selectors/getConfirmCodeResponse";
+import {
+  mountedCheckSignUp,
+  mountedConfirmCodeSignUp,
+  mountedResendCodeSignUp,
+  mountedSignUp,
+} from "../../models/signUp/actions";
 import { getAuthToken } from "../../models/signUp/selectors/getAuthToken";
+import { getResendResponse } from "../../models/signUp/selectors/getResendResponse";
 
 const mapStateToProps = (state: _Store.IState): ISignUpPageFromState => ({
   getSignUpResponse: getSignUpResponse(state),
   getAuthToken: getAuthToken(state),
+  getCommitCodeResponse: getConfirmCodeResponse(state),
+  getResendResponse: getResendResponse(state),
 });
 
 const mapDispatchToProps = (
@@ -21,6 +30,8 @@ const mapDispatchToProps = (
 ): ISignUpPageFromDispatch => ({
   mountedCheckSignUp: (data) => dispatch(mountedCheckSignUp(data)),
   mountedSignUp: (data) => dispatch(mountedSignUp(data)),
+  mountedConfirmCodeSignUp: (data) => dispatch(mountedConfirmCodeSignUp(data)),
+  mountedResendCodeSignUp: (data) => dispatch(mountedResendCodeSignUp(data)),
 });
 export default connect<
   ISignUpPageFromState,

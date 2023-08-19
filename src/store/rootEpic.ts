@@ -20,5 +20,9 @@ export default combineEpics(
   SignUp.fetchSignUpWhenMounted,
   SignUp.getSignUpResponseWhenRequested,
   SignUp.fetchSignUpAuthTokenWhenMounted,
-  SignUp.getSignUpAuthTokenWhenRequested
+  SignUp.getSignUpAuthTokenWhenRequested,
+  SignUp.fetchCommitCodeSignUpWhenMounted,
+  SignUp.getCommitCodeSignUpWhenRequested,
+  SignUp.fetchResendCodeSignUpWhenMounted,
+  SignUp.getResendCodeSignUpWhenRequested
 );

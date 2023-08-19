@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .container {
+        border: 1px solid rgb(150, 150, 150);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px;
+      }
+      .text {
+        text-align: start;
+      }
+      .code {
+        border: 1px solid rgb(150, 150, 150);
+        font-size: 24px;
+        letter-spacing: 6px;
+        padding: 10px 4px 10px 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Kod potwierdzający adres e-mail</h1>
+      <div class="text">
+        <p>Witaj $name,</p>
+        <p>
+          W celu potwierdzenia Twojej tożsamości na Instafan musimy
+          zweryfikować<br />
+          Twój adres e-mail.
+        </p>
+        <p>
+          Tego kodu można użyć tylko raz. Jeżeli prośba o kod nie pochodziła od
+          Ciebie,<br />
+          zignoruj tę wiadomość. Nie udostępniaj tego kodu innym osobom.
+        </p>
+      </div>
+      <h2>Kod potwierdzający adres e-mail</h2>
+      <div class="code">$code</div>
+    </div>
+  </body>
+</html>
