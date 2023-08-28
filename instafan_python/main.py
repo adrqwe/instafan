@@ -5,6 +5,7 @@ import time
 import string
 import random
 import datetime
+import re
 
 from decouple import config
 from fastapi.middleware.cors import CORSMiddleware
@@ -14,7 +15,10 @@ from fastapi import FastAPI, Body, Depends
 from app.accountChecker import accountChecker
 from app.mail import sendEmail
 from app.model import (
+    ChangePassword,
     CommitCode,
+    ConfirmEmail,
+    LogIn,
     PostSchema,
     ResendCode,
     SignUpSchemaWithBirthday,
@@ -26,9 +30,14 @@ from app.auth.auth_bearer import JWTBearer
 from app.auth.auth_handler import decodeJWT, signJWT
 from app.decrypt import decrypt
 from app.mysqlConnector import mysqlConnector
+from app.passwordChecker import passwordChecker
+from app.resendCode import resendCode
 
 app = FastAPI()
 
+passwordRegex = re.compile(
+    r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*(){};:',.<>?+=`~|/_]).{8,}$"
+)
 
 origins = ["http://localhost", "http://localhost:8080", "http://localhost:3000"]
 app.add_middleware(
@@ -175,43 +184,116 @@ def singUpCommit(data: CommitCode):
 
 @app.post("/signUp/resend", tags=["user"])
 def singUpResendCode(data: ResendCode):
-    decode_token = decodeJWT(data.token)
-    if decode_token and not decode_token["account_created"]:
-        user_id = decode_token["user_id"]
-        sql = f"SELECT `expires`, `fullName` FROM `users` WHERE `email`='{user_id}'"
-        response = mysqlConnector(sql)
-        if response["status"] == 200:
-            detail = response["detail"][0]
-            if float(detail[0]) - 480 < time.time():
-                response = setConfirmCode(user_id, 600)
-                if response:
-                    emailSended = sendEmail(
-                        user_id,
-                        "Kod potwierdzający adres e-mail",
-                        detail[1],
-                        response,
-                    )
-                    if emailSended["status"] == 500:
-                        return {"status": 500, "detail": "Account cannot be created!"}
-                    return {
-                        "status": 200,
-                        "detail": "The code has been sent.",
-                    }
-                else:
-                    return {
-                        "status": 500,
-                        "detail": "Database error!",
-                    }
-            else:
-                return {
-                    "status": 500,
-                    "detail": "Please wait a few moments before sending again.",
-                }
-        else:
+    return resendCode(data)
+
+
+@app.post("/logIn", tags=["user"])
+def logIn(data: LogIn):
+    sql = f"SELECT `password`, `valid` FROM `users` WHERE `email`='{data.email}' or `username` = '{data.email}'"
+    response = mysqlConnector(sql)
+
+    if response["status"] == 200:
+        detail = response["detail"][0]
+        if not detail[1]:
             return {
                 "status": 500,
-                "detail": "Database error!",
+                "token": "",
+                "detail": "The account is not active!",
             }
+        if not passwordChecker(data.password, detail[0]):
+            return {
+                "status": 500,
+                "token": "",
+                "detail": "Password is incorrect!",
+            }
+        token = signJWT(data.email, False, 3600, data.savaLogInDetails)
+        return {
+            "status": 200,
+            "token": token["access_token"],
+            "detail": "All good!",
+        }
+    else:
+        return {
+            "status": 500,
+            "token": "",
+            "detail": "Login error!",
+        }
+
+
+@app.post("/confirm/email", tags=["user"])
+def confirmEmail(data: ConfirmEmail):
+    sql = f"SELECT `valid`, `fullName` FROM `users` WHERE `email`='{data.email}'"
+    response = mysqlConnector(sql)
+
+    if response["status"] == 500:
+        response["detail"] = "Bad request or email is not recognized in database!"
+        response["token"] = ""
+        return response
+    details = response["detail"][0]
+
+    if not details[0]:
+        return {"status": 500, "detail": "The account is not activated!", "token": ""}
+
+    response = setConfirmCode(data.email, 600)
+
+    if not response:
+        return {"status": 500, "detail": "Database error!", "token": ""}
+
+    emailSended = sendEmail(
+        data.email,
+        "Restart hasła na Instafan",
+        details[1],
+        response,
+    )
+    if emailSended["status"] == 500:
+        return {"status": 500, "detail": "The email could not be sent!", "token": ""}
+
+    token = signJWT(data.email, True)
+    return {
+        "status": 200,
+        "detail": "The code has been sent.",
+        "token": token["access_token"],
+    }
+
+
+@app.post("/password/reset/resend/code", tags=["user"])
+def passwordResetResendCode(data: ResendCode):
+    return resendCode(data, "Restart hasła na Instafan", True)
+
+
+@app.post("/password/change", tags=["user"])
+def passwordChange(data: ChangePassword):
+    decode_token = decodeJWT(data.token)
+    if decode_token and decode_token["account_created"]:
+        user_id = decode_token["user_id"]
+        sql = f"SELECT `expires`, `activeCode` FROM `users` WHERE `email`='{user_id}'"
+        response = mysqlConnector(sql)
+
+        if response["status"] == 500:
+            return {"status": 500, "detail": "Database error!"}
+        detail = response["detail"][0]
+
+        if not detail[1] == data.code.upper() or float(detail[0]) < time.time():
+            return {"status": 500, "detail": "Code is invalid or extinct!"}
+
+        decrypted = decrypt(data.password)
+        decrypted = decrypted.decode("utf-8", "ignore")
+
+        if not re.fullmatch(passwordRegex, decrypted):
+            return {
+                "status": 500,
+                "detail": "Incorrect password! The password should contain at least 8 characters, one uppercase letter, one lowercase letter, one number and a special character.",  # noqa: E501
+            }
+
+        salt = bytes(config("SALT"), encoding="utf-8")
+        passwd = bytes(data.password, encoding="utf-8")
+        hashed = bcrypt.hashpw(passwd, salt)
+
+        sql = f"UPDATE `users` SET `activeCode`= null,`expires`= null, password = '{hashed.decode('utf-8')}' WHERE `email`='{user_id}'"
+        response = mysqlConnector(sql, commit=True)
+
+        return response
+
     else:
         return {"status": 500, "detail": "Token is invalid!"}
 

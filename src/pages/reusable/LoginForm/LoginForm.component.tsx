@@ -1,5 +1,5 @@
 import { Box, Button, Checkbox, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { ILoginFormProps } from "./LoginForm.types";
@@ -7,8 +7,12 @@ import { useStyles } from "./LoginForm.style";
 import { useTranslationContext } from "../../../models/translationsContext/translationsContext";
 import InputTextField from "../InputTextField";
 import Header from "../Header";
+import hashPassword from "../HashPassword/HashPassword";
+import ErrorMessageTypography from "../../SignUpPage/components/ErrorMessageTypography";
+import routes from "../../../navigator/routes";
+import ReportText from "../../SignUpPage/components/ReportText";
 
-const LoginForm = ({}: ILoginFormProps) => {
+const LoginForm = ({ getLogInDetails, mountedLogIn }: ILoginFormProps) => {
   const classes = useStyles();
 
   const [login, setLogin] = useState("");
@@ -16,6 +20,50 @@ const LoginForm = ({}: ILoginFormProps) => {
 
   const { translate } = useTranslationContext();
   const translations = translate("loginForm");
+
+  const sendLogIn = () => {
+    mountedLogIn({
+      email: login,
+      password: hashPassword(password),
+      savaLogInDetails: saveLoginDetails,
+    });
+  };
+
+  const logInButton = (valid: boolean) => {
+    return valid ? (
+      <Button
+        size="medium"
+        variant="contained"
+        className={classes.submitButton}
+        onClick={sendLogIn}
+      >
+        {translations.logIn}
+      </Button>
+    ) : (
+      <Button
+        size="medium"
+        variant="contained"
+        className={`${classes.submitButton} ${classes.submitButtonDisable}`}
+        disabled
+      >
+        {translations.logIn}
+      </Button>
+    );
+  };
+
+  const [errorMessages, setErrorMessages] = useState<string[]>([]);
+  const [saveLoginDetails, setSaveLoginDetails] = useState(false);
+
+  useEffect(() => {
+    if (getLogInDetails.status === 500) {
+      setErrorMessages([getLogInDetails.detail]);
+    }
+    if (getLogInDetails.status === 200) {
+      if (saveLoginDetails) {
+        localStorage.setItem("access_token", getLogInDetails.token);
+      }
+    }
+  }, [getLogInDetails]);
 
   return (
     <Box component="form" className={classes.form}>
@@ -36,17 +84,16 @@ const LoginForm = ({}: ILoginFormProps) => {
         type="password"
       />
       <Box className={classes.checkbox}>
-        <Checkbox size="small" />
+        <Checkbox
+          size="small"
+          value={saveLoginDetails}
+          onChange={(e) => {
+            setSaveLoginDetails(!saveLoginDetails);
+          }}
+        />
         <Typography fontSize="small">{translations.saveYourLogin}</Typography>
       </Box>
-      <Button
-        size="medium"
-        variant="contained"
-        className={classes.submitButton}
-        type="submit"
-      >
-        {translations.logIn}
-      </Button>
+      {logInButton(login.length >= 4 && password.length >= 8)}
       <Box className={classes.separator}>
         <hr />
         <Typography fontSize="small" className={classes.orText}>
@@ -54,21 +101,15 @@ const LoginForm = ({}: ILoginFormProps) => {
         </Typography>
       </Box>
       <Box className={classes.boxWithLink}>
-        <Link to="/search" className={classes.link}>
+        <Link to={routes.passwordReset} className={classes.link}>
           {translations.forgotPassword}
         </Link>
       </Box>
+      <Box className={classes.errorMessages}>
+        <ErrorMessageTypography errorMessage={errorMessages} />
+      </Box>
       <Box className={classes.report}>
-        <Typography fontSize="small">
-          {translations.reportTextStart}{" "}
-          <Link
-            to="/search"
-            className={`${classes.link} ${classes.reportLink}`}
-          >
-            {translations.reportLinkText}
-          </Link>{" "}
-          {translations.reportTextEnd}
-        </Typography>
+        <ReportText />
       </Box>
     </Box>
   );

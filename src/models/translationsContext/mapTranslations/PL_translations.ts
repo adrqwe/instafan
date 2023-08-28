@@ -91,6 +91,23 @@ export const PL_translations = {
       criticalError: "Krytyczny błąd strony! Spróbuj ponownie później.",
       altMessage: "Obrazek błędu",
     },
+    passwordReset: {
+      lockImage: "Obraz kłódki",
+      troubleLogging: "Problem z logowaniem?",
+      enterYourEmail:
+        "Wprowadź swój adres e-mail, numer telefonu lub nazwę użytkownika, a my wyślemy ci link, który umożliwi odzyskanie dostępu do konta.",
+      sendCode: "Wyślij kod",
+      createAccount: "Utwórz nowe konto",
+      backToLogin: "Powrót do logowania",
+      email: "Adres email",
+      next: "Dalej",
+      newPassword: "Nowe hasło",
+      passwordChanged: "Hasło zostało zmienione",
+      changed: "Zmieniono",
+      passwordChangedImage: "Obraz Zmieniono Hasło",
+      passwordChangedInfo:
+        "Hasło zostało zmienione poprawnie! Za chwile zostaniesz przeniesiony na stronę logowanie.",
+    },
   },
   availableLanguages: {
     EN: "English",

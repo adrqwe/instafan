@@ -37,6 +37,7 @@ export const useStyles = createUseStyles({
     textOverflow: "ellipsis",
     display: "flex",
     alignItems: "center",
+    fontFamily: "Roboto",
   },
   input: {
     border: "none",

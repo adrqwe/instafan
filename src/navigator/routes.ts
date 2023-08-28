@@ -6,6 +6,7 @@ enum routes {
   messages = "/messages",
   notifications = "/notifications",
   create = "/create",
+  passwordReset = "/password/reset",
 }
 
 export default routes;

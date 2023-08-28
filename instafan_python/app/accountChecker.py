@@ -45,7 +45,7 @@ def accountChecker(data: SignUpSchema):
             responseDetails["valid"] = False
         elif not re.fullmatch(emailRegex, data.email):
             responseDetails["detail"]["email"] = {
-                "message": "Incorret email!",
+                "message": "Incorrect email!",
                 "status": "bad",
             }
             responseDetails["valid"] = False
@@ -63,7 +63,7 @@ def accountChecker(data: SignUpSchema):
             responseDetails["valid"] = False
         elif not re.fullmatch(usernameRegex, data.username):
             responseDetails["detail"]["uername"] = {
-                "message": "Incorret username!",
+                "message": "Incorrect username!",
                 "status": "bad",
             }
             responseDetails["valid"] = False
@@ -90,7 +90,7 @@ def accountChecker(data: SignUpSchema):
 
         if not re.fullmatch(passwordRegex, decrypted):
             responseDetails["detail"]["password"] = {
-                "message": "Incorret password! The password should contain at least 8 characters, one uppercase letter, one lowercase letter, one number and a special character.",
+                "message": "Incorrect password! The password should contain at least 8 characters, one uppercase letter, one lowercase letter, one number and a special character.",
                 "status": "bad",
             }
             responseDetails["valid"] = False

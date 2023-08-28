@@ -91,6 +91,23 @@ export const EN_translations = {
       criticalError: "Critical Page Error! Please try again later.",
       altMessage: "Error Image",
     },
+    passwordReset: {
+      lockImage: "Lock Image",
+      troubleLogging: "Trouble logging in?",
+      enterYourEmail:
+        "Enter your email, phone, or username and we'll send you a link to get back into your account.",
+      sendCode: "Send code",
+      createAccount: "Create new account",
+      backToLogin: "Back to login",
+      email: "Email",
+      next: "Next",
+      newPassword: "New password",
+      passwordChanged: "Password has been changed",
+      changed: "Changed",
+      passwordChangedImage: "Password Changed Image",
+      passwordChangedInfo:
+        "The password has been changed correctly! You will be redirected to the login page in a moment.",
+    },
   },
   availableLanguages: {
     EN: "English",

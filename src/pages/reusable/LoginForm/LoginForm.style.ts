@@ -66,4 +66,11 @@ export const useStyles = createUseStyles({
       textDecoration: "underline",
     },
   },
+  submitButtonDisable: {
+    backgroundColor: "rgb(0, 200, 250) !important",
+    color: "white !important",
+  },
+  errorMessages: {
+    marginTop: 10,
+  },
 });

@@ -4,6 +4,8 @@ import * as Transactions from "../models/transactions/epics";
 import * as Products from "../models/products/epics";
 import * as HomePageData from "../models/homePageData/epics";
 import * as SignUp from "../models/signUp/epics";
+import * as LogIn from "../models/logIn/epics";
+import * as PasswordReset from "../models/passwordReset/epics";
 
 export default combineEpics(
   Transactions.fetchTransactionsWhenMounted,
@@ -24,5 +26,15 @@ export default combineEpics(
   SignUp.fetchCommitCodeSignUpWhenMounted,
   SignUp.getCommitCodeSignUpWhenRequested,
   SignUp.fetchResendCodeSignUpWhenMounted,
-  SignUp.getResendCodeSignUpWhenRequested
+  SignUp.getResendCodeSignUpWhenRequested,
+
+  LogIn.fetchLogInWhenMounted,
+  LogIn.getLogInResponseWhenRequested,
+
+  PasswordReset.fetchConfirmAddressEmailWhenMounted,
+  PasswordReset.getConfirmAddressEmailResponseWhenRequested,
+  PasswordReset.fetchResendCodeWhenMounted,
+  PasswordReset.getResendCodeResponseWhenRequested,
+  PasswordReset.fetchChangePasswordWhenMounted,
+  PasswordReset.getChangePasswordResponseWhenRequested
 );

@@ -21,15 +21,17 @@ import Select from "../reusable/Select";
 import useMonthTranslate from "../reusable/Month/Month";
 import hashPassword from "../reusable/HashPassword/HashPassword";
 import routes from "../../navigator/routes";
+import ErrorMessageTypography from "./components/ErrorMessageTypography";
+import ReportText from "./components/ReportText";
+import CommitCode from "./components/CommitCode";
 
 const birthdayImage = require("../../utils/birthdayImage.png");
-const emailImage = require("../../utils/emailImage.png");
 const accountAdded = require("../../utils/accountAdded.png");
 
-const passwordRegExp = new RegExp(
+export const passwordRegExp = new RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(){};:',.<>?+=`~|/_])[A-Za-z\d!@#$%^&*(){};:',.<>?+=`~|/_]{8,}$/
 );
-const emailRegExp = new RegExp(
+export const emailRegExp = new RegExp(
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 );
 const usernameRegExp = new RegExp(/^[a-zA-Z0-9]{4,}$/);
@@ -49,7 +51,6 @@ const SignUpPage = ({
   const { translate } = useTranslationContext();
   const translations = translate("signUp");
   const translationsFooter = translate("footer");
-  const translationsLoginForm = translate("loginForm");
 
   const classes = useStyles();
 
@@ -190,7 +191,18 @@ const SignUpPage = ({
       case 1:
         return birthDay();
       case 2:
-        return commitAddressEmail();
+        return (
+          <CommitCode
+            email={login}
+            code={code}
+            errorMessages={commitError}
+            commitMessage={commitSuccess}
+            onResend={resend}
+            setCode={setCode}
+            onSubmit={buttonCommit(code.length === 6, sendConfirmEmailCode)}
+            backButton={buttonBack}
+          />
+        );
     }
   };
 
@@ -231,6 +243,12 @@ const SignUpPage = ({
     }
   }, [getCommitCodeResponse]);
 
+  const resend = () => {
+    setCommitError([]);
+    setCommitSuccess(getResendResponse.detail);
+    mountedResendCodeSignUp({ token: getAuthToken.token });
+  };
+
   useEffect(() => {
     if (getResendResponse.status === 500) {
       setCommitError([getResendResponse.detail]);
@@ -242,25 +260,6 @@ const SignUpPage = ({
     }
   }, [getResendResponse]);
 
-  const errorMessageTypography = (errorMessages: string[]) => (
-    <>
-      {errorMessages.map((e: string, index: number) => (
-        <Typography key={index} className={classes.errorMessage}>
-          {e}
-        </Typography>
-      ))}
-    </>
-  );
-
-  const reportText = () => (
-    <Typography className={classes.typography}>
-      {translationsLoginForm.reportTextStart}{" "}
-      <Link to="/search" className={`${classes.link} ${classes.reportLink}`}>
-        {translationsLoginForm.reportLinkText}
-      </Link>{" "}
-      {translationsLoginForm.reportTextEnd}
-    </Typography>
-  );
   const buttonNext = (valid: boolean, onClick?: () => void) => {
     return valid ? (
       <Button
@@ -333,57 +332,6 @@ const SignUpPage = ({
     );
   };
 
-  const commitAddressEmail = () => (
-    <span>
-      <Box className={classes.boxBirthdayImage}>
-        <img src={emailImage} alt={translations.emailImage} />
-      </Box>
-      <Typography
-        className={classes.birthdayTypography}
-        fontWeight={"bold"}
-        marginBottom={2}
-      >
-        {translations.enterConfirmationCode}
-      </Typography>
-      <Typography className={classes.birthdayTypography} marginBottom={2}>
-        {translations.theConfirmationCode}
-        {login}
-        {". "}
-        <span
-          onClick={() => {
-            setCommitError([]);
-            setCommitSuccess(getResendResponse.detail);
-            mountedResendCodeSignUp({ token: getAuthToken.token });
-          }}
-          className={`${classes.birthdayTypography} ${classes.modalOpenLink} ${classes.noSelect} ${classes.resendLink}`}
-        >
-          {translations.resend}
-        </span>
-      </Typography>
-
-      <span className={classes.selects}>
-        <OutlinedInput
-          value={code}
-          onChange={(e) => {
-            e.target.value.length < 7 && setCode(e.target.value);
-          }}
-          className={classes.outlinedInput}
-          placeholder={translations.confirmationCode}
-          size={"small"}
-        />
-      </span>
-
-      {buttonCommit(code.length === 6, sendConfirmEmailCode)}
-      {buttonBack()}
-      {errorMessageTypography(commitError)}
-      {commitSuccess && (
-        <Typography color="green" textAlign="center">
-          {commitSuccess}
-        </Typography>
-      )}
-      {reportText()}
-    </span>
-  );
   const birthDay = () => (
     <span>
       <Box className={classes.boxBirthdayImage}>
@@ -485,8 +433,8 @@ const SignUpPage = ({
           {translations.cookiesInformation}
         </Typography>
         {buttonNext(signUpDataValid)}
-        {errorMessageTypography(errorMessages)}
-        {reportText()}
+        <ErrorMessageTypography errorMessage={errorMessages} />
+        <ReportText />
       </Box>
     </>
   );

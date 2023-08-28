@@ -13,7 +13,6 @@ export const useStyles = createUseStyles({
   },
   forms: {
     width: "300px",
-    marginLeft: 10,
     padding: "10px 30px",
     border: "1px solid rgba(0,0,0,0.2)",
   },
@@ -93,10 +92,5 @@ export const useStyles = createUseStyles({
     backgroundColor: "rgb(250, 250, 250)",
     width: "90%",
     marginBottom: 15,
-  },
-  errorMessage: {
-    color: "red",
-    fontSize: 14,
-    textAlign: "center",
   },
 });

@@ -60,3 +60,19 @@ class CommitCode(BaseModel):
 
 class ResendCode(BaseModel):
     token: str
+
+
+class LogIn(BaseModel):
+    email: str
+    password: str
+    savaLogInDetails: bool
+
+
+class ConfirmEmail(BaseModel):
+    email: EmailStr
+
+
+class ChangePassword(BaseModel):
+    code: str
+    token: str
+    password: str
