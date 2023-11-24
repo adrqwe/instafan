@@ -5,6 +5,7 @@ import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";
 import PasswordResetPage from "../pages/PasswordResetPage";
+import GUIInterface from "./GUIInterface";
 
 const Navigator = () => {
   return (
@@ -12,11 +13,54 @@ const Navigator = () => {
       <Route path={routes.login} element={<LoginPage />} />
       <Route path={routes.signUp} element={<SignUpPage />} />
       <Route path={routes.passwordReset} element={<PasswordResetPage />} />
-      <Route path={routes.search} element={<HomePage />} />
-      <Route path={routes.explore} element={<HomePage />} />
-      <Route path={routes.messages} element={<HomePage />} />
-      <Route path={routes.notifications} element={<HomePage />} />
-      <Route path={routes.create} element={<HomePage />} />
+      <Route
+        path={routes.homePage}
+        element={
+          <GUIInterface>
+            <HomePage />
+          </GUIInterface>
+        }
+      />
+      <Route
+        path={routes.search}
+        element={
+          <GUIInterface>
+            <HomePage />
+          </GUIInterface>
+        }
+      />
+      <Route
+        path={routes.explore}
+        element={
+          <GUIInterface>
+            <HomePage />
+          </GUIInterface>
+        }
+      />
+      <Route
+        path={routes.messages}
+        element={
+          <GUIInterface>
+            <HomePage />
+          </GUIInterface>
+        }
+      />
+      <Route
+        path={routes.notifications}
+        element={
+          <GUIInterface>
+            <HomePage />
+          </GUIInterface>
+        }
+      />
+      <Route
+        path={routes.create}
+        element={
+          <GUIInterface>
+            <HomePage />
+          </GUIInterface>
+        }
+      />
     </Routes>
   );
 };

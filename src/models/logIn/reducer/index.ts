@@ -1,11 +1,13 @@
 import { getType } from "typesafe-actions";
 
-import { postLogIn } from "../actions";
+import { postCheckExistToken, postLogIn } from "../actions";
 import { IAction, ILogInReducer } from "../types";
 
 const initialState: ILogInReducer = {
   logInDetails: { status: 100, detail: null, token: "" },
   logInFailure: null,
+  checkExistTokenDetails: { status: 100, detail: null, valid: false },
+  checkExistTokenFailure: null,
 };
 
 const logInReducer = (
@@ -18,12 +20,21 @@ const logInReducer = (
         ...state,
         logInDetails: action.payload,
       };
-
+    case getType(postCheckExistToken.success):
+      return {
+        ...state,
+        checkExistTokenDetails: action.payload,
+      };
     //errors
     case getType(postLogIn.failure):
       return {
         ...state,
         logInFailure: action.payload,
+      };
+    case getType(postCheckExistToken.failure):
+      return {
+        ...state,
+        checkExistTokenFailure: action.payload,
       };
 
     default:

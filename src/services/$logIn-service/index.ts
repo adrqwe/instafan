@@ -2,11 +2,19 @@ import axios, { CancelTokenSource } from "axios";
 
 import config from "./../../config";
 import {} from "../../models/signUp/types";
-import { ILogInSuccessPayload, TLogInRequest } from "../../models/logIn/types";
+import {
+  ICheckExistTokenSuccessPayload,
+  ILogInSuccessPayload,
+  TCheckExistToken,
+  TLogInRequest,
+} from "../../models/logIn/types";
 
 class LogInService {
   private static getLogInUrl() {
     return `${config.api.default}logIn`;
+  }
+  private static getCheckExistTokenUrl() {
+    return `${config.api.default}check/exist/token`;
   }
 
   private cancelTokenProducts?: CancelTokenSource;
@@ -23,6 +31,26 @@ class LogInService {
             email: logInData.email,
             password: logInData.password,
             savaLogInDetails: logInData.savaLogInDetails,
+          },
+          {
+            cancelToken: this.cancelTokenProducts.token,
+          }
+        )
+        .then((data) => resolve(data.data))
+        .catch((error) => reject(error));
+    });
+  }
+
+  public getCheckExistTokenResponse(
+    checkExistTokenData: TCheckExistToken
+  ): Promise<ICheckExistTokenSuccessPayload> {
+    return new Promise<ICheckExistTokenSuccessPayload>((resolve, reject) => {
+      this.cancelTokenProducts = axios.CancelToken.source();
+      axios
+        .post(
+          LogInService.getCheckExistTokenUrl(),
+          {
+            token: checkExistTokenData.token,
           },
           {
             cancelToken: this.cancelTokenProducts.token,

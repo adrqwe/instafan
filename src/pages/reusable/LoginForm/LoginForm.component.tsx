@@ -1,6 +1,6 @@
 import { Box, Button, Checkbox, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { ILoginFormProps } from "./LoginForm.types";
 import { useStyles } from "./LoginForm.style";
@@ -13,6 +13,7 @@ import routes from "../../../navigator/routes";
 import ReportText from "../../SignUpPage/components/ReportText";
 
 const LoginForm = ({ getLogInDetails, mountedLogIn }: ILoginFormProps) => {
+  const navigate = useNavigate();
   const classes = useStyles();
 
   const [login, setLogin] = useState("");
@@ -61,7 +62,10 @@ const LoginForm = ({ getLogInDetails, mountedLogIn }: ILoginFormProps) => {
     if (getLogInDetails.status === 200) {
       if (saveLoginDetails) {
         localStorage.setItem("access_token", getLogInDetails.token);
+      } else {
+        localStorage.setItem("access_token", "");
       }
+      navigate(routes.homePage);
     }
   }, [getLogInDetails]);
 

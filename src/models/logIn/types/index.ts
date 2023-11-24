@@ -16,7 +16,19 @@ export type TLogInRequest = {
   savaLogInDetails: boolean;
 };
 
+export type TCheckExistToken = {
+  token: string | null;
+};
+
+export interface ICheckExistTokenSuccessPayload {
+  status: number;
+  detail: any;
+  valid: boolean;
+}
+
 export interface ILogInReducer {
   logInDetails: ILogInSuccessPayload;
   logInFailure: Error | null;
+  checkExistTokenDetails: ICheckExistTokenSuccessPayload;
+  checkExistTokenFailure: Error | null;
 }

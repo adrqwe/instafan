@@ -5,8 +5,17 @@ import {
   _POST_LOG_IN_REQUEST,
   _POST_LOG_IN_SUCCESS,
   _POST_LOG_IN_FAILURE,
+  MOUNTED_CHECK_EXIST_TOKEN,
+  _POST_CHECK_EXIST_TOKEN_REQUEST,
+  _POST_CHECK_EXIST_TOKEN_SUCCESS,
+  _POST_CHECK_EXIST_TOKEN_FAILURE,
 } from "../constants/constants";
-import { TLogInRequest, ILogInSuccessPayload } from "../types";
+import {
+  TLogInRequest,
+  ILogInSuccessPayload,
+  TCheckExistToken,
+  ICheckExistTokenSuccessPayload,
+} from "../types";
 
 const { createStandardAction } = deprecated;
 
@@ -18,3 +27,13 @@ export const postLogIn = createAsyncAction(
   _POST_LOG_IN_SUCCESS,
   _POST_LOG_IN_FAILURE
 )<TLogInRequest, ILogInSuccessPayload, Error>();
+
+export const mountedCheckExistToken = createStandardAction(
+  MOUNTED_CHECK_EXIST_TOKEN
+)<TCheckExistToken>();
+
+export const postCheckExistToken = createAsyncAction(
+  _POST_CHECK_EXIST_TOKEN_REQUEST,
+  _POST_CHECK_EXIST_TOKEN_SUCCESS,
+  _POST_CHECK_EXIST_TOKEN_FAILURE
+)<TCheckExistToken, ICheckExistTokenSuccessPayload, Error>();
