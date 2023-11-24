@@ -76,3 +76,7 @@ class ChangePassword(BaseModel):
     code: str
     token: str
     password: str
+
+
+class CheckExistToken(BaseModel):
+    token: str | None

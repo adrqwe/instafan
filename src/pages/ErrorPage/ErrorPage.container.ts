@@ -12,6 +12,7 @@ import { getLogInFailure } from "../../models/logIn/selectors/getLogInFailure";
 import { getConfirmAddressEmailFailure } from "../../models/passwordReset/selectors/getConfirmAddressEmailFailure";
 import { getResendCodePasswordResetFailure } from "../../models/passwordReset/selectors/getResendCodePasswordResetFailure";
 import { getChangePasswordResponseFailure } from "../../models/passwordReset/selectors/getChangePasswordFailure";
+import { getCheckExistTokenFailure } from "../../models/logIn/selectors/getCheckExistTokenFailure";
 
 const mapStateToProps = (state: _Store.IState): IErrorPageFromState => ({
   getAuthTokenFailure: getAuthTokenFailure(state),
@@ -22,6 +23,7 @@ const mapStateToProps = (state: _Store.IState): IErrorPageFromState => ({
   getConfirmAddressEmailFailure: getConfirmAddressEmailFailure(state),
   getResendCodePasswordResetFailure: getResendCodePasswordResetFailure(state),
   getChangePasswordResponseFailure: getChangePasswordResponseFailure(state),
+  getCheckExistTokenFailure: getCheckExistTokenFailure(state),
 });
 
 const mapDispatchToProps = (

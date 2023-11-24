@@ -30,6 +30,8 @@ export default combineEpics(
 
   LogIn.fetchLogInWhenMounted,
   LogIn.getLogInResponseWhenRequested,
+  LogIn.fetchCheckExistTokenWhenMounted,
+  LogIn.getCheckExistTokenResponseWhenRequested,
 
   PasswordReset.fetchConfirmAddressEmailWhenMounted,
   PasswordReset.getConfirmAddressEmailResponseWhenRequested,

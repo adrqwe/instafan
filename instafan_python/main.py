@@ -16,6 +16,7 @@ from app.accountChecker import accountChecker
 from app.mail import sendEmail
 from app.model import (
     ChangePassword,
+    CheckExistToken,
     CommitCode,
     ConfirmEmail,
     LogIn,
@@ -145,7 +146,7 @@ def singUpCommit(data: CommitCode):
                 sql = f"UPDATE `users` SET `activeCode`= null,`expires`= null, `valid`=1 WHERE `email`='{user_id}'"  # noqa: E501
                 response = mysqlConnector(sql, commit=True)
                 if response["status"] == 200:
-                    token = signJWT(user_id, False)
+                    token = signJWT(user_id, True)
                     return {
                         "status": 200,
                         "token": token["access_token"],
@@ -189,7 +190,7 @@ def singUpResendCode(data: ResendCode):
 
 @app.post("/logIn", tags=["user"])
 def logIn(data: LogIn):
-    sql = f"SELECT `password`, `valid` FROM `users` WHERE `email`='{data.email}' or `username` = '{data.email}'"
+    sql = f"SELECT `password`, `valid`, `email` FROM `users` WHERE `email`='{data.email}' or `username` = '{data.email}'"
     response = mysqlConnector(sql)
 
     if response["status"] == 200:
@@ -206,7 +207,7 @@ def logIn(data: LogIn):
                 "token": "",
                 "detail": "Password is incorrect!",
             }
-        token = signJWT(data.email, False, 3600, data.savaLogInDetails)
+        token = signJWT(detail[2], True, 3600, data.savaLogInDetails)
         return {
             "status": 200,
             "token": token["access_token"],
@@ -218,6 +219,15 @@ def logIn(data: LogIn):
             "token": "",
             "detail": "Login error!",
         }
+
+
+@app.post("/check/exist/token", tags=["user"])
+def checkExistToken(data: CheckExistToken):
+    decode_token = decodeJWT(data.token)
+    if not decode_token:
+        return {"status": 500, "detail": "Token is invalid.", "valid": False}
+
+    return {"status": 200, "detail": None, "valid": True}
 
 
 @app.post("/confirm/email", tags=["user"])
@@ -296,13 +306,6 @@ def passwordChange(data: ChangePassword):
 
     else:
         return {"status": 500, "detail": "Token is invalid!"}
-
-
-@app.post("/user/login", tags=["user"])
-def user_login(user: UserLoginSchema = Body(...)):
-    if check_user(user):
-        return signJWT(user.email)
-    return {"error": "Wrong login details!"}
 
 
 @app.post("/posts", dependencies=[Depends(JWTBearer())], tags=["posts"])

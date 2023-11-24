@@ -7,6 +7,7 @@ export interface IErrorPageFromState {
   getConfirmAddressEmailFailure: Error | null;
   getResendCodePasswordResetFailure: Error | null;
   getChangePasswordResponseFailure: Error | null;
+  getCheckExistTokenFailure: Error | null;
 }
 export interface IErrorPageFromDispatch {}
 export type IErrorPageProps = IErrorPageFromState & IErrorPageFromDispatch;

@@ -12,9 +12,9 @@ def mysqlConnector(sql, commit=False):
         if myresult:
             return {"status": 200, "detail": myresult}
         else:
-            return {"status": 500, "detail": "Bad request."}
+            return {"status": 500, "detail": "Bad request. Try again later!"}
     else:
-        return {"status": 500, "detail": "Connect error."}
+        return {"status": 500, "detail": "Connect error. Try again later!"}
 
 
 def connectToDataBase():

@@ -1,5 +1,6 @@
 enum routes {
   login = "/",
+  homePage = "/homepage",
   signUp = "/signUp",
   search = "/search",
   explore = "/explore",
