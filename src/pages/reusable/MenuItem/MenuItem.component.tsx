@@ -6,7 +6,7 @@ import { useStyles } from "./MenuItem.style";
 import { StyledMenuItem } from "./MenuItem.style";
 import { IMenuItem } from "./MenuItem.types";
 
-const MenuItem = ({ text, icon, route }: IMenuItem) => {
+const MenuItem = ({ text, icon, route, style }: IMenuItem) => {
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -18,8 +18,9 @@ const MenuItem = ({ text, icon, route }: IMenuItem) => {
   return (
     <StyledMenuItem
       onClick={() => {
-        onLocationChange(route);
+        if (route) onLocationChange(route);
       }}
+      style={style}
     >
       {icon}
       <Typography className={classes.menuText}>{text}</Typography>

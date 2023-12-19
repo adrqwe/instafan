@@ -16,8 +16,13 @@ const Header = ({ margin }: IHeaderProps) => {
   return (
     <Box className={classes.box} style={{ margin: margin }}>
       <span className={classes.span}>
-        <Link to={routes.login}>
-          <img src={logo} className={classes.img} alt={translations.logo} />
+        <Link to={routes.homePage}>
+          <img
+            src={logo}
+            className={classes.img}
+            alt={translations.logo}
+            draggable={false}
+          />
         </Link>
       </span>
     </Box>

@@ -1,6 +1,6 @@
-import { Box, MenuList } from "@mui/material";
+import { Box, MenuList, MenuItem as MenuItemMUI, Menu } from "@mui/material";
 import { useLocation } from "react-router-dom";
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
@@ -13,6 +13,7 @@ import ExploreIcon from "@mui/icons-material/Explore";
 import SendIcon from "@mui/icons-material/Send";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AddBoxIcon from "@mui/icons-material/AddBox";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
 import { useStyles } from "./MainMenu.style";
 import { useTranslationContext } from "../../../models/translationsContext/translationsContext";
@@ -34,16 +35,31 @@ const MainMenu = () => {
     return location.pathname === route ? outlinedIcon : filledIcon;
   };
 
+  const [profileEl, setProfileEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(profileEl);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setProfileEl(event.currentTarget);
+  };
+  const handleCloseProfileListMenu = () => {
+    setProfileEl(null);
+  };
+
+  const logoutAction = () => {
+    localStorage.setItem("access_token", "");
+    window.location.replace(routes.login);
+  };
+
   return (
     <Box className={classes.box}>
       <MenuList>
         <MenuItem
-          route={routes.login}
+          route={routes.homePage}
           text={translations.homePage}
           icon={selectedMenuItem(
             <HomeOutlinedIcon className={classes.menuIcon} />,
             <HomeIcon className={classes.menuIcon} />,
-            routes.login
+            routes.homePage
           )}
         />
         <MenuItem
@@ -92,6 +108,32 @@ const MainMenu = () => {
           )}
         />
       </MenuList>
+      <div className={classes.profilMenuList}>
+        <span onClick={handleClick}>
+          <MenuItem
+            text={translations.profile}
+            icon={<AccountCircleOutlinedIcon className={classes.menuIcon} />}
+          />
+        </span>
+        <Menu
+          id="profileListMenu"
+          anchorEl={profileEl}
+          open={open}
+          onClose={handleCloseProfileListMenu}
+          MenuListProps={{
+            "aria-labelledby": "profileListMenu",
+          }}
+        >
+          <MenuItemMUI
+            onClick={() => {
+              logoutAction();
+              handleCloseProfileListMenu();
+            }}
+          >
+            {translations.logout}
+          </MenuItemMUI>
+        </Menu>
+      </div>
     </Box>
   );
 };
