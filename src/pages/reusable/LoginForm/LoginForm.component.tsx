@@ -37,6 +37,7 @@ const LoginForm = ({ getLogInDetails, mountedLogIn }: ILoginFormProps) => {
         variant="contained"
         className={classes.submitButton}
         onClick={sendLogIn}
+        type="submit"
       >
         {translations.logIn}
       </Button>
@@ -70,7 +71,11 @@ const LoginForm = ({ getLogInDetails, mountedLogIn }: ILoginFormProps) => {
   }, [getLogInDetails]);
 
   return (
-    <Box component="form" className={classes.form}>
+    <form
+      className={classes.form}
+      autoComplete="on"
+      action="javascript:void(0);"
+    >
       <Header />
       <InputTextField
         placeholder={translations.login}
@@ -115,7 +120,7 @@ const LoginForm = ({ getLogInDetails, mountedLogIn }: ILoginFormProps) => {
       <Box className={classes.report}>
         <ReportText />
       </Box>
-    </Box>
+    </form>
   );
 };
 

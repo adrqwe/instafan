@@ -13,6 +13,8 @@ export const EN_translations = {
       messages: "Messages",
       notifications: "Notifications",
       create: "Create",
+      profile: "Profile",
+      logout: "Logout",
     },
     imageListItem: {
       thousand: "K",
