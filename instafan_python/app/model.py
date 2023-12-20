@@ -80,3 +80,7 @@ class ChangePassword(BaseModel):
 
 class CheckExistToken(BaseModel):
     token: str | None
+
+
+class GetSingleHomePageData(BaseModel):
+    id: int

@@ -110,6 +110,10 @@ export const PL_translations = {
       passwordChangedInfo:
         "Hasło zostało zmienione poprawnie! Za chwile zostaniesz przeniesiony na stronę logowanie.",
     },
+    profileImage: {
+      profilePicture: "Zdjęcie profilowe",
+    },
+    detailOfPostModal: { addComment: "Dodaj komentarz...", post: "Opublikuj" },
   },
   availableLanguages: {
     EN: "English",

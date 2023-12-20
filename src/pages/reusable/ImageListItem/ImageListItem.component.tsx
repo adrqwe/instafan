@@ -12,6 +12,7 @@ const ImageListItem = ({
   image,
   countOfComment,
   countOfLikes,
+  onClick,
 }: IImageListItem) => {
   const [hoverVisible, setHoverVisible] = useState(false);
 
@@ -37,6 +38,7 @@ const ImageListItem = ({
 
   return (
     <Box
+      onClick={onClick}
       style={{ position: "relative" }}
       onMouseOver={() => setHoverVisible(true)}
       onMouseOut={() => {
