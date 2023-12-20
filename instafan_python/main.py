@@ -19,6 +19,7 @@ from app.model import (
     CheckExistToken,
     CommitCode,
     ConfirmEmail,
+    GetSingleHomePageData,
     LogIn,
     PostSchema,
     ResendCode,
@@ -319,34 +320,61 @@ def add_post(post: PostSchema):
 
 
 @app.get("/")
-def home():
-    try:
-        mydb = mysql.connector.connect(
-            host="127.0.0.1", user="root", password="", port=3306, database="instafan"
+def homePageData():
+    sql = 'SELECT DISTINCT posts.id, posts.count_of_likes, posts.image, (SELECT COUNT(comments.post_id) FROM comments WHERE posts.id=comments.post_id) AS "count_of_comments" FROM `posts`,comments WHERE posts.id=comments.post_id ORDER BY posts.id;'  # noqa: E501
+
+    response = mysqlConnector(sql)
+
+    if response["status"] == 500:
+        return {"data": [], "status": 500}
+
+    data = []
+    for x in response["detail"]:
+        data.append(
+            {
+                "id": x[0],
+                "count_of_likes": x[1],
+                "image": x[2],
+                "count_of_comments": x[3],
+            }
+        )
+    return {"data": data, "status": 200}
+
+
+@app.post("/single/homepage/data")
+def getSingleHomePageDate(data: GetSingleHomePageData):
+    sql = f"SELECT `posts`.id, posts.image, posts.description, posts.user_id, users.username FROM `posts`, users WHERE posts.user_id=users.id AND posts.id={data.id};"
+    response = mysqlConnector(sql)
+    if response["status"] == 500:
+        return {"data": [], "status": 500}
+
+    x = response["detail"][0]
+    singlePost = {
+        "postId": x[0],
+        "image": x[1],
+        "description": x[2],
+        "authorId": x[3],
+        "authorName": x[4],
+    }
+
+    sql = f"SELECT users.username, comments.id, comments.comment, users.id FROM `comments`, users WHERE users.id=comments.user_id AND comments.post_id = {data.id}"
+    response = mysqlConnector(sql)
+    if response["status"] == 500:
+        return {"data": [], "status": 500}
+
+    array = []
+    for x in response["detail"]:
+        array.append(
+            {
+                "commentedBy": x[0],
+                "commentId": x[1],
+                "comment": x[2],
+                "userId": x[3],
+            }
         )
 
-        sql = 'SELECT DISTINCT posts.id, posts.count_of_likes, posts.image, (SELECT COUNT(comments.post_id) FROM comments WHERE posts.id=comments.post_id) AS "count_of_comments" FROM `posts`,comments WHERE posts.id=comments.post_id ORDER BY posts.id;'  # noqa: E501
-
-        mycursor = mydb.cursor()
-        mycursor.execute(sql)
-        myresult = mycursor.fetchall()
-        data = []
-
-        for x in myresult:
-            data.append(
-                {
-                    "id": x[0],
-                    "count_of_likes": x[1],
-                    "image": x[2],
-                    "count_of_comments": x[3],
-                }
-            )
-        return {"data": data, "status": 200}
-    except mysql.connector.Error as err:
-        return {"data": [], "status": 500}
-    finally:
-        pass
-        # mydb.close()
+    singlePost["comments"] = array
+    return {"data": singlePost, "status": 200}
 
 
 if __name__ == "__main__":

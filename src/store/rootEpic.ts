@@ -18,6 +18,8 @@ export default combineEpics(
 
   HomePageData.fetchHomePageDataWhenMounted,
   HomePageData.getHomePageDataWhenRequested,
+  HomePageData.fetchSingleHomePageDataWhenMounted,
+  HomePageData.getSingleHomePageDataWhenRequested,
 
   SignUp.fetchSignUpWhenMounted,
   SignUp.getSignUpResponseWhenRequested,

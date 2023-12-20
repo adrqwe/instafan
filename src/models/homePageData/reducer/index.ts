@@ -1,10 +1,11 @@
 import { getType } from "typesafe-actions";
 
-import { getHomePageData } from "../actions";
+import { getHomePageData, getSingleHomePageData } from "../actions";
 import { IHomePageDataReducer, IAction } from "../types";
 
 const initialState: IHomePageDataReducer = {
   homePageData: { data: [], status: 100 },
+  singleHomePageData: { data: [], status: 100 },
 };
 
 const homePageDataReducer = (
@@ -16,6 +17,11 @@ const homePageDataReducer = (
       return {
         ...state,
         homePageData: action.payload,
+      };
+    case getType(getSingleHomePageData.success):
+      return {
+        ...state,
+        singleHomePageData: action.payload,
       };
     default:
       return state;

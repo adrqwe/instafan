@@ -110,6 +110,13 @@ export const EN_translations = {
       passwordChangedInfo:
         "The password has been changed correctly! You will be redirected to the login page in a moment.",
     },
+    profileImage: {
+      profilePicture: "Profile picture of",
+    },
+    detailOfPostModal: {
+      addComment: "Add a comment...",
+      post: "Post",
+    },
   },
   availableLanguages: {
     EN: "English",

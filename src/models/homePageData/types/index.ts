@@ -13,6 +13,7 @@ export interface IHomePageDataSuccessPayload {
 
 export interface IHomePageDataReducer {
   homePageData: THomePageData;
+  singleHomePageData: TSingleHomePageData;
 }
 
 export type THomePageData =
@@ -21,3 +22,30 @@ export type THomePageData =
       status: number;
     }
   | { data: []; status: number };
+
+export interface ISingleHomePageDataSuccessPayload {
+  postId: number;
+  image: string;
+  description: string;
+  authorId: number;
+  authorName: string;
+  comments: TCommentType[];
+}
+
+export type TCommentType = {
+  commentedBy: string;
+  commentId: number;
+  comment: string;
+  userId: number;
+};
+
+export type TSingleHomePageData =
+  | {
+      data: ISingleHomePageDataSuccessPayload;
+      status: number;
+    }
+  | { data: []; status: number };
+
+export type TSingleHomePageDataId = {
+  id: number;
+};

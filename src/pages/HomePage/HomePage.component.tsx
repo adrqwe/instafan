@@ -1,18 +1,32 @@
-import { useEffect } from "react";
-import { Box, Grid, ImageList } from "@mui/material";
+import { useEffect, useState } from "react";
+import { ImageList } from "@mui/material";
 
-import MainMenu from "../reusable/MainMenu";
-import Header from "../reusable/Header";
 import { IHomePageProps } from "./HomePage.types";
 import { useStyles } from "./HomePage.style";
 import ImageListItem from "../reusable/ImageListItem";
-import Footer from "../reusable/Footer";
+import DetailOfPostModal from "./components/DetailOfPostModal";
+import { ISingleHomePageDataSuccessPayload } from "../../models/homePageData/types";
 
-const HomePage = ({ homePageData, mounted }: IHomePageProps) => {
+const HomePage = ({
+  homePageData,
+  singleHomePageData,
+  mounted,
+  mountedSingleHomePageData,
+}: IHomePageProps) => {
   const classes = useStyles();
+
+  const [selectedPost, setSelectedPost] = useState(0);
+  const handleCloseModal = () => setSelectedPost(0);
+
   useEffect(() => {
     mounted();
   }, []);
+
+  useEffect(() => {
+    if (selectedPost) {
+      mountedSingleHomePageData({ id: selectedPost });
+    }
+  }, [selectedPost]);
 
   return (
     <div className={classes.gridDataContainer}>
@@ -22,11 +36,11 @@ const HomePage = ({ homePageData, mounted }: IHomePageProps) => {
         gap={20}
         className={classes.imageList}
       >
-        <></>
         {homePageData.data.map(
           ({ image, id, count_of_comments, count_of_likes }) => {
             return (
               <ImageListItem
+                onClick={() => setSelectedPost(id)}
                 image={image}
                 key={id}
                 countOfComment={count_of_comments}
@@ -36,6 +50,11 @@ const HomePage = ({ homePageData, mounted }: IHomePageProps) => {
           }
         )}
       </ImageList>
+      <DetailOfPostModal
+        open={Boolean(selectedPost)}
+        closeModal={handleCloseModal}
+        data={singleHomePageData.data as ISingleHomePageDataSuccessPayload}
+      ></DetailOfPostModal>
     </div>
   );
 };
