@@ -52,7 +52,7 @@ const MainMenu = () => {
 
   return (
     <Box className={classes.box}>
-      <MenuList>
+      <MenuList className={classes.menuList}>
         <MenuItem
           route={routes.homePage}
           text={translations.homePage}
@@ -106,6 +106,12 @@ const MainMenu = () => {
             <AddBoxIcon className={classes.menuIcon} />,
             routes.create
           )}
+        />
+        <MenuItem
+          className={classes.linkToProfile}
+          route={routes.account}
+          text={translations.create}
+          icon={<AccountCircleOutlinedIcon className={classes.menuIcon} />}
         />
       </MenuList>
       <div className={classes.profilMenuList}>

@@ -18,7 +18,11 @@ const Modal = ({
     <ModalMUI open={open}>
       <Box
         className={classes.container}
-        style={{ width: `${width && width}px` }}
+        style={{
+          width: `${
+            width && window.innerWidth > width ? width : window.innerWidth - 10
+          }px`,
+        }}
       >
         <Box className={classes.sectionOfModal}>
           <Typography fontSize="medium" fontWeight={"bold"}>

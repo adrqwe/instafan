@@ -5,4 +5,5 @@ export interface IMenuItem {
   icon: ReactElement;
   route?: string;
   style?: React.CSSProperties | undefined;
+  className?: string;
 }

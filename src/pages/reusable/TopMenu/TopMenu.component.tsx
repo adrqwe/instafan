@@ -19,7 +19,7 @@ const TopMenu = () => {
       <Box className={classes.header}>
         <Header margin="5px 0" />
       </Box>
-      <span className={classes.leftButtons}>
+      <div className={classes.leftButtons}>
         <Button
           size="small"
           variant="contained"
@@ -36,7 +36,7 @@ const TopMenu = () => {
         >
           {translationsLoginPage.signUp}
         </Button>
-      </span>
+      </div>
     </Box>
   );
 };

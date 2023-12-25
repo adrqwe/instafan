@@ -48,4 +48,13 @@ export const useStyles = createUseStyles({
     marginBottom: 30,
     textAlign: "center",
   },
+  "@media (max-width: 900px)": {
+    box: {
+      display: "grid",
+      gridTemplateColumns: "repeat(3, auto)",
+    },
+    by: {
+      marginBottom: 90,
+    },
+  },
 });

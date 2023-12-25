@@ -17,4 +17,9 @@ export const useStyles = createUseStyles({
     position: "fixed",
     width: "19vw",
   },
+  "@media (max-width: 1200px)": {
+    imageList: {
+      width: "90%",
+    },
+  },
 });

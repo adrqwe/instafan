@@ -81,4 +81,29 @@ export const useStyles = createUseStyles({
     "-drag": "none",
     "-webkit-user-drag": "none",
   },
+  "@media (max-width: 900px)": {
+    gridImageContainer: {
+      display: "none",
+    },
+    forms: {
+      marginLeft: "auto",
+      marginRight: "auto",
+      width: "50%",
+    },
+    boxGoogleAppImage: {
+      marginLeft: "auto",
+      marginRight: "auto",
+    },
+  },
+  "@media (max-width: 600px)": {
+    gridImageContainer: {
+      display: "none",
+    },
+    forms: {
+      width: "87%",
+    },
+    boxGoogleAppImage: {
+      width: "90%",
+    },
+  },
 });

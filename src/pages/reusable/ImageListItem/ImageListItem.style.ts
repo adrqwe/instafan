@@ -30,4 +30,12 @@ export const useStyles = createUseStyles({
   marginForIcon: {
     padding: 5,
   },
+  centerInformationIconDisplay: {
+    display: "flex",
+  },
+  "@media (max-width: 900px)": {
+    centerInformationIconDisplay: {
+      display: "none",
+    },
+  },
 });

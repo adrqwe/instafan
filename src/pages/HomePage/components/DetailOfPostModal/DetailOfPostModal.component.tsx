@@ -74,33 +74,34 @@ const DetailOfPostModal = ({
               </button>
             </Box>
             <Box className={classes.commentsBox}>
-              {data.comments.map(({ comment, commentedBy, commentId }) => {
-                return (
-                  <Box className={classes.commentBox} key={commentId}>
-                    <div className={classes.profilePictureBox}>
-                      <ProfileImage
-                        image={defaultProfileImage}
-                        name={commentedBy}
-                      />
-                    </div>
-                    <Typography
-                      className={`${classes.username} ${classes.commentFontSize}`}
-                    >
-                      {commentedBy} •{" "}
-                      <span
-                        className={`${classes.comment} ${classes.commentFontSize}`}
+              {data.comments &&
+                data.comments.map(({ comment, commentedBy, commentId }) => {
+                  return (
+                    <Box className={classes.commentBox} key={commentId}>
+                      <div className={classes.profilePictureBox}>
+                        <ProfileImage
+                          image={defaultProfileImage}
+                          name={commentedBy}
+                        />
+                      </div>
+                      <Typography
+                        className={`${classes.username} ${classes.commentFontSize}`}
                       >
-                        {comment}
-                      </span>
-                    </Typography>
-                    <IconButton className={classes.likeComment}>
-                      <FavoriteBorderOutlinedIcon
-                        className={classes.likeCommentIcon}
-                      />
-                    </IconButton>
-                  </Box>
-                );
-              })}
+                        {commentedBy} •{" "}
+                        <span
+                          className={`${classes.comment} ${classes.commentFontSize}`}
+                        >
+                          {comment}
+                        </span>
+                      </Typography>
+                      <IconButton className={classes.likeComment}>
+                        <FavoriteBorderOutlinedIcon
+                          className={classes.likeCommentIcon}
+                        />
+                      </IconButton>
+                    </Box>
+                  );
+                })}
             </Box>
             <Box className={classes.addCommentBox}>
               <IconButton className={classes.actionIcon}>

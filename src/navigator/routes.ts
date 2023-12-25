@@ -8,6 +8,8 @@ enum routes {
   notifications = "/notifications",
   create = "/create",
   passwordReset = "/password/reset",
+  account = "/accounts/edit",
+  defaultPostLink = "/p/",
 }
 
 export default routes;
