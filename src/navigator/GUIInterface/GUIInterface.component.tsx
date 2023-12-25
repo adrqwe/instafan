@@ -30,13 +30,13 @@ const GUIInterface = ({
 
   return getCheckExistTokenDetails.valid ? (
     <Grid container columns={20}>
-      <Grid item xs={4} className={classes.gridMainMenuContainer}>
+      <Grid item xs={1} md={1} lg={4} className={classes.gridMainMenuContainer}>
         <Box className={classes.fixedMainMenu}>
-          <Header />
+          <Header changeToIcon className={classes.header} />
           <MainMenu />
         </Box>
       </Grid>
-      <Grid item xs={16} className={classes.gridDataContainer}>
+      <Grid item xs={20} md={19} lg={16} className={classes.gridDataContainer}>
         {children}
         <Box>
           <Footer />

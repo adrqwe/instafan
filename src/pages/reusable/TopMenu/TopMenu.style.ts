@@ -9,13 +9,23 @@ export const useStyles = createUseStyles({
     alignItems: "center",
   },
   header: {
-    width: 400,
+    width: 300,
     transform: "translateX(-60px);",
   },
   leftButtons: {
-    float: "right",
+    display: "flex",
+    justifyContent: "flex-end",
   },
   submitButton: {
     margin: 6,
+    whiteSpace: "nowrap",
+  },
+  "@media (max-width: 600px)": {
+    containerMenu: {
+      width: "100%",
+    },
+    header: {
+      transform: "translateX(0px);",
+    },
   },
 });

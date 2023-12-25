@@ -37,7 +37,7 @@ const HomePage = ({
         className={classes.imageList}
       >
         {homePageData.data.map(
-          ({ image, id, count_of_comments, count_of_likes }) => {
+          ({ image, id, count_of_comments, count_of_likes, description }) => {
             return (
               <ImageListItem
                 onClick={() => setSelectedPost(id)}
@@ -45,6 +45,8 @@ const HomePage = ({
                 key={id}
                 countOfComment={count_of_comments}
                 countOfLikes={count_of_likes}
+                description={description}
+                postId={id}
               />
             );
           }

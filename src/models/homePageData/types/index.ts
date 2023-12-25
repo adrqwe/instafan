@@ -9,6 +9,7 @@ export interface IHomePageDataSuccessPayload {
   count_of_likes: number;
   image: string;
   count_of_comments: number;
+  description: string;
 }
 
 export interface IHomePageDataReducer {

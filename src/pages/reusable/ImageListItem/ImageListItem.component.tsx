@@ -7,16 +7,21 @@ import { useStyles } from "./ImageListItem.style";
 import { IImageListItem } from "./ImageListItem.types";
 import { useTranslationContext } from "../../../models/translationsContext/translationsContext";
 import DecimalPoint from "../DecimalPoint/DecimalPoint";
+import { useNavigate } from "react-router-dom";
+import routes from "../../../navigator/routes";
 
 const ImageListItem = ({
   image,
   countOfComment,
   countOfLikes,
+  description,
+  postId,
   onClick,
 }: IImageListItem) => {
-  const [hoverVisible, setHoverVisible] = useState(false);
-
   const classes = useStyles();
+  const navigate = useNavigate();
+
+  const [hoverVisible, setHoverVisible] = useState(false);
 
   const { translate } = useTranslationContext();
   const translations = translate("imageListItem");
@@ -38,7 +43,6 @@ const ImageListItem = ({
 
   return (
     <Box
-      onClick={onClick}
       style={{ position: "relative" }}
       onMouseOver={() => setHoverVisible(true)}
       onMouseOut={() => {
@@ -46,14 +50,17 @@ const ImageListItem = ({
       }}
     >
       <ImageListItemMUI>
-        <img src={image} alt="" />
+        <img src={image} alt={description} />
       </ImageListItemMUI>
       <Box
         className={`${classes.imageHover} ${
           !hoverVisible && classes.imageNoHover
         }`}
       >
-        <span className={classes.centerInformationIcon}>
+        <span
+          className={`${classes.centerInformationIcon} ${classes.centerInformationIconDisplay}`}
+          onClick={onClick}
+        >
           <span className={classes.informationCountDisplay}>
             <FavoriteIcon className={classes.marginForIcon} />
             {roundCountOf(countOfLikes)}
@@ -63,6 +70,12 @@ const ImageListItem = ({
             {roundCountOf(countOfComment)}
           </span>
         </span>
+        <span
+          className={classes.centerInformationIcon}
+          onClick={() => {
+            navigate(`${routes.defaultPostLink}${postId}`);
+          }}
+        ></span>
       </Box>
     </Box>
   );

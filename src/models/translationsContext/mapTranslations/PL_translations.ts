@@ -113,7 +113,7 @@ export const PL_translations = {
     profileImage: {
       profilePicture: "Zdjęcie profilowe",
     },
-    detailOfPostModal: { addComment: "Dodaj komentarz...", post: "Opublikuj" },
+    detailOfPostModal: { addComment: "Dodaj komentarz...", post: "Wyślij" },
   },
   availableLanguages: {
     EN: "English",

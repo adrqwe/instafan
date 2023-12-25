@@ -76,7 +76,7 @@ const LoginForm = ({ getLogInDetails, mountedLogIn }: ILoginFormProps) => {
       autoComplete="on"
       action="javascript:void(0);"
     >
-      <Header />
+      <Header margin="50px 0" />
       <InputTextField
         placeholder={translations.login}
         size="medium"

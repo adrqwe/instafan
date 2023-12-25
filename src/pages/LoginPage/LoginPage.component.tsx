@@ -58,7 +58,7 @@ const LoginPage = ({}: ILoginPageProps) => {
     <>
       <Container className={classes.container}>
         <Grid container columns={2} className={classes.gridContainer}>
-          <Grid item xs={1} className={classes.gridImageContainer}>
+          <Grid item md={1} className={classes.gridImageContainer}>
             <div className={classes.divAppTeaser}>
               <img
                 src={homePhones}
@@ -71,7 +71,7 @@ const LoginPage = ({}: ILoginPageProps) => {
               {screenshotImage(3)}
             </div>
           </Grid>
-          <Grid item xs={1}>
+          <Grid item xs={2} md={1}>
             <Box className={`${classes.loginFormBox} ${classes.forms}`}>
               <LoginForm />
             </Box>
