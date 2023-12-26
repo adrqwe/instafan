@@ -18,6 +18,7 @@ import { useStyles } from "./DetailOfPostModal.style";
 import { IDetailOfPostModalProps } from "./DetailOfPostModal.types";
 import ProfileImage from "../../../reusable/ProfileImage";
 import { useTranslationContext } from "../../../../models/translationsContext/translationsContext";
+import { theme } from "../../../../theme";
 
 const defaultProfileImage = require("../../../../utils/default_profile_image.jpg");
 
@@ -105,17 +106,25 @@ const DetailOfPostModal = ({
             </Box>
             <Box className={classes.addCommentBox}>
               <IconButton className={classes.actionIcon}>
-                <FavoriteBorderOutlinedIcon style={{ color: "white" }} />
+                <FavoriteBorderOutlinedIcon
+                  style={{ color: theme.palette.common.white }}
+                />
               </IconButton>
               <IconButton>
-                <ChatBubbleOutlineOutlinedIcon style={{ color: "white" }} />
+                <ChatBubbleOutlineOutlinedIcon
+                  style={{ color: theme.palette.common.white }}
+                />
               </IconButton>
               <IconButton className={classes.actionIcon}>
-                <SendOutlinedIcon style={{ color: "white" }} />
+                <SendOutlinedIcon
+                  style={{ color: theme.palette.common.white }}
+                />
               </IconButton>
               <Box className={classes.commentInputBox}>
                 <IconButton>
-                  <SentimentSatisfiedOutlinedIcon style={{ color: "white" }} />
+                  <SentimentSatisfiedOutlinedIcon
+                    style={{ color: theme.palette.common.white }}
+                  />
                 </IconButton>
                 <input
                   className={classes.input}

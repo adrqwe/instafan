@@ -5,8 +5,10 @@ import { useStyles } from "./Header.style";
 import { useTranslationContext } from "../../../models/translationsContext/translationsContext";
 import routes from "../../../navigator/routes";
 import { IHeaderProps } from "./Header.types";
+import config from "../../../config";
 
-const logo = require("../../../utils/logo.png");
+const logoLightTheme = require(`../../../utils/logoLightTheme.png`);
+const logoDarkTheme = require(`../../../utils/logoDarkTheme.png`);
 const logoWithoutText = require("../../../utils/logoWithoutText.png");
 
 const Header = ({ margin, changeToIcon = false, className }: IHeaderProps) => {
@@ -18,13 +20,24 @@ const Header = ({ margin, changeToIcon = false, className }: IHeaderProps) => {
     <Box className={`${classes.box} ${className}`} style={{ margin: margin }}>
       <span className={classes.span}>
         <Link to={routes.homePage}>
-          <img
-            style={{ display: `${!changeToIcon && "inline-block"}` }}
-            src={logo}
-            className={classes.img}
-            alt={translations.logo}
-            draggable={false}
-          />
+          {config.activeTheme === "lightTheme" ? (
+            <img
+              style={{ display: `${!changeToIcon && "inline-block"}` }}
+              src={logoLightTheme}
+              className={classes.img}
+              alt={translations.logo}
+              draggable={false}
+            />
+          ) : (
+            <img
+              style={{ display: `${!changeToIcon && "inline-block"}` }}
+              src={logoDarkTheme}
+              className={classes.img}
+              alt={translations.logo}
+              draggable={false}
+            />
+          )}
+
           <img
             style={{ display: `${!changeToIcon && "none"}` }}
             src={logoWithoutText}

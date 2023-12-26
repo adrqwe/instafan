@@ -1,12 +1,15 @@
 import { createUseStyles } from "react-jss";
 
+import { theme } from "../../../theme";
+
 export const useStyles = createUseStyles({
   container: {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    backgroundColor: "white",
+    color: theme.palette.common.black,
+    backgroundColor: theme.palette.common.white,
     padding: 10,
     borderRadius: 10,
     overflow: "hidden",
@@ -26,5 +29,6 @@ export const useStyles = createUseStyles({
     justifyContent: "center",
     alignItems: "center",
     padding: "5px 0",
+    color: theme.palette.common.black,
   },
 });

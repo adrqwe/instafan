@@ -1,6 +1,7 @@
 import { Box, Button, Checkbox, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import CheckBoxOutlineBlankOutlinedIcon from "@mui/icons-material/CheckBoxOutlineBlankOutlined";
 
 import { ILoginFormProps } from "./LoginForm.types";
 import { useStyles } from "./LoginForm.style";
@@ -96,9 +97,14 @@ const LoginForm = ({ getLogInDetails, mountedLogIn }: ILoginFormProps) => {
         <Checkbox
           size="small"
           value={saveLoginDetails}
-          onChange={(e) => {
+          onChange={() => {
             setSaveLoginDetails(!saveLoginDetails);
           }}
+          icon={
+            <CheckBoxOutlineBlankOutlinedIcon
+              className={classes.checkboxIcon}
+            />
+          }
         />
         <Typography fontSize="small">{translations.saveYourLogin}</Typography>
       </Box>

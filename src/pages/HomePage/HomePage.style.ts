@@ -1,8 +1,10 @@
 import { createUseStyles } from "react-jss";
 
+import { theme } from "../../theme";
+
 export const useStyles = createUseStyles({
   gridMainMenuContainer: {
-    borderRight: "1px solid #E6E6E6",
+    borderRight: `1px solid ${theme.palette.grey[100]}`,
     position: "relative",
   },
   gridDataContainer: {

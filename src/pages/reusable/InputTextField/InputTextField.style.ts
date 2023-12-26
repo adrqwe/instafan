@@ -1,12 +1,14 @@
 import { createUseStyles } from "react-jss";
 
+import { theme } from "../../../theme";
+
 export const useStyles = createUseStyles({
   boxInput: {
     display: "flex",
     position: "relative",
-    backgroundColor: "rgb(250, 250, 250)",
-    border: "1px solid rgb(219, 219, 219)",
-    color: "rgb(100, 100, 100)",
+    backgroundColor: theme.palette.grey[50],
+    border: `1px solid ${theme.palette.grey[200]}`,
+    color: theme.palette.grey[700],
     borderRadius: 2,
     fontFamily: "Roboto",
   },
@@ -50,6 +52,7 @@ export const useStyles = createUseStyles({
     fontSize: "1em",
     overflow: "hidden",
     textOverflow: "ellipsis",
+    color: theme.palette.secondary.light,
   },
   scal: {
     height: "50%",
@@ -92,12 +95,12 @@ export const useStyles = createUseStyles({
     placeSelf: "end",
     position: "absolute",
     fontSize: "0.75em",
-    color: "black",
+    color: theme.palette.secondary.light,
     fontWeight: "bold",
     cursor: "pointer",
     padding: 2,
     "&:hover": {
-      color: "rgb(150, 150, 150)",
+      color: theme.palette.grey[400],
     },
   },
   checkInput: {

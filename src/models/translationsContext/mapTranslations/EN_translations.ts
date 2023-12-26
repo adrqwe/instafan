@@ -51,6 +51,9 @@ export const EN_translations = {
       credits:
         " © 2023 Instafan by Adrian Turski (this website represents a challenge that allows me to showcase my current skills)",
       nameOfSelect: "Switch Display Language",
+      nameOfSelectTheme: "Switch Display Theme",
+      darkTheme: "Dark Theme",
+      lightTheme: "Light Theme",
     },
     signUp: {
       accountCratedInfo:
