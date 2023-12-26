@@ -1,17 +1,30 @@
 import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 import { useStyles } from "./Footer.style";
 import { useTranslationContext } from "../../../models/translationsContext/translationsContext";
 import config from "../../../config";
 import { EN_translations } from "../../../models/translationsContext/mapTranslations";
-import { listOfActiveLanguage } from "../../../config/types";
+import Select from "./components/Select";
+import { LIST_OF_THEME } from "../../../theme";
+import { listOfActiveTheme } from "../../../config/types";
 
 const Footer = () => {
   const classes = useStyles();
   const { translate } = useTranslationContext();
   const translations = translate("footer");
+
+  const listOfThemeObject = () => {
+    let newListOfTheme = LIST_OF_THEME.availableThemes;
+
+    Object.keys(LIST_OF_THEME.availableThemes).map(
+      (e: string) =>
+        (newListOfTheme[e as listOfActiveTheme] =
+          translations[e as listOfActiveTheme])
+    );
+
+    return newListOfTheme;
+  };
 
   return (
     <>
@@ -34,33 +47,25 @@ const Footer = () => {
         <Link to="" className={classes.link}>
           {translations.topAccounts}
         </Link>
-        <span className={classes.selectBox}>
-          {EN_translations.availableLanguages[config.activeLanguage]}
-          <KeyboardArrowDownIcon className={classes.arrowIcon} />
-          <select
-            onChange={(e) => {
-              localStorage.setItem("selectedLanguage", e.target.value);
-              window.location.reload();
-            }}
-            aria-label={translations.nameOfSelect}
-            className={classes.languageSelect}
-            defaultValue={config.activeLanguage}
-          >
-            {Object.keys(EN_translations.availableLanguages).map(
-              (key: string, index: number) => {
-                return (
-                  <option key={index} value={key}>
-                    {
-                      EN_translations.availableLanguages[
-                        key as listOfActiveLanguage
-                      ]
-                    }
-                  </option>
-                );
-              }
-            )}
-          </select>
-        </span>
+
+        <Select
+          localStorageName="selectedLanguage"
+          selectedVisibleValue={
+            EN_translations.availableLanguages[config.activeLanguage]
+          }
+          ariaLabel={translations.nameOfSelect}
+          defaultValue={config.activeLanguage}
+          selectKeys={Object.keys(EN_translations.availableLanguages)}
+          fullObject={EN_translations.availableLanguages}
+        />
+        <Select
+          localStorageName="selectedTheme"
+          selectedVisibleValue={translations[config.activeTheme]}
+          ariaLabel={translations.nameOfSelectTheme}
+          defaultValue={config.activeTheme}
+          selectKeys={Object.keys(LIST_OF_THEME.availableThemes)}
+          fullObject={listOfThemeObject()}
+        />
       </Box>
       <div className={classes.by}>{translations.credits}</div>
     </>

@@ -1,5 +1,7 @@
 import { createUseStyles } from "react-jss";
 
+import { theme } from "../../../theme";
+
 export const useStyles = createUseStyles({
   imageNoHover: {
     display: "none",
@@ -9,13 +11,14 @@ export const useStyles = createUseStyles({
     top: 0,
     left: 0,
     width: "100%",
-    height: "calc(100% - 20px)",
+    height: "100%",
     backgroundColor: "rgba(0,0,0,0.25)",
     cursor: "pointer",
+    overflow: "hidden",
   },
   informationCountDisplay: {
     padding: 5,
-    color: "white",
+    color: theme.palette.common.white,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

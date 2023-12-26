@@ -5,6 +5,7 @@ import { ICommitCode } from "./CommitCode.types";
 import ErrorMessageTypography from "../ErrorMessageTypography";
 import { useTranslationContext } from "../../../../models/translationsContext/translationsContext";
 import ReportText from "../ReportText/ReportText.component";
+import { theme } from "../../../../theme";
 
 const emailImage = require("../../../../utils/emailImage.png");
 
@@ -65,7 +66,7 @@ const CommitCode = ({
       {backButton && backButton()}
       <ErrorMessageTypography errorMessage={errorMessages} />
       {commitMessage && (
-        <Typography color="green" textAlign="center">
+        <Typography color={theme.palette.success.main} textAlign="center">
           {commitMessage}
         </Typography>
       )}

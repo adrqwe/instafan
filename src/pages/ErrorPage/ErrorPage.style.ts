@@ -1,5 +1,7 @@
 import { createUseStyles } from "react-jss";
 
+import { theme } from "../../theme";
+
 export const useStyles = createUseStyles({
   container: {
     position: "fixed",
@@ -7,7 +9,7 @@ export const useStyles = createUseStyles({
     left: 0,
     width: "100%",
     height: "100vh",
-    backgroundColor: "white",
+    backgroundColor: theme.palette.common.white,
     zIndex: 100,
   },
   centerElement: {

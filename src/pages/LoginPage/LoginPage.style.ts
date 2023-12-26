@@ -1,5 +1,7 @@
 import { createUseStyles } from "react-jss";
 
+import { theme } from "../../theme";
+
 export const useStyles = createUseStyles({
   container: {
     marginTop: "7vh",
@@ -17,7 +19,7 @@ export const useStyles = createUseStyles({
     width: "65%",
     marginLeft: 10,
     padding: "10px 5px",
-    border: "1px solid rgba(0,0,0,0.2)",
+    border: `1px solid ${theme.palette.grey.A100}`,
   },
   loginFormBox: {
     height: "87%",
@@ -38,7 +40,7 @@ export const useStyles = createUseStyles({
   signUpLink: {
     marginLeft: 5,
     textDecoration: "none",
-    color: "rgb(0, 149, 246)",
+    color: theme.palette.info.main,
   },
   boxGoogleAppImage: {
     display: "flex",

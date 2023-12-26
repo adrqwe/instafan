@@ -51,6 +51,9 @@ export const PL_translations = {
       credits:
         " © 2023 Instafan autorstwa Adrian Turski (ta strona stanowi wyzwanie, które pozwala mi zaprezentować moje aktualne umiejętności)",
       nameOfSelect: "Zmień Język Wyświetlania",
+      nameOfSelectTheme: "Zmień Motyw Wyświetlania",
+      darkTheme: "Ciemny Motyw",
+      lightTheme: "Jasny Motyw",
     },
     signUp: {
       accountCratedInfo:

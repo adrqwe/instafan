@@ -1,5 +1,7 @@
 import { createUseStyles } from "react-jss";
 
+import { theme } from "../../../../theme";
+
 export const useStyles = createUseStyles({
   container: {
     display: "flex",
@@ -19,11 +21,11 @@ export const useStyles = createUseStyles({
     position: "fixed",
     top: 0,
     right: 0,
-    color: "white",
+    color: theme.palette.common.white,
     cursor: "pointer",
   },
   commentSection: {
-    backgroundColor: "black",
+    backgroundColor: theme.palette.common.black,
     display: "flex",
     flexDirection: "column",
   },
@@ -53,7 +55,7 @@ export const useStyles = createUseStyles({
   authorBox: {
     display: "flex",
     alignItems: "center",
-    borderBottom: "1px solid rgb(38, 38, 38)",
+    borderBottom: `1px solid ${theme.palette.grey[900]}`,
   },
   profilePictureBox: {
     height: 35,
@@ -61,23 +63,23 @@ export const useStyles = createUseStyles({
   },
   username: {
     marginLeft: 5,
-    color: "white",
+    color: theme.palette.common.white,
     fontWeight: "bold",
   },
   moreOptionsButton: {
-    color: "white",
+    color: theme.palette.common.white,
     margin: "5px 5px 5px auto",
     padding: 5,
     backgroundColor: "transparent",
     border: "none",
     cursor: "pointer",
     "&:hover": {
-      color: "gray",
+      color: theme.palette.grey[600],
     },
   },
   addCommentBox: {
-    borderTop: "1px solid rgb(38, 38, 38)",
-    color: "white",
+    borderTop: `1px solid ${theme.palette.grey[900]}`,
+    color: theme.palette.common.white,
   },
   actionIcon: {
     margin: "10px 10px",
@@ -85,11 +87,11 @@ export const useStyles = createUseStyles({
   commentInputBox: {
     padding: "10px 0",
     width: "100%",
-    borderTop: "1px solid rgb(38, 38, 38)",
+    borderTop: `1px solid ${theme.palette.grey[900]}`,
     display: "flex",
   },
   input: {
-    color: "white",
+    color: theme.palette.common.white,
     border: "none",
     outline: "none",
     "-webkit-appearance": "none",
@@ -108,7 +110,7 @@ export const useStyles = createUseStyles({
     "-webkit-user-select": "none",
   },
   disableButton: {
-    color: "gray !important",
+    color: `${theme.palette.grey[600]} !important`,
   },
   commentsBox: { height: "100%", overflow: "hidden" },
   comment: {
@@ -125,7 +127,7 @@ export const useStyles = createUseStyles({
     marginLeft: "auto",
   },
   likeCommentIcon: {
-    color: "white",
+    color: theme.palette.common.white,
     fontSize: "20px",
   },
 });

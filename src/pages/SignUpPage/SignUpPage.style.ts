@@ -1,5 +1,7 @@
 import { createUseStyles } from "react-jss";
 
+import { theme } from "../../theme";
+
 export const useStyles = createUseStyles({
   container: {
     marginTop: "2vh",
@@ -14,18 +16,18 @@ export const useStyles = createUseStyles({
   forms: {
     width: "300px",
     padding: "10px 30px",
-    border: "1px solid rgba(0,0,0,0.2)",
+    border: `1px solid ${theme.palette.grey.A100}`,
   },
   signUpTo: {
     margin: "0 auto",
-    color: "gray",
+    color: theme.palette.grey[600],
     fontWeight: "bold",
     width: "90%",
   },
   textField: {
     marginTop: 10,
     width: "90%",
-    color: "rgb(150,150,150)",
+    color: theme.palette.grey[400],
   },
   boxForm: {
     marginTop: 20,
@@ -35,10 +37,10 @@ export const useStyles = createUseStyles({
   },
   link: {
     textDecoration: "none",
-    color: "rgb(0, 55, 107)",
+    color: theme.palette.info.dark,
   },
   typography: {
-    color: "rgb(150,150,150)",
+    color: theme.palette.grey[400],
     marginTop: 20,
     width: "95%",
     fontSize: 12,
@@ -47,14 +49,14 @@ export const useStyles = createUseStyles({
   nextButton: {
     margin: "12px 0 5px 0",
     width: "100%",
-    backgroundColor: "rgb(0, 149, 246)",
+    backgroundColor: theme.palette.info.main,
   },
   backButton: {
     margin: "5px 0 4px 0",
     backgroundColor: "transparent",
   },
   reportLink: {
-    color: "rgb(0, 55, 107)",
+    color: theme.palette.info.dark,
     "&:hover": {
       textDecoration: "underline",
     },
@@ -69,7 +71,7 @@ export const useStyles = createUseStyles({
     fontSize: "0.9rem",
   },
   modalOpenLink: {
-    color: "rgb(0, 149, 246)",
+    color: theme.palette.info.main,
     cursor: "pointer",
   },
   modalFooter: {
@@ -89,7 +91,9 @@ export const useStyles = createUseStyles({
     fontWeight: "bold",
   },
   outlinedInput: {
-    backgroundColor: "rgb(250, 250, 250)",
+    backgroundColor: theme.palette.grey[50],
+    color: theme.palette.secondary.light,
+    border: `1px solid ${theme.palette.secondary.light}`,
     width: "90%",
     marginBottom: 15,
   },

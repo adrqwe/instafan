@@ -1,5 +1,7 @@
 import { createUseStyles } from "react-jss";
 
+import { theme } from "../../../theme";
+
 export const useStyles = createUseStyles({
   box: {
     width: "100%",
@@ -13,7 +15,7 @@ export const useStyles = createUseStyles({
     fontSize: "0.80rem",
     margin: "3px 7px",
     textDecoration: "none",
-    color: "rgb(100,100,100)",
+    color: theme.palette.grey[700],
     "&:hover": {
       textDecoration: "underline",
     },
@@ -30,7 +32,7 @@ export const useStyles = createUseStyles({
     margin: "3px 7px",
     fontFamily: "Roboto",
     fontSize: "0.80rem",
-    color: "rgb(100,100,100)",
+    color: theme.palette.grey[700],
     zIndex: 1,
     position: "relative",
     display: "flex",
@@ -42,7 +44,7 @@ export const useStyles = createUseStyles({
   by: {
     fontFamily: "Roboto",
     fontSize: "0.80rem",
-    color: "rgb(100,100,100)",
+    color: theme.palette.grey[700],
     display: "flex",
     justifyContent: "center",
     marginBottom: 30,

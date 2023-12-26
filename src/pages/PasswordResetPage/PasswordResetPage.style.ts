@@ -1,5 +1,7 @@
 import { createUseStyles } from "react-jss";
 
+import { theme } from "../../theme";
+
 export const useStyles = createUseStyles({
   container: {
     marginTop: "15vh",
@@ -11,7 +13,7 @@ export const useStyles = createUseStyles({
   forms: {
     width: "300px",
     padding: "10px 30px",
-    border: "1px solid rgba(0,0,0,0.2)",
+    border: `1px solid ${theme.palette.grey.A100}`,
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
@@ -20,11 +22,11 @@ export const useStyles = createUseStyles({
   textField: {
     marginTop: 10,
     width: "90%",
-    color: "rgb(150,150,150)",
+    color: theme.palette.grey[400],
   },
 
   typography: {
-    color: "rgb(150,150,150)",
+    color: theme.palette.grey[400],
     marginTop: 20,
     width: "95%",
     fontSize: 12,
@@ -33,7 +35,7 @@ export const useStyles = createUseStyles({
   sendCode: {
     margin: "20px 0 5px 0",
     width: "100%",
-    backgroundColor: "rgb(0, 149, 246)",
+    backgroundColor: theme.palette.info.main,
   },
 
   backButton: {
@@ -48,7 +50,7 @@ export const useStyles = createUseStyles({
   },
   separator: {
     position: "relative",
-    color: "rgb(140,140,140)",
+    color: theme.palette.grey[500],
     marginTop: 20,
     width: "70%",
   },
@@ -57,16 +59,16 @@ export const useStyles = createUseStyles({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    backgroundColor: "white",
+    backgroundColor: theme.palette.secondary.main,
     padding: "5px 28px",
   },
   link: {
     fontSize: 16,
     textDecoration: "none",
-    color: "rgb(100,100,100)",
+    color: theme.palette.grey[700],
     margin: "10px 0 10px 0",
     "&:hover": {
-      color: "rgb(140,140,140)",
+      color: theme.palette.grey[500],
     },
   },
   backToLoginLink: {
@@ -76,11 +78,11 @@ export const useStyles = createUseStyles({
     padding: "10px 0",
   },
   backToLoginBox: {
-    border: "1px solid rgba(0,0,0,0.2)",
+    border: `1px solid ${theme.palette.grey.A100}`,
     width: "360px",
     display: "flex",
     justifyContent: "center",
-    backgroundColor: "rgb(250,250,250)",
+    backgroundColor: theme.palette.grey[50],
     cursor: "pointer",
   },
   passwordInput: {
