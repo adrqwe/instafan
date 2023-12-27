@@ -14,6 +14,7 @@ const GUIInterface = ({
   getCheckExistTokenDetails,
   getLogInDetails,
   mountedCheckExistToken,
+  setLoaderState,
 }: IGUIInterfaceProps) => {
   const classes = useStyles();
 
@@ -28,6 +29,16 @@ const GUIInterface = ({
     mountedCheckExistToken({ token: currentToken.token });
   }, []);
 
+  useEffect(() => {
+    if (getCheckExistTokenDetails.status === 100) {
+      setLoaderState(true);
+    } else {
+      setTimeout(() => {
+        setLoaderState(false);
+      }, 500);
+    }
+  }, [getCheckExistTokenDetails]);
+
   return getCheckExistTokenDetails.valid ? (
     <Grid container columns={20}>
       <Grid item xs={1} md={1} lg={4} className={classes.gridMainMenuContainer}>
@@ -38,7 +49,7 @@ const GUIInterface = ({
       </Grid>
       <Grid item xs={20} md={19} lg={16} className={classes.gridDataContainer}>
         {children}
-        <Box>
+        <Box className={classes.footerBox}>
           <Footer />
         </Box>
       </Grid>
@@ -51,7 +62,7 @@ const GUIInterface = ({
         </Box>
         <span style={{ display: "block", height: 50 }}></span>
         {children}
-        <Box>
+        <Box className={classes.footerBox}>
           <Footer />
         </Box>
       </Grid>

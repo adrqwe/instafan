@@ -27,6 +27,9 @@ export const useStyles = createUseStyles({
     backgroundColor: theme.palette.secondary.main,
   },
   header: { display: "flex" },
+  footerBox: {
+    marginTop: "auto",
+  },
   "@media (max-width: 1200px)": {
     gridMainMenuContainer: { border: "none" },
     fixedMainMenu: {

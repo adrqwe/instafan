@@ -15,9 +15,15 @@ export const useStyles = createUseStyles({
   imageList: {
     width: "70%",
   },
+  imageListNone: {
+    display: "none",
+  },
   fixedMainMenu: {
     position: "fixed",
     width: "19vw",
+  },
+  circularProgress: {
+    marginTop: "30px",
   },
   "@media (max-width: 1200px)": {
     imageList: {
