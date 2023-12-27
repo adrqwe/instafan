@@ -120,6 +120,10 @@ export const EN_translations = {
       addComment: "Add a comment...",
       post: "Post",
     },
+    mainLoader: {
+      by: "Instafan by Adrian Turski",
+      logo: "Logo",
+    },
   },
   availableLanguages: {
     EN: "English",

@@ -6,8 +6,19 @@ import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";
 import PasswordResetPage from "../pages/PasswordResetPage";
 import GUIInterface from "./GUIInterface";
+import { INavigatorProps } from "./Navigator.types";
 
-const Navigator = () => {
+const Navigator = ({ setLoaderState }: INavigatorProps) => {
+  window.addEventListener(
+    "load",
+    () => {
+      setTimeout(() => {
+        setLoaderState(false);
+      }, 1000);
+    },
+    false
+  );
+
   return (
     <Routes>
       <Route path={routes.login} element={<LoginPage />} />
