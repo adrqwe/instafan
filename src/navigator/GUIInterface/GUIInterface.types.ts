@@ -13,6 +13,7 @@ export interface IGUIInterfaceFromState {
 }
 export interface IGUIInterfaceFromDispatch {
   mountedCheckExistToken: (data: TCheckExistToken) => void;
+  setLoaderState: (data: boolean) => void;
 }
 export type IGUIInterfaceProps = IGUIInterfaceFromState &
   IGUIInterfaceFromDispatch &

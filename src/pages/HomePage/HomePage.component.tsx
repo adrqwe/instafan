@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ImageList } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import { IHomePageProps } from "./HomePage.types";
 import { useStyles } from "./HomePage.style";
 import ImageListItem from "../reusable/ImageListItem";
 import DetailOfPostModal from "./components/DetailOfPostModal";
 import { ISingleHomePageDataSuccessPayload } from "../../models/homePageData/types";
+
+let imageInteraction = 0;
 
 const HomePage = ({
   homePageData,
@@ -18,6 +21,8 @@ const HomePage = ({
   const [selectedPost, setSelectedPost] = useState(0);
   const handleCloseModal = () => setSelectedPost(0);
 
+  const [imagesIsLoaded, setImagesIsLoaded] = useState(false);
+
   useEffect(() => {
     mounted();
   }, []);
@@ -28,13 +33,27 @@ const HomePage = ({
     }
   }, [selectedPost]);
 
+  const addImageInteraction = useCallback(() => {
+    imageInteraction++;
+    if (imageInteraction === homePageData.data.length) {
+      setImagesIsLoaded(true);
+    }
+  }, [homePageData]);
+
   return (
     <div className={classes.gridDataContainer}>
+      {!imagesIsLoaded && (
+        <div className={classes.circularProgress}>
+          <CircularProgress />
+        </div>
+      )}
       <ImageList
         variant="masonry"
         cols={3}
         gap={20}
-        className={classes.imageList}
+        className={`${classes.imageList} ${
+          !imagesIsLoaded && classes.imageListNone
+        }`}
       >
         {homePageData.data.map(
           ({ image, id, count_of_comments, count_of_likes, description }) => {
@@ -47,6 +66,9 @@ const HomePage = ({
                 countOfLikes={count_of_likes}
                 description={description}
                 postId={id}
+                onLoad={() => {
+                  addImageInteraction();
+                }}
               />
             );
           }

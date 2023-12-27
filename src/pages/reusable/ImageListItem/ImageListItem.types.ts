@@ -5,4 +5,5 @@ export interface IImageListItem {
   description: string;
   postId: number;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
+  onLoad: () => void;
 }

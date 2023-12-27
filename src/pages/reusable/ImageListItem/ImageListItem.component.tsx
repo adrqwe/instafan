@@ -17,6 +17,7 @@ const ImageListItem = ({
   description,
   postId,
   onClick,
+  onLoad,
 }: IImageListItem) => {
   const classes = useStyles();
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ const ImageListItem = ({
       }}
     >
       <ImageListItemMUI>
-        <img src={image} alt={description} />
+        <img src={image} alt={description} onLoad={onLoad} />
       </ImageListItemMUI>
       <Box
         className={`${classes.imageHover} ${
