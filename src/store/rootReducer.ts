@@ -7,6 +7,7 @@ import homePageDataReducer from "../models/homePageData/reducer";
 import signUpReducer from "../models/signUp/reducer";
 import logInReducer from "../models/logIn/reducer";
 import passwordResetReducer from "../models/passwordReset/reducer";
+import loaderReducer from "../models/loader/reducer";
 
 const rootReducer = combineReducers({
   transactions: transactionReducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   signUp: signUpReducer,
   logInReducer: logInReducer,
   passwordReset: passwordResetReducer,
+  loader: loaderReducer,
 });
 
 export default rootReducer;

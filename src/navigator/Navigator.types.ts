@@ -8,5 +8,6 @@ export interface INavigatorFromState {
 }
 export interface INavigatorFromDispatch {
   mountedCheckExistToken: (data: TCheckExistToken) => void;
+  setLoaderState: (data: boolean) => void;
 }
 export type INavigatorProps = INavigatorFromState & INavigatorFromDispatch;

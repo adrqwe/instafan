@@ -13,6 +13,7 @@ import { IAction as IHomePageDataAction } from "../models/homePageData/types";
 import { IAction as ISignUpAction } from "../models/signUp/types";
 import { IAction as ILogInAction } from "../models/logIn/types";
 import { IAction as IPasswordResetAction } from "../models/passwordReset/types";
+import { IAction as ILoaderAction } from "../models/loader/types";
 
 declare module "@Store" {
   export type IState = StateType<typeof rootReducer>;
@@ -24,7 +25,8 @@ declare module "@Store" {
     | IHomePageDataAction
     | ISignUpAction
     | ILogInAction
-    | IPasswordResetAction;
+    | IPasswordResetAction
+    | ILoaderAction;
 
   export type IService = IServices;
   export type IEpic = Epic<IAction, IAction, IState, IService>;
