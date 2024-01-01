@@ -1,1 +1,1 @@
-export const LOADER_STATE = "IF/loader/LOADER_STATE";
+export const LOADER_STATE = "IF/loader/_LOADER_STATE";

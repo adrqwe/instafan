@@ -31,4 +31,6 @@ export interface ILogInReducer {
   logInFailure: Error | null;
   checkExistTokenDetails: ICheckExistTokenSuccessPayload;
   checkExistTokenFailure: Error | null;
+  currentToken: TCurrentToken;
 }
+export type TCurrentToken = string | null;

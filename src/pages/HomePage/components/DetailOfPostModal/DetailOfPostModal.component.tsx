@@ -25,14 +25,15 @@ const defaultProfileImage = require("../../../../utils/default_profile_image.jpg
 const DetailOfPostModal = ({
   open,
   data,
+  comment,
   closeModal,
+  setComment,
+  postSubmit,
 }: IDetailOfPostModalProps) => {
   const classes = useStyles();
 
   const { translate } = useTranslationContext();
   const translations = translate("detailOfPostModal");
-
-  const [comment, setComment] = useState("");
 
   return (
     <Modal
@@ -135,6 +136,7 @@ const DetailOfPostModal = ({
                 <Button
                   variant="text"
                   disabled={!Boolean(comment)}
+                  onClick={postSubmit}
                   className={`${!comment && classes.disableButton}`}
                 >
                   {translations.post}

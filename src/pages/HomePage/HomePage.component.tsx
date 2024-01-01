@@ -1,27 +1,35 @@
 import { useCallback, useEffect, useState } from "react";
 import { ImageList } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useNavigate } from "react-router";
 
 import { IHomePageProps } from "./HomePage.types";
 import { useStyles } from "./HomePage.style";
 import ImageListItem from "../reusable/ImageListItem";
 import DetailOfPostModal from "./components/DetailOfPostModal";
 import { ISingleHomePageDataSuccessPayload } from "../../models/homePageData/types";
+import routes from "../../navigator/routes";
 
 let imageInteraction = 0;
 
 const HomePage = ({
   homePageData,
   singleHomePageData,
+  getCheckExistTokenDetails,
+  getCurrentToken,
   mounted,
   mountedSingleHomePageData,
+  mountedAddComment,
 }: IHomePageProps) => {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const [selectedPost, setSelectedPost] = useState(0);
   const handleCloseModal = () => setSelectedPost(0);
 
   const [imagesIsLoaded, setImagesIsLoaded] = useState(false);
+
+  const [comment, setComment] = useState("");
 
   useEffect(() => {
     mounted();
@@ -39,6 +47,19 @@ const HomePage = ({
       setImagesIsLoaded(true);
     }
   }, [homePageData]);
+
+  const postSubmit = () => {
+    if (getCheckExistTokenDetails.valid && getCurrentToken) {
+      mountedAddComment({
+        token: getCurrentToken,
+        postId: selectedPost,
+        comment: comment,
+      });
+    } else {
+      navigate(routes.login);
+      window.location.reload();
+    }
+  };
 
   return (
     <div className={classes.gridDataContainer}>
@@ -78,6 +99,9 @@ const HomePage = ({
         open={Boolean(selectedPost)}
         closeModal={handleCloseModal}
         data={singleHomePageData.data as ISingleHomePageDataSuccessPayload}
+        setComment={setComment}
+        comment={comment}
+        postSubmit={postSubmit}
       ></DetailOfPostModal>
     </div>
   );

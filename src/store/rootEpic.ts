@@ -6,6 +6,7 @@ import * as HomePageData from "../models/homePageData/epics";
 import * as SignUp from "../models/signUp/epics";
 import * as LogIn from "../models/logIn/epics";
 import * as PasswordReset from "../models/passwordReset/epics";
+import * as Posts from "../models/posts/epics";
 
 export default combineEpics(
   Transactions.fetchTransactionsWhenMounted,
@@ -34,11 +35,15 @@ export default combineEpics(
   LogIn.getLogInResponseWhenRequested,
   LogIn.fetchCheckExistTokenWhenMounted,
   LogIn.getCheckExistTokenResponseWhenRequested,
+  LogIn.fetchCurrentTokenWhenMountedCheckExistToken,
 
   PasswordReset.fetchConfirmAddressEmailWhenMounted,
   PasswordReset.getConfirmAddressEmailResponseWhenRequested,
   PasswordReset.fetchResendCodeWhenMounted,
   PasswordReset.getResendCodeResponseWhenRequested,
   PasswordReset.fetchChangePasswordWhenMounted,
-  PasswordReset.getChangePasswordResponseWhenRequested
+  PasswordReset.getChangePasswordResponseWhenRequested,
+
+  Posts.fetchAddCommentWhenMounted,
+  Posts.getAddCommentResponseWhenRequested
 );

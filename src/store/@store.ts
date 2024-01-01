@@ -14,6 +14,7 @@ import { IAction as ISignUpAction } from "../models/signUp/types";
 import { IAction as ILogInAction } from "../models/logIn/types";
 import { IAction as IPasswordResetAction } from "../models/passwordReset/types";
 import { IAction as ILoaderAction } from "../models/loader/types";
+import { IAction as IPostsAction } from "../models/posts/types";
 
 declare module "@Store" {
   export type IState = StateType<typeof rootReducer>;
@@ -26,7 +27,8 @@ declare module "@Store" {
     | ISignUpAction
     | ILogInAction
     | IPasswordResetAction
-    | ILoaderAction;
+    | ILoaderAction
+    | IPostsAction;
 
   export type IService = IServices;
   export type IEpic = Epic<IAction, IAction, IState, IService>;
