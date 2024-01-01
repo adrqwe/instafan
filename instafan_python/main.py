@@ -15,6 +15,7 @@ from fastapi import FastAPI, Body, Depends
 from app.accountChecker import accountChecker
 from app.mail import sendEmail
 from app.model import (
+    AddComment,
     ChangePassword,
     CheckExistToken,
     CommitCode,
@@ -307,6 +308,22 @@ def passwordChange(data: ChangePassword):
 
     else:
         return {"status": 500, "detail": "Token is invalid!"}
+
+
+@app.post("/add/comment", tags=["user"])
+def addComment(data: AddComment):
+    decode_token = decodeJWT(data.token)
+    if decode_token and decode_token["account_created"]:
+        user_id = decode_token["user_id"]
+        sql = f"INSERT INTO `comments` (`id`, `user_id`, `post_id`, `comment`) VALUES (NULL, (SELECT `id` FROM `users` WHERE `email`='{user_id}'), '{data.postId}', '{data.comment}')"
+        response = mysqlConnector(sql, commit=True)
+
+        if response["status"] == 500:
+            return {"status": 500, "detail": "Database error!", "added": False}
+
+        return {"status": 200, "detail": "Comment Added!", "added": True}
+    else:
+        return {"status": 500, "detail": "Token is invalid!", "added": False}
 
 
 @app.post("/posts", dependencies=[Depends(JWTBearer())], tags=["posts"])

@@ -3,5 +3,8 @@ import { ISingleHomePageDataSuccessPayload } from "../../../../models/homePageDa
 export interface IDetailOfPostModalProps {
   open: boolean;
   data: ISingleHomePageDataSuccessPayload;
+  comment: string;
   closeModal: () => void;
+  setComment: React.Dispatch<React.SetStateAction<string>>;
+  postSubmit: () => void;
 }

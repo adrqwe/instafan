@@ -15,6 +15,7 @@ import {
   mountedLogIn,
   postCheckExistToken,
   postLogIn,
+  setCurrentToken,
 } from "../actions";
 
 export const fetchLogInWhenMounted: _Store.IEpic = (action$, state$) => {
@@ -60,6 +61,18 @@ export const fetchCheckExistTokenWhenMounted: _Store.IEpic = (
     filter$(isActionOf(mountedCheckExistToken)),
     mergeMap$((action) => {
       return of$(postCheckExistToken.request(action.payload));
+    })
+  );
+};
+
+export const fetchCurrentTokenWhenMountedCheckExistToken: _Store.IEpic = (
+  action$,
+  state$
+) => {
+  return action$.pipe(
+    filter$(isActionOf(mountedCheckExistToken)),
+    mergeMap$((action) => {
+      return of$(setCurrentToken(action.payload.token));
     })
   );
 };

@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, Field, EmailStr, constr
 
 
 class PostSchema(BaseModel):
@@ -84,3 +84,9 @@ class CheckExistToken(BaseModel):
 
 class GetSingleHomePageData(BaseModel):
     id: int
+
+
+class AddComment(BaseModel):
+    postId: int
+    comment: constr(strip_whitespace=True, min_length=1)
+    token: str

@@ -9,12 +9,14 @@ import {
   _POST_CHECK_EXIST_TOKEN_REQUEST,
   _POST_CHECK_EXIST_TOKEN_SUCCESS,
   _POST_CHECK_EXIST_TOKEN_FAILURE,
+  CURRENT_TOKEN,
 } from "../constants/constants";
 import {
   TLogInRequest,
   ILogInSuccessPayload,
   TCheckExistToken,
   ICheckExistTokenSuccessPayload,
+  TCurrentToken,
 } from "../types";
 
 const { createStandardAction } = deprecated;
@@ -37,3 +39,6 @@ export const postCheckExistToken = createAsyncAction(
   _POST_CHECK_EXIST_TOKEN_SUCCESS,
   _POST_CHECK_EXIST_TOKEN_FAILURE
 )<TCheckExistToken, ICheckExistTokenSuccessPayload, Error>();
+
+export const setCurrentToken =
+  createStandardAction(CURRENT_TOKEN)<TCurrentToken>();
