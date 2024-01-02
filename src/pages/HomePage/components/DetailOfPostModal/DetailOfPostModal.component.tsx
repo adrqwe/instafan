@@ -29,6 +29,7 @@ const DetailOfPostModal = ({
   closeModal,
   setComment,
   postSubmit,
+  quickComment,
 }: IDetailOfPostModalProps) => {
   const classes = useStyles();
 
@@ -122,7 +123,7 @@ const DetailOfPostModal = ({
                 />
               </IconButton>
               <Box className={classes.commentInputBox}>
-                <IconButton>
+                <IconButton onClick={quickComment}>
                   <SentimentSatisfiedOutlinedIcon
                     style={{ color: theme.palette.common.white }}
                   />

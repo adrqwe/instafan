@@ -11,14 +11,14 @@ import {
 import { getHomePageData } from "../../models/homePageData/selectors/getHomePageData";
 import { getSingleHomePageData } from "../../models/homePageData/selectors/getSingleHomePageData";
 import { mountedAddComment } from "../../models/posts/actions";
-import { getAddCommentRespons } from "../../models/posts/selectors/getAddCommentRespons";
+import { getAddCommentResponse } from "../../models/posts/selectors/getAddCommentResponse";
 import { getCheckExistTokenDetails } from "../../models/logIn/selectors/getCheckExistTokenDetails";
 import { getCurrentToken } from "../../models/logIn/selectors/getCurrentToken";
 
 const mapStateToProps = (state: _Store.IState): IHomePageFromState => ({
   homePageData: getHomePageData(state),
   singleHomePageData: getSingleHomePageData(state),
-  getAddCommentResponse: getAddCommentRespons(state),
+  getAddCommentResponse: getAddCommentResponse(state),
   getCheckExistTokenDetails: getCheckExistTokenDetails(state),
   getCurrentToken: getCurrentToken(state),
 });

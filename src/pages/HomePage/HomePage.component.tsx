@@ -17,6 +17,7 @@ const HomePage = ({
   singleHomePageData,
   getCheckExistTokenDetails,
   getCurrentToken,
+  getAddCommentResponse,
   mounted,
   mountedSingleHomePageData,
   mountedAddComment,
@@ -37,6 +38,7 @@ const HomePage = ({
 
   useEffect(() => {
     if (selectedPost) {
+      setComment("");
       mountedSingleHomePageData({ id: selectedPost });
     }
   }, [selectedPost]);
@@ -50,6 +52,7 @@ const HomePage = ({
 
   const postSubmit = () => {
     if (getCheckExistTokenDetails.valid && getCurrentToken) {
+      setComment("");
       mountedAddComment({
         token: getCurrentToken,
         postId: selectedPost,
@@ -60,6 +63,26 @@ const HomePage = ({
       window.location.reload();
     }
   };
+
+  const quickComment = () => {
+    if (getCheckExistTokenDetails.valid && getCurrentToken) {
+      setComment("");
+      mountedAddComment({
+        token: getCurrentToken,
+        postId: selectedPost,
+        comment: "😊",
+      });
+    } else {
+      navigate(routes.login);
+      window.location.reload();
+    }
+  };
+
+  useEffect(() => {
+    if (getAddCommentResponse.added) {
+      mountedSingleHomePageData({ id: selectedPost });
+    }
+  }, [getAddCommentResponse]);
 
   return (
     <div className={classes.gridDataContainer}>
@@ -102,6 +125,7 @@ const HomePage = ({
         setComment={setComment}
         comment={comment}
         postSubmit={postSubmit}
+        quickComment={quickComment}
       ></DetailOfPostModal>
     </div>
   );

@@ -4,7 +4,7 @@ import { postAddComment } from "../actions";
 import { IAction, IPostsReducer } from "../types";
 
 const initialState: IPostsReducer = {
-  addCommentRespons: { status: 100, detail: null, added: false },
+  addCommentResponse: { status: 100, detail: null, added: false },
 };
 
 const postsReducer = (
@@ -15,7 +15,7 @@ const postsReducer = (
     case getType(postAddComment.success):
       return {
         ...state,
-        addCommentRespons: action.payload,
+        addCommentResponse: action.payload,
       };
 
     default:

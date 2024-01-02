@@ -7,4 +7,5 @@ export interface IDetailOfPostModalProps {
   closeModal: () => void;
   setComment: React.Dispatch<React.SetStateAction<string>>;
   postSubmit: () => void;
+  quickComment: () => void;
 }
