@@ -28,6 +28,7 @@ export const useStyles = createUseStyles({
     backgroundColor: theme.palette.common.black,
     display: "flex",
     flexDirection: "column",
+    height: "100%",
   },
   gridContainer: {
     maxWidth: "1250px",
@@ -112,7 +113,7 @@ export const useStyles = createUseStyles({
   disableButton: {
     color: `${theme.palette.grey[600]} !important`,
   },
-  commentsBox: { height: "100%", overflow: "hidden" },
+  commentsBox: { height: "100%", overflow: "hidden", overflowY: "scroll" },
   comment: {
     fontWeight: "normal",
   },

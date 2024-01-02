@@ -3,7 +3,7 @@ import { Selector } from "reselect";
 
 import { TAddCommentSuccessPayload } from "../types";
 
-export const getAddCommentRespons: Selector<
+export const getAddCommentResponse: Selector<
   _Store.IState,
   TAddCommentSuccessPayload
-> = (state) => state.posts.addCommentRespons;
+> = (state) => state.posts.addCommentResponse;

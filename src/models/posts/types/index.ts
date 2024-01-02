@@ -13,7 +13,7 @@ export interface IHomePageDataSuccessPayload {
 }
 
 export interface IPostsReducer {
-  addCommentRespons: TAddCommentSuccessPayload;
+  addCommentResponse: TAddCommentSuccessPayload;
 }
 
 export type TAddCommentSuccessPayload = {
