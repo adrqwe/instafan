@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { ImageList } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router";
+import moment from "moment";
 
 import { IHomePageProps } from "./HomePage.types";
 import { useStyles } from "./HomePage.style";
@@ -50,31 +51,25 @@ const HomePage = ({
     }
   }, [homePageData]);
 
-  const postSubmit = () => {
-    if (getCheckExistTokenDetails.valid && getCurrentToken) {
-      setComment("");
-      mountedAddComment({
-        token: getCurrentToken,
-        postId: selectedPost,
-        comment: comment,
-      });
-    } else {
-      navigate(routes.login);
-      window.location.reload();
-    }
-  };
+  const [commentCanBeSendTimestamp, setCommentCanBeSendTimestamp] = useState(0);
 
-  const quickComment = () => {
-    if (getCheckExistTokenDetails.valid && getCurrentToken) {
-      setComment("");
-      mountedAddComment({
-        token: getCurrentToken,
-        postId: selectedPost,
-        comment: "😊",
-      });
-    } else {
-      navigate(routes.login);
-      window.location.reload();
+  const checkCommentCanBeSendTimestamp = () =>
+    commentCanBeSendTimestamp < moment().unix();
+
+  const sendComment = (comment: string) => {
+    if (checkCommentCanBeSendTimestamp()) {
+      if (getCheckExistTokenDetails.valid && getCurrentToken) {
+        setComment("");
+        mountedAddComment({
+          token: getCurrentToken,
+          postId: selectedPost,
+          comment: comment,
+        });
+      } else {
+        navigate(routes.login);
+        window.location.reload();
+      }
+      setCommentCanBeSendTimestamp(moment().add(5, "second").unix());
     }
   };
 
@@ -124,8 +119,11 @@ const HomePage = ({
         data={singleHomePageData.data as ISingleHomePageDataSuccessPayload}
         setComment={setComment}
         comment={comment}
-        postSubmit={postSubmit}
-        quickComment={quickComment}
+        postSubmit={() => sendComment(comment)}
+        quickComment={() => {
+          sendComment("😊");
+        }}
+        commentCanBeSend={checkCommentCanBeSendTimestamp()}
       ></DetailOfPostModal>
     </div>
   );
