@@ -131,4 +131,22 @@ export const useStyles = createUseStyles({
     color: theme.palette.common.white,
     fontSize: "20px",
   },
+  "@keyframes shakeALittle": {
+    "25%": {
+      transform: "translateX(-5px)",
+    },
+    "50%": {
+      transform: "translateX(5px)",
+    },
+    "75%": {
+      transform: "translateX(-5px)",
+    },
+    "100%": {
+      transform: "translateX(5px)",
+    },
+  },
+  shakeALittle: {
+    animationName: "$shakeALittle",
+    animationDuration: "0.3s",
+  },
 });

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -26,6 +26,7 @@ const DetailOfPostModal = ({
   open,
   data,
   comment,
+  commentCanBeSend,
   closeModal,
   setComment,
   postSubmit,
@@ -35,6 +36,20 @@ const DetailOfPostModal = ({
 
   const { translate } = useTranslationContext();
   const translations = translate("detailOfPostModal");
+
+  const [shakeALittle, setShakeALittle] = useState(false);
+
+  useEffect(() => {
+    setShakeALittle(false);
+  }, [data]);
+
+  const shakeALittleAction = () => {
+    if (!commentCanBeSend && !shakeALittle) {
+      setShakeALittle(true);
+    } else {
+      setShakeALittle(false);
+    }
+  };
 
   return (
     <Modal
@@ -123,13 +138,21 @@ const DetailOfPostModal = ({
                 />
               </IconButton>
               <Box className={classes.commentInputBox}>
-                <IconButton onClick={quickComment}>
+                <IconButton
+                  onClick={() => {
+                    quickComment();
+                    shakeALittleAction();
+                  }}
+                  className={`${shakeALittle && classes.shakeALittle}`}
+                >
                   <SentimentSatisfiedOutlinedIcon
                     style={{ color: theme.palette.common.white }}
                   />
                 </IconButton>
                 <input
-                  className={classes.input}
+                  className={`${classes.input} ${
+                    shakeALittle && classes.shakeALittle
+                  }`}
                   placeholder={translations.addComment}
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
@@ -137,7 +160,10 @@ const DetailOfPostModal = ({
                 <Button
                   variant="text"
                   disabled={!Boolean(comment)}
-                  onClick={postSubmit}
+                  onClick={() => {
+                    postSubmit();
+                    shakeALittleAction();
+                  }}
                   className={`${!comment && classes.disableButton}`}
                 >
                   {translations.post}
