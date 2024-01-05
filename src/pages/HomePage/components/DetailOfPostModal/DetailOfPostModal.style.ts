@@ -113,7 +113,12 @@ export const useStyles = createUseStyles({
   disableButton: {
     color: `${theme.palette.grey[600]} !important`,
   },
-  commentsBox: { height: "100%", overflow: "hidden", overflowY: "scroll" },
+  commentsBox: {
+    height: "100%",
+    overflow: "hidden",
+    overflowY: "scroll",
+    scrollBehavior: "smooth",
+  },
   comment: {
     fontWeight: "normal",
   },

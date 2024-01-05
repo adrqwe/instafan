@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { ImageList } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useNavigate } from "react-router";
 import moment from "moment";
 
 import { IHomePageProps } from "./HomePage.types";
@@ -24,9 +23,10 @@ const HomePage = ({
   mountedAddComment,
 }: IHomePageProps) => {
   const classes = useStyles();
-  const navigate = useNavigate();
 
   const [selectedPost, setSelectedPost] = useState(0);
+  const [singlePostLoading, setSinglePostLoading] = useState(true);
+
   const handleCloseModal = () => setSelectedPost(0);
 
   const [imagesIsLoaded, setImagesIsLoaded] = useState(false);
@@ -42,11 +42,18 @@ const HomePage = ({
       setComment("");
       mountedSingleHomePageData({ id: selectedPost });
     }
+    setSinglePostLoading(true);
   }, [selectedPost]);
+
+  useEffect(() => {
+    if (singleHomePageData.status === 200) {
+      setSinglePostLoading(false);
+    }
+  }, [singleHomePageData]);
 
   const addImageInteraction = useCallback(() => {
     imageInteraction++;
-    if (imageInteraction === homePageData.data.length) {
+    if (imageInteraction >= homePageData.data.length) {
       setImagesIsLoaded(true);
     }
   }, [homePageData]);
@@ -66,8 +73,7 @@ const HomePage = ({
           comment: comment,
         });
       } else {
-        navigate(routes.login);
-        window.location.reload();
+        window.location.replace(routes.login);
       }
       setCommentCanBeSendTimestamp(moment().add(5, "second").unix());
     }
@@ -114,6 +120,7 @@ const HomePage = ({
         )}
       </ImageList>
       <DetailOfPostModal
+        loading={singlePostLoading}
         open={Boolean(selectedPost)}
         closeModal={handleCloseModal}
         data={singleHomePageData.data as ISingleHomePageDataSuccessPayload}
