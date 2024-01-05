@@ -1,6 +1,7 @@
 import { ISingleHomePageDataSuccessPayload } from "../../../../models/homePageData/types";
 
 export interface IDetailOfPostModalProps {
+  loading: boolean;
   open: boolean;
   data: ISingleHomePageDataSuccessPayload;
   comment: string;

@@ -9,7 +9,7 @@ export const useStyles = createUseStyles({
     left: 0,
     width: "100%",
     height: "100vh",
-    backgroundColor: theme.palette.common.white,
+    backgroundColor: theme.palette.secondary.main,
     zIndex: 100,
   },
   centerElement: {
