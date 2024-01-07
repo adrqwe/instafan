@@ -10,7 +10,12 @@ import { isActionOf, isOfType } from "typesafe-actions";
 import _Store from "@Store";
 import { LOCATION_CHANGE } from "react-router-redux";
 
-import { mountedAddComment, postAddComment } from "../actions";
+import {
+  mountedAddComment,
+  mountedLikeThePost,
+  postAddComment,
+  postLikeThePost,
+} from "../actions";
 
 export const fetchAddCommentWhenMounted: _Store.IEpic = (action$, state$) => {
   return action$.pipe(
@@ -41,6 +46,41 @@ export const getAddCommentResponseWhenRequested: _Store.IEpic = (
         ),
         catchError$((error) => {
           return of$(postAddComment.failure(error));
+        })
+      );
+    })
+  );
+};
+
+export const fetchLikeThePostWhenMounted: _Store.IEpic = (action$, state$) => {
+  return action$.pipe(
+    filter$(isActionOf(mountedLikeThePost)),
+    mergeMap$((action) => {
+      return of$(postLikeThePost.request(action.payload));
+    })
+  );
+};
+
+export const getLikeThePostResponseWhenRequested: _Store.IEpic = (
+  action$,
+  state$,
+  { postsService }
+) => {
+  return action$.pipe(
+    filter$(isActionOf(postLikeThePost.request)),
+    mergeMap$((action) => {
+      return from$(postsService.getLikeThePostResponse(action.payload)).pipe(
+        mergeMap$((data) => {
+          return of$(postLikeThePost.success(data));
+        }),
+        takeUntil$(
+          action$.pipe(
+            filter$(isOfType(LOCATION_CHANGE)),
+            tap$(() => postsService.cancelProducts())
+          )
+        ),
+        catchError$((error) => {
+          return of$(postLikeThePost.failure(error));
         })
       );
     })

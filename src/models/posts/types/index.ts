@@ -14,6 +14,7 @@ export interface IHomePageDataSuccessPayload {
 
 export interface IPostsReducer {
   addCommentResponse: TAddCommentSuccessPayload;
+  likeThePostResponse: TAddCommentSuccessPayload;
 }
 
 export type TAddCommentSuccessPayload = {
@@ -26,4 +27,10 @@ export type TAddCommentRequest = {
   postId: number;
   comment: string;
   token: string;
+};
+
+export type TLikeThePostRequest = {
+  postId: number;
+  token: string;
+  like: boolean;
 };

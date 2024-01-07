@@ -39,6 +39,7 @@ class HomePageDataService {
           HomePageDataService.getSingleHomePageDataUrl(),
           {
             id: data.id,
+            token: data.token,
           },
           {
             cancelToken: this.cancelTokenProducts.token,

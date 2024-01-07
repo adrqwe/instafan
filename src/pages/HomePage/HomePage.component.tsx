@@ -21,13 +21,17 @@ const HomePage = ({
   mounted,
   mountedSingleHomePageData,
   mountedAddComment,
+  mountedLikeThePost,
 }: IHomePageProps) => {
   const classes = useStyles();
 
   const [selectedPost, setSelectedPost] = useState(0);
   const [singlePostLoading, setSinglePostLoading] = useState(true);
 
-  const handleCloseModal = () => setSelectedPost(0);
+  const handleCloseModal = (likeStatus: boolean) => {
+    sendLikeThePost(selectedPost, likeStatus);
+    setSelectedPost(0);
+  };
 
   const [imagesIsLoaded, setImagesIsLoaded] = useState(false);
 
@@ -40,7 +44,10 @@ const HomePage = ({
   useEffect(() => {
     if (selectedPost) {
       setComment("");
-      mountedSingleHomePageData({ id: selectedPost });
+      mountedSingleHomePageData({
+        id: selectedPost,
+        token: `${getCurrentToken}`,
+      });
     }
     setSinglePostLoading(true);
   }, [selectedPost]);
@@ -81,9 +88,22 @@ const HomePage = ({
 
   useEffect(() => {
     if (getAddCommentResponse.added) {
-      mountedSingleHomePageData({ id: selectedPost });
+      mountedSingleHomePageData({
+        id: selectedPost,
+        token: `${getCurrentToken}`,
+      });
     }
   }, [getAddCommentResponse]);
+
+  const sendLikeThePost = (postId: number, like: boolean) => {
+    if (getCheckExistTokenDetails.valid && getCurrentToken) {
+      mountedLikeThePost({
+        token: getCurrentToken,
+        postId: postId,
+        like: like,
+      });
+    }
+  };
 
   return (
     <div className={classes.gridDataContainer}>

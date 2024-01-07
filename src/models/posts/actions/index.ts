@@ -5,8 +5,16 @@ import {
   _POST_ADD_COMMENT_REQUEST,
   _POST_ADD_COMMENT_SUCCESS,
   _POST_ADD_COMMENT_FAILURE,
+  MOUNTED_LIKE_THE_POST,
+  _POST_LIKE_THE_POST_FAILURE,
+  _POST_LIKE_THE_POST_REQUEST,
+  _POST_LIKE_THE_POST_SUCCESS,
 } from "../constants/constants";
-import { TAddCommentRequest, TAddCommentSuccessPayload } from "../types";
+import {
+  TAddCommentRequest,
+  TAddCommentSuccessPayload,
+  TLikeThePostRequest,
+} from "../types";
 
 const { createStandardAction } = deprecated;
 
@@ -18,3 +26,13 @@ export const postAddComment = createAsyncAction(
   _POST_ADD_COMMENT_SUCCESS,
   _POST_ADD_COMMENT_FAILURE
 )<TAddCommentRequest, TAddCommentSuccessPayload, Error>();
+
+export const mountedLikeThePost = createStandardAction(
+  MOUNTED_LIKE_THE_POST
+)<TLikeThePostRequest>();
+
+export const postLikeThePost = createAsyncAction(
+  _POST_LIKE_THE_POST_REQUEST,
+  _POST_LIKE_THE_POST_SUCCESS,
+  _POST_LIKE_THE_POST_FAILURE
+)<TLikeThePostRequest, TAddCommentSuccessPayload, Error>();

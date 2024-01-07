@@ -6,7 +6,7 @@ export interface IDetailOfPostModalProps {
   data: ISingleHomePageDataSuccessPayload;
   comment: string;
   commentCanBeSend: boolean;
-  closeModal: () => void;
+  closeModal: (likeStatus: boolean) => void;
   setComment: React.Dispatch<React.SetStateAction<string>>;
   postSubmit: () => void;
   quickComment: () => void;

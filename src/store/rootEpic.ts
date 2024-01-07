@@ -45,5 +45,7 @@ export default combineEpics(
   PasswordReset.getChangePasswordResponseWhenRequested,
 
   Posts.fetchAddCommentWhenMounted,
-  Posts.getAddCommentResponseWhenRequested
+  Posts.getAddCommentResponseWhenRequested,
+  Posts.fetchLikeThePostWhenMounted,
+  Posts.getLikeThePostResponseWhenRequested
 );

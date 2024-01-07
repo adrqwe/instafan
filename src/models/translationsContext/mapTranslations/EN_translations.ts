@@ -119,6 +119,7 @@ export const EN_translations = {
     detailOfPostModal: {
       addComment: "Add a comment...",
       post: "Post",
+      heartImage: "Picture of heart",
     },
     mainLoader: {
       by: "Instafan by Adrian Turski",

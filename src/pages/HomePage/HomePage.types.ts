@@ -10,6 +10,7 @@ import {
 import {
   TAddCommentRequest,
   TAddCommentSuccessPayload,
+  TLikeThePostRequest,
 } from "../../models/posts/types";
 
 export interface IHomePageFromState {
@@ -23,5 +24,6 @@ export interface IHomePageFromDispatch {
   mounted: () => void;
   mountedSingleHomePageData: (data: TSingleHomePageDataId) => void;
   mountedAddComment: (data: TAddCommentRequest) => void;
+  mountedLikeThePost: (data: TLikeThePostRequest) => void;
 }
 export type IHomePageProps = IHomePageFromState & IHomePageFromDispatch;

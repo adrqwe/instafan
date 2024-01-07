@@ -30,6 +30,7 @@ export interface ISingleHomePageDataSuccessPayload {
   description: string;
   authorId: number;
   authorName: string;
+  liked: number;
   comments: TCommentType[];
 }
 
@@ -49,4 +50,5 @@ export type TSingleHomePageData =
 
 export type TSingleHomePageDataId = {
   id: number;
+  token: string;
 };

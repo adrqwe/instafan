@@ -116,7 +116,11 @@ export const PL_translations = {
     profileImage: {
       profilePicture: "Zdjęcie profilowe",
     },
-    detailOfPostModal: { addComment: "Dodaj komentarz...", post: "Wyślij" },
+    detailOfPostModal: {
+      addComment: "Dodaj komentarz...",
+      post: "Wyślij",
+      heartImage: "Obrazek serca",
+    },
     mainLoader: {
       by: "Instafan autorstwa Adrian Turski",
       logo: "Logo",
