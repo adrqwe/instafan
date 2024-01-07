@@ -35,6 +35,7 @@ export const useStyles = createUseStyles({
     aspectRatio: "20 / 14",
   },
   pictureSection: {
+    height: "100%",
     display: "flex",
     justifyContent: "flex-end",
     position: "relative",
@@ -44,7 +45,10 @@ export const useStyles = createUseStyles({
     height: "100%",
     maxWidth: "100%",
     objectFit: "contain",
+  },
+  imageSpan: {
     zIndex: 1,
+    position: "relative",
   },
   imageShadow: {
     position: "absolute",
@@ -153,5 +157,44 @@ export const useStyles = createUseStyles({
   shakeALittle: {
     animationName: "$shakeALittle",
     animationDuration: "0.3s",
+  },
+  "@keyframes favoriteShrink": {
+    "0%": {
+      transform: "scale(1.3)",
+    },
+    "100%": {
+      transform: "scale(1)",
+    },
+  },
+  favorite: {
+    animationName: "$favoriteShrink",
+    animationDuration: "0.5s",
+    animationFillMode: "forwards",
+  },
+  "@keyframes floatingHeart": {
+    "0%": {
+      transform: "rotate(0.2turn) translate(-50%,-50%)",
+      opacity: 0,
+    },
+    "30%": {
+      transform: "rotate(0.0turn) translate(-50%,-50%)",
+      opacity: 1,
+    },
+    "100%": {
+      transform: "translate(-50%,-300%)",
+      opacity: 0,
+    },
+  },
+  floatingHeartOnDoubleClick: {
+    position: "absolute",
+    zIndex: 2,
+    top: "50%",
+    left: "50%",
+    animationName: "$floatingHeart",
+    animationDuration: "1.6s",
+    animationFillMode: "forwards",
+  },
+  heartImage: {
+    width: 100,
   },
 });

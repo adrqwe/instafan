@@ -1,10 +1,11 @@
 import { getType } from "typesafe-actions";
 
-import { postAddComment } from "../actions";
+import { postAddComment, postLikeThePost } from "../actions";
 import { IAction, IPostsReducer } from "../types";
 
 const initialState: IPostsReducer = {
   addCommentResponse: { status: 100, detail: null, added: false },
+  likeThePostResponse: { status: 100, detail: null, added: false },
 };
 
 const postsReducer = (
@@ -17,7 +18,11 @@ const postsReducer = (
         ...state,
         addCommentResponse: action.payload,
       };
-
+    case getType(postLikeThePost.success):
+      return {
+        ...state,
+        likeThePostResponse: action.payload,
+      };
     default:
       return state;
   }

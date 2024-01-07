@@ -14,6 +14,7 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import SentimentSatisfiedOutlinedIcon from "@mui/icons-material/SentimentSatisfiedOutlined";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import { useStyles } from "./DetailOfPostModal.style";
 import { IDetailOfPostModalProps } from "./DetailOfPostModal.types";
@@ -22,6 +23,7 @@ import { useTranslationContext } from "../../../../models/translationsContext/tr
 import { theme } from "../../../../theme";
 
 const defaultProfileImage = require("../../../../utils/default_profile_image.jpg");
+const heartIcon = require("../../../../utils/heartIcon.png");
 
 const DetailOfPostModal = ({
   open,
@@ -42,8 +44,15 @@ const DetailOfPostModal = ({
   const [shakeALittle, setShakeALittle] = useState(false);
   const commentsDiv = useRef<HTMLDivElement>(null);
 
+  const [like, setLike] = useState(false);
+  const handleSetLike = () => setLike(!like);
+
+  const [heartAnimation, setHeartAnimation] = useState(false);
+
   useEffect(() => {
     setShakeALittle(false);
+    setHeartAnimation(false);
+    setLike(Boolean(data.liked));
   }, [data]);
 
   const shakeALittleAction = () => {
@@ -67,7 +76,7 @@ const DetailOfPostModal = ({
   return (
     <Modal
       open={open}
-      onClose={closeModal}
+      onClose={() => closeModal(like)}
       className={`${classes.container} ${classes.noSelect}`}
     >
       <>
@@ -83,13 +92,27 @@ const DetailOfPostModal = ({
                     draggable={false}
                   />
                 </span>
-
-                <img
-                  src={data.image}
-                  alt={data.description}
-                  className={classes.image}
-                  draggable={false}
-                />
+                <span className={classes.imageSpan}>
+                  <img
+                    src={data.image}
+                    alt={data.description}
+                    className={classes.image}
+                    draggable={false}
+                    onDoubleClick={() => {
+                      setLike(true);
+                      setHeartAnimation(!heartAnimation);
+                    }}
+                  />
+                  {heartAnimation && (
+                    <span className={classes.floatingHeartOnDoubleClick}>
+                      <img
+                        src={heartIcon}
+                        className={classes.heartImage}
+                        alt={translations.heartImage}
+                      />
+                    </span>
+                  )}
+                </span>
               </Grid>
               <Grid item xs={7} className={classes.commentSection}>
                 <Box className={classes.authorBox}>
@@ -137,10 +160,20 @@ const DetailOfPostModal = ({
                     })}
                 </Box>
                 <Box className={classes.addCommentBox}>
-                  <IconButton className={classes.actionIcon}>
-                    <FavoriteBorderOutlinedIcon
-                      style={{ color: theme.palette.common.white }}
-                    />
+                  <IconButton
+                    className={classes.actionIcon}
+                    onClick={() => handleSetLike()}
+                  >
+                    {!like ? (
+                      <FavoriteBorderOutlinedIcon
+                        style={{ color: theme.palette.common.white }}
+                      />
+                    ) : (
+                      <FavoriteIcon
+                        style={{ color: theme.palette.error.light }}
+                        className={classes.favorite}
+                      />
+                    )}
                   </IconButton>
                   <IconButton>
                     <ChatBubbleOutlineOutlinedIcon
@@ -191,7 +224,10 @@ const DetailOfPostModal = ({
         ) : (
           <CircularProgress />
         )}
-        <button className={classes.closeButton} onClick={closeModal}>
+        <button
+          className={classes.closeButton}
+          onClick={() => closeModal(like)}
+        >
           <CloseOutlinedIcon fontSize="large" />
         </button>
       </>

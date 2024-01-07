@@ -10,7 +10,10 @@ import {
 } from "../../models/homePageData/actions";
 import { getHomePageData } from "../../models/homePageData/selectors/getHomePageData";
 import { getSingleHomePageData } from "../../models/homePageData/selectors/getSingleHomePageData";
-import { mountedAddComment } from "../../models/posts/actions";
+import {
+  mountedAddComment,
+  mountedLikeThePost,
+} from "../../models/posts/actions";
 import { getAddCommentResponse } from "../../models/posts/selectors/getAddCommentResponse";
 import { getCheckExistTokenDetails } from "../../models/logIn/selectors/getCheckExistTokenDetails";
 import { getCurrentToken } from "../../models/logIn/selectors/getCurrentToken";
@@ -30,6 +33,7 @@ const mapDispatchToProps = (
   mountedSingleHomePageData: (data) =>
     dispatch(mountedSingleHomePageData(data)),
   mountedAddComment: (data) => dispatch(mountedAddComment(data)),
+  mountedLikeThePost: (data) => dispatch(mountedLikeThePost(data)),
 });
 export default connect<
   IHomePageFromState,

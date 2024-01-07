@@ -84,9 +84,16 @@ class CheckExistToken(BaseModel):
 
 class GetSingleHomePageData(BaseModel):
     id: int
+    token: str
 
 
 class AddComment(BaseModel):
     postId: int
     comment: constr(strip_whitespace=True, min_length=1)
     token: str
+
+
+class LikeThePost(BaseModel):
+    postId: int
+    token: str
+    like: bool

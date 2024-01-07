@@ -21,6 +21,7 @@ from app.model import (
     CommitCode,
     ConfirmEmail,
     GetSingleHomePageData,
+    LikeThePost,
     LogIn,
     PostSchema,
     ResendCode,
@@ -326,11 +327,29 @@ def addComment(data: AddComment):
         return {"status": 500, "detail": "Token is invalid!", "added": False}
 
 
-@app.post("/posts", dependencies=[Depends(JWTBearer())], tags=["posts"])
-def add_post(post: PostSchema):
-    post.id = len(posts) + 1
-    posts.append(post.dict())
-    return {"data": "post added."}
+@app.post("/like/the/post", tags=["user"])
+def likeThePost(data: LikeThePost):
+    decode_token = decodeJWT(data.token)
+    if decode_token and decode_token["account_created"]:
+        user_id = decode_token["user_id"]
+        sql = f"SELECT `id`,`liked` FROM `postlikes` WHERE `user_id`= (SELECT `id` FROM `users` WHERE `email`='{user_id}') AND `post_id`='{data.postId}'"
+        response = mysqlConnector(sql)
+
+        if type(response["detail"]) != str:
+            if bool(response["detail"][0][1]) != data.like:
+                sql = f"UPDATE `postlikes` SET `liked` = '{1 if data.like else 0}' WHERE `postlikes`.`id` = '{response['detail'][0][0]}';"
+                response = mysqlConnector(sql, commit=True)
+
+        else:
+            sql = f"INSERT INTO `postlikes` (`id`, `user_id`, `post_id`, `liked`) VALUES (NULL, (SELECT `id` FROM `users` WHERE `email`='{user_id}'), '{data.postId}', '{1 if data.like else 0}')"
+            response = mysqlConnector(sql, commit=True)
+
+        if response["status"] == 500:
+            return {"status": 500, "detail": "Database error!", "added": False}
+
+        return {"status": 200, "detail": "Everything is correct!", "added": True}
+    else:
+        return {"status": 500, "detail": "Token is invalid!", "added": False}
 
 
 ########################################
@@ -361,7 +380,12 @@ def homePageData():
 
 @app.post("/single/homepage/data")
 def getSingleHomePageDate(data: GetSingleHomePageData):
-    sql = f"SELECT `posts`.id, posts.image, posts.description, posts.user_id, users.username FROM `posts`, users WHERE posts.user_id=users.id AND posts.id={data.id};"
+    decode_token = decodeJWT(data.token)
+    if decode_token and decode_token["account_created"]:
+        user_id = decode_token["user_id"]
+        sql = f"SELECT `posts`.id, posts.image, posts.description, posts.user_id, users.username, (SELECT `liked` FROM `postlikes` WHERE `user_id`=(SELECT `id` FROM `users` WHERE `email`='{user_id}') AND `post_id`='{data.id}') AS 'like'  FROM `posts`, users WHERE posts.user_id=users.id AND posts.id='{data.id}';"
+    else:
+        sql = f"SELECT `posts`.id, posts.image, posts.description, posts.user_id, users.username FROM `posts`, users WHERE posts.user_id=users.id AND posts.id={data.id};"
     response = mysqlConnector(sql)
     if response["status"] == 500:
         return {"data": [], "status": 500}
@@ -373,6 +397,7 @@ def getSingleHomePageDate(data: GetSingleHomePageData):
         "description": x[2],
         "authorId": x[3],
         "authorName": x[4],
+        "liked": 1 if len(x) == 6 and x[5] else 0,
     }
 
     sql = f"SELECT users.username, comments.id, comments.comment, users.id FROM `comments`, users WHERE users.id=comments.user_id AND comments.post_id = {data.id}"
