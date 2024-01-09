@@ -3,12 +3,15 @@ import smtplib
 from email.message import EmailMessage
 from string import Template
 from pathlib import Path
+from types import SimpleNamespace
 from decouple import config
 
+from app.mail.model.model import Mail
 
-def sendEmail(to: str, subject: str, name: str, code: str):
+
+def sendEmail(to: str, subject: str, name: str, code: str) -> Mail.SendMail:
     try:
-        html = Template(Path("index.html").read_text(encoding="utf8"))
+        html = Template(Path("./app/mail/index.html").read_text(encoding="utf8"))
         email = EmailMessage()
         email["from"] = "Instafan Project"
         email["to"] = to
@@ -19,9 +22,9 @@ def sendEmail(to: str, subject: str, name: str, code: str):
         with smtplib.SMTP(host="smtp.gmail.com", port=587) as smtp:
             smtp.ehlo()
             smtp.starttls()
-            smtp.login(config("EMAILLOGIN"), config("EMAILPASSWORD"))
+            smtp.login(config("EMAIL_LOGIN"), config("EMAIL_PASSWORD"))
             smtp.send_message(email)
+            return SimpleNamespace(**{"status": 200})
 
-        return {"status": 200}
-    except:
-        return {"status": 500}
+    except smtplib.SMTPResponseException:
+        return SimpleNamespace(**{"status": 500})
