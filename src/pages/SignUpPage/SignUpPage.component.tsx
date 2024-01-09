@@ -1,14 +1,7 @@
-import {
-  Box,
-  Button,
-  Container,
-  OutlinedInput,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import { useNavigate } from "react-router-dom";
 
 import { ISignUpPageProps } from "./SignUpPage.types";
 import { useStyles } from "./SignUpPage.style";
@@ -46,7 +39,6 @@ const SignUpPage = ({
   mountedConfirmCodeSignUp,
   mountedResendCodeSignUp,
 }: ISignUpPageProps) => {
-  const navigate = useNavigate();
   const monthsTranslate = useMonthTranslate();
   const { translate } = useTranslationContext();
   const translations = translate("signUp");
@@ -229,8 +221,7 @@ const SignUpPage = ({
   const [modalAccountCreate, setModalAccountCreate] = useState(false);
 
   const backToLoginPage = () => {
-    navigate(routes.login);
-    window.location.reload();
+    window.location.replace(routes.login);
   };
 
   useEffect(() => {

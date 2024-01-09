@@ -1,6 +1,6 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { IPasswordResetPageProps } from "./PasswordResetPage.types";
 import { useStyles } from "./PasswordResetPage.style";
@@ -28,8 +28,6 @@ const PasswordResetPage = ({
   mountedResendCodePasswordReset,
   mountedChangePassword,
 }: IPasswordResetPageProps) => {
-  const navigate = useNavigate();
-
   const { translate } = useTranslationContext();
   const translations = translate("passwordReset");
   const translationsLogin = translate("loginForm");
@@ -90,8 +88,7 @@ const PasswordResetPage = ({
   }, [getChangePasswordResponse]);
 
   const backToLoginPage = () => {
-    navigate(routes.login);
-    window.location.reload();
+    window.location.replace(routes.login);
   };
 
   const sendChangePassword = () => {
