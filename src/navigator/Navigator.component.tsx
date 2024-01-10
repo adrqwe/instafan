@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router";
+import { useEffect } from "react";
 
 import routes from "./routes";
 import HomePage from "../pages/HomePage";
@@ -9,15 +10,20 @@ import GUIInterface from "./GUIInterface";
 import { INavigatorProps } from "./Navigator.types";
 
 const Navigator = ({ setLoaderState }: INavigatorProps) => {
-  window.addEventListener(
-    "load",
-    () => {
-      setTimeout(() => {
-        setLoaderState(false);
-      }, 1000);
-    },
-    false
-  );
+  useEffect(() => {
+    window.addEventListener(
+      "load",
+      () =>
+        setTimeout(() => {
+          setLoaderState(false);
+        }, 1000),
+      false
+    );
+
+    window.setTimeout(() => {
+      setLoaderState(false);
+    }, 3000);
+  }, []);
 
   return (
     <Routes>
