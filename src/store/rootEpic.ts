@@ -47,5 +47,7 @@ export default combineEpics(
   Posts.fetchAddCommentWhenMounted,
   Posts.getAddCommentResponseWhenRequested,
   Posts.fetchLikeThePostWhenMounted,
-  Posts.getLikeThePostResponseWhenRequested
+  Posts.getLikeThePostResponseWhenRequested,
+  Posts.fetchCreatePostWhenMounted,
+  Posts.getCreatePostResponseWhenRequested
 );

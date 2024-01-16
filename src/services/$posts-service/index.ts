@@ -2,8 +2,10 @@ import axios, { CancelTokenSource } from "axios";
 
 import config from "../../config";
 import {
+  ICreatePostSuccessPayload,
   TAddCommentRequest,
   TAddCommentSuccessPayload,
+  TCreatePostRequest,
   TLikeThePostRequest,
 } from "../../models/posts/types";
 
@@ -13,6 +15,9 @@ class PostsService {
   }
   private static getLikeThePostUrl() {
     return `${config.api.default}like/the/post`;
+  }
+  private static getCreatePostUrl() {
+    return `${config.api.default}create/post`;
   }
 
   private cancelTokenProducts?: CancelTokenSource;
@@ -53,6 +58,31 @@ class PostsService {
             like: likeThePostData.like,
           },
           {
+            cancelToken: this.cancelTokenProducts.token,
+          }
+        )
+        .then((data) => resolve(data.data))
+        .catch((error) => reject(error));
+    });
+  }
+
+  public getCreatePostResponse(
+    createPost: TCreatePostRequest
+  ): Promise<ICreatePostSuccessPayload> {
+    return new Promise<ICreatePostSuccessPayload>((resolve, reject) => {
+      this.cancelTokenProducts = axios.CancelToken.source();
+      axios
+        .post(
+          PostsService.getCreatePostUrl(),
+          {
+            form: createPost.form.get("image"),
+            token: createPost.form.get("token"),
+            description: `$${createPost.form.get("description")}`,
+          },
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
             cancelToken: this.cancelTokenProducts.token,
           }
         )

@@ -1,10 +1,12 @@
+from typing import Annotated
 import uvicorn
 
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI
+from fastapi import FastAPI, Form, UploadFile
 
 from app.homePageData.model.model import HomePageData
 from app.auth.model.model import Auth
+from app.user.createPost import getCreatePost
 from app.user.model.model import User
 from app.auth.logIn.checkExistToken import getCheckExistToken
 from app.auth.logIn.confirmEmail import getConfirmEmail
@@ -95,6 +97,15 @@ def addComment(data: User.AddComment):
 @app.post("/like/the/post", tags=["user"])
 def likeThePost(data: User.LikeThePost):
     return getLikeThePost(data)
+
+
+@app.post("/create/post", tags=["user"])
+async def createPost(
+    form: UploadFile,
+    token: Annotated[str, Form()],
+    description: Annotated[str, Form()],
+):
+    return await getCreatePost(form, token, description[1:])
 
 
 if __name__ == "__main__":

@@ -21,3 +21,8 @@ class User:
         status: int
         detail: str
         added: bool
+
+    class CreatePostModel(BaseModel):
+        status: int
+        detail: str
+        added: bool

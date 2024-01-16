@@ -6,3 +6,4 @@ python-decouple
 mysql-connector-python
 pycryptodome
 bcrypt
+python-multipart

@@ -8,6 +8,7 @@ import SignUpPage from "../pages/SignUpPage";
 import PasswordResetPage from "../pages/PasswordResetPage";
 import GUIInterface from "./GUIInterface";
 import { INavigatorProps } from "./Navigator.types";
+import CreatePostPage from "../pages/CreatePostPage";
 
 const Navigator = ({ setLoaderState }: INavigatorProps) => {
   useEffect(() => {
@@ -16,13 +17,13 @@ const Navigator = ({ setLoaderState }: INavigatorProps) => {
       () =>
         setTimeout(() => {
           setLoaderState(false);
-        }, 1000),
+        }, 500),
       false
     );
 
     window.setTimeout(() => {
       setLoaderState(false);
-    }, 3000);
+    }, 1500);
   }, []);
 
   return (
@@ -74,7 +75,7 @@ const Navigator = ({ setLoaderState }: INavigatorProps) => {
         path={routes.create}
         element={
           <GUIInterface>
-            <HomePage />
+            <CreatePostPage />
           </GUIInterface>
         }
       />

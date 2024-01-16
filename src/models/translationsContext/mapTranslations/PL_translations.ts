@@ -125,6 +125,18 @@ export const PL_translations = {
       by: "Instafan autorstwa Adrian Turski",
       logo: "Logo",
     },
+    createPostPage: {
+      createNewPost: "Utwórz nowy post",
+      addImageIcon: "Ikona dodawania zdjęć",
+      drop: "Przeciągnij zdjęcia tutaj",
+      select: "Wybierz z komputera",
+      altText: "Dodany obraz",
+    },
+    formModal: {
+      placeholderOfDescriptionInput: "Napisz opis...",
+      description: "Opis",
+      share: "Opublikuj",
+    },
   },
   availableLanguages: {
     EN: "English",
