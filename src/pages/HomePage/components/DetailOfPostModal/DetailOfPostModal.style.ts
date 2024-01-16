@@ -33,6 +33,7 @@ export const useStyles = createUseStyles({
   gridContainer: {
     maxWidth: "1250px",
     aspectRatio: "20 / 14",
+    maxHeight: "95vh",
   },
   pictureSection: {
     height: "100%",

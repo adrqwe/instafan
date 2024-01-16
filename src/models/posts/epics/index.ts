@@ -12,8 +12,10 @@ import { LOCATION_CHANGE } from "react-router-redux";
 
 import {
   mountedAddComment,
+  mountedCreatePost,
   mountedLikeThePost,
   postAddComment,
+  postCreatePost,
   postLikeThePost,
 } from "../actions";
 
@@ -81,6 +83,41 @@ export const getLikeThePostResponseWhenRequested: _Store.IEpic = (
         ),
         catchError$((error) => {
           return of$(postLikeThePost.failure(error));
+        })
+      );
+    })
+  );
+};
+
+export const fetchCreatePostWhenMounted: _Store.IEpic = (action$, state$) => {
+  return action$.pipe(
+    filter$(isActionOf(mountedCreatePost)),
+    mergeMap$((action) => {
+      return of$(postCreatePost.request(action.payload));
+    })
+  );
+};
+
+export const getCreatePostResponseWhenRequested: _Store.IEpic = (
+  action$,
+  state$,
+  { postsService }
+) => {
+  return action$.pipe(
+    filter$(isActionOf(postCreatePost.request)),
+    mergeMap$((action) => {
+      return from$(postsService.getCreatePostResponse(action.payload)).pipe(
+        mergeMap$((data) => {
+          return of$(postCreatePost.success(data));
+        }),
+        takeUntil$(
+          action$.pipe(
+            filter$(isOfType(LOCATION_CHANGE)),
+            tap$(() => postsService.cancelProducts())
+          )
+        ),
+        catchError$((error) => {
+          return of$(postCreatePost.failure(error));
         })
       );
     })

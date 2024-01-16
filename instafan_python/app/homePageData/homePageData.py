@@ -3,7 +3,7 @@ from app.sql.mysqlConnector import mysqlConnector
 
 
 def getHomePageData() -> HomePageData.HomePageDataModel:
-    sql = 'SELECT DISTINCT posts.id, posts.count_of_likes, posts.image, (SELECT COUNT(comments.post_id) FROM comments WHERE posts.id=comments.post_id) AS "count_of_comments", posts.description FROM `posts`,comments WHERE posts.id=comments.post_id ORDER BY posts.id;'  # noqa: E501
+    sql = 'SELECT posts.id, posts.count_of_likes, posts.image, (SELECT COUNT(comments.post_id) FROM comments WHERE posts.id=comments.post_id) AS "count_of_comments", posts.description FROM `posts` ORDER BY posts.id;'  # noqa: E501
     response = mysqlConnector(sql)
 
     if response.status == 500:

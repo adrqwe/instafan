@@ -125,6 +125,18 @@ export const EN_translations = {
       by: "Instafan by Adrian Turski",
       logo: "Logo",
     },
+    createPostPage: {
+      createNewPost: "Create new post",
+      addImageIcon: "Add Image Icon",
+      drop: "Drag photos here",
+      select: "Select from computer",
+      altText: "Added Image",
+    },
+    formModal: {
+      placeholderOfDescriptionInput: "Write a caption...",
+      description: "Description",
+      share: "Share",
+    },
   },
   availableLanguages: {
     EN: "English",

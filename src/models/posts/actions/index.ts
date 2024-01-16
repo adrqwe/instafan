@@ -9,10 +9,16 @@ import {
   _POST_LIKE_THE_POST_FAILURE,
   _POST_LIKE_THE_POST_REQUEST,
   _POST_LIKE_THE_POST_SUCCESS,
+  _POST_CREATE_POST_SUCCESS,
+  _POST_CREATE_POST_REQUEST,
+  _POST_CREATE_POST_FAILURE,
+  MOUNTED_CREATE_POST,
 } from "../constants/constants";
 import {
+  ICreatePostSuccessPayload,
   TAddCommentRequest,
   TAddCommentSuccessPayload,
+  TCreatePostRequest,
   TLikeThePostRequest,
 } from "../types";
 
@@ -36,3 +42,12 @@ export const postLikeThePost = createAsyncAction(
   _POST_LIKE_THE_POST_SUCCESS,
   _POST_LIKE_THE_POST_FAILURE
 )<TLikeThePostRequest, TAddCommentSuccessPayload, Error>();
+
+export const mountedCreatePost =
+  createStandardAction(MOUNTED_CREATE_POST)<TCreatePostRequest>();
+
+export const postCreatePost = createAsyncAction(
+  _POST_CREATE_POST_REQUEST,
+  _POST_CREATE_POST_SUCCESS,
+  _POST_CREATE_POST_FAILURE
+)<TCreatePostRequest, ICreatePostSuccessPayload, Error>();

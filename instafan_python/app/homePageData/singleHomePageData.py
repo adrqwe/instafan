@@ -14,10 +14,11 @@ def getSingleHomePageDate(
         sql = f"SELECT `posts`.id, posts.image, posts.description, posts.user_id, users.username FROM `posts`, users WHERE posts.user_id=users.id AND posts.id={data.id};"
 
     response = mysqlConnector(sql)
+
     if response.status == 500:
         return {
             "status": 500,
-            "data": "dupa",
+            "data": "Database error!",
         }
 
     x = response.detail[0]
@@ -33,22 +34,17 @@ def getSingleHomePageDate(
     sql = f"SELECT users.username, comments.id, comments.comment, users.id FROM `comments`, users WHERE users.id=comments.user_id AND comments.post_id = {data.id}"
     response = mysqlConnector(sql)
 
-    if response.status == 500:
-        return {
-            "status": 500,
-            "data": [],
-        }
-
     array = []
-    for x in response.detail:
-        array.append(
-            {
-                "commentedBy": x[0],
-                "commentId": x[1],
-                "comment": x[2],
-                "userId": x[3],
-            }
-        )
+    if response.status == 200:
+        for x in response.detail:
+            array.append(
+                {
+                    "commentedBy": x[0],
+                    "commentId": x[1],
+                    "comment": x[2],
+                    "userId": x[3],
+                }
+            )
 
     singlePost["comments"] = array
     return {
