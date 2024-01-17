@@ -131,6 +131,12 @@ export const PL_translations = {
       drop: "Przeciągnij zdjęcia tutaj",
       select: "Wybierz z komputera",
       altText: "Dodany obraz",
+      postSuccess: "Post został dodany pomyślnie!",
+      successImage: "Ikona poprawnego dodania",
+      success: "Sukces!",
+      error: "Błąd!",
+      errorImage: "Ikona błędu",
+      thisFileIsInvalid: "Ten plik jest niepoprawny",
     },
     formModal: {
       placeholderOfDescriptionInput: "Napisz opis...",

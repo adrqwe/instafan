@@ -15,7 +15,7 @@ const Modal = ({
   const classes = useStyles();
 
   return (
-    <ModalMUI open={open}>
+    <ModalMUI open={open} onClose={handleClose}>
       <Box
         className={classes.container}
         style={{

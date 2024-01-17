@@ -1,13 +1,14 @@
-from typing import Annotated
 import uvicorn
 
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, Form, UploadFile
+from typing import Annotated
+from fastapi import FastAPI, UploadFile, Form
+from pydantic import constr
 
 from app.homePageData.model.model import HomePageData
 from app.auth.model.model import Auth
-from app.user.createPost import getCreatePost
 from app.user.model.model import User
+from app.user.createPost import getCreatePost
 from app.auth.logIn.checkExistToken import getCheckExistToken
 from app.auth.logIn.confirmEmail import getConfirmEmail
 from app.auth.logIn.passwordChange import getPasswordChange
@@ -103,7 +104,7 @@ def likeThePost(data: User.LikeThePost):
 async def createPost(
     form: UploadFile,
     token: Annotated[str, Form()],
-    description: Annotated[str, Form()],
+    description: Annotated[constr(strip_whitespace=True, max_length=401), Form()],
 ):
     return await getCreatePost(form, token, description[1:])
 

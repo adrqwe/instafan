@@ -10,10 +10,12 @@ import {
 import { mountedCreatePost } from "../../models/posts/actions";
 import { getCheckExistTokenDetails } from "../../models/logIn/selectors/getCheckExistTokenDetails";
 import { getCurrentToken } from "../../models/logIn/selectors/getCurrentToken";
+import { getCreatePostResponse } from "../../models/posts/selectors/getCreatePostResponse";
 
 const mapStateToProps = (state: _Store.IState): ICreatePostPageFromState => ({
   getCheckExistTokenDetails: getCheckExistTokenDetails(state),
   getCurrentToken: getCurrentToken(state),
+  getCreatePostResponse: getCreatePostResponse(state),
 });
 
 const mapDispatchToProps = (

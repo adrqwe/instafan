@@ -16,6 +16,7 @@ export interface IPostsReducer {
   addCommentResponse: TAddCommentSuccessPayload;
   likeThePostResponse: TAddCommentSuccessPayload;
   createPostResponse: ICreatePostSuccessPayload;
+  createPostResponseError: Error | null;
 }
 
 export type TAddCommentSuccessPayload = {

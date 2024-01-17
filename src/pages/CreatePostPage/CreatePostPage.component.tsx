@@ -1,18 +1,24 @@
-import { Button, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 
 import { ICreatePostPageProps } from "./CreatePostPage.types";
 import { useStyles } from "./CreatePostPage.style";
 import { useTranslationContext } from "../../models/translationsContext/translationsContext";
 import FormModal from "./components/FormModal";
+import Modal from "../reusable/Modal";
 
 const addImageIcon = require("../../utils/addImageIcon.png");
+const successCheck = require("../../utils/successCheck.png");
+const errorPng = require("../../utils/error.png");
+
+const acceptedFiles = ["image/png", "image/jpeg", "image/gif"];
 
 var imageReader = new FileReader();
 
 const CreatePostPage = ({
   getCheckExistTokenDetails,
   getCurrentToken,
+  getCreatePostResponse,
   mountedCreatePost,
 }: ICreatePostPageProps) => {
   const classes = useStyles();
@@ -40,7 +46,7 @@ const CreatePostPage = ({
       setFormData(form);
 
       setOpenModal(true);
-
+      setTextArea("");
       imageInputRef.current.removeEventListener("change", catchImage);
     }
   };
@@ -63,11 +69,17 @@ const CreatePostPage = ({
       setFormData(form);
 
       setOpenModal(true);
+      setTextArea("");
     }
   };
 
   useEffect(() => {
-    if (formData.get("image")) {
+    if (
+      formData.get("image") &&
+      acceptedFiles.find(
+        (e: string) => e === (formData.get("image") as File).type
+      )
+    ) {
       imageReader.onloadend = () => {
         setLoadingModal(false);
         if (imageReader.result) {
@@ -75,12 +87,14 @@ const CreatePostPage = ({
         }
       };
 
-      // console.log((formData.get("image") as File).type);
-
       imageReader.readAsDataURL(formData.get("image") as any);
     } else {
       setImagePreviewSrc("");
       handleCloseModal();
+      if (formData.get("image")) {
+        setErrorMsg(translations.thisFileIsInvalid);
+        setPostAddErrorModal(true);
+      }
     }
   }, [formData]);
 
@@ -106,6 +120,24 @@ const CreatePostPage = ({
       form: formData,
     });
   };
+
+  useEffect(() => {
+    if (getCreatePostResponse.status === 200) {
+      setPostAddSuccessModal(true);
+      setOpenModal(false);
+    }
+    if (getCreatePostResponse.status === 500) {
+      setErrorMsg(getCreatePostResponse.detail);
+      setPostAddErrorModal(true);
+    }
+
+    getCreatePostResponse.status = 100;
+  }, [getCreatePostResponse]);
+
+  const [postAddSuccessModal, setPostAddSuccessModal] = useState(false);
+  const [postAddErrorModal, setPostAddErrorModal] = useState(false);
+
+  const [errorMsg, setErrorMsg] = useState("");
 
   return (
     <div
@@ -152,6 +184,40 @@ const CreatePostPage = ({
         setTextArea={setTextArea}
         sharePost={sharePostAction}
       />
+      <Modal
+        width={380}
+        open={postAddSuccessModal}
+        handleClose={() => {
+          setPostAddSuccessModal(false);
+        }}
+        title={translations.success}
+      >
+        <Box className={classes.boxModalImage}>
+          <img
+            src={successCheck}
+            alt={translations.successImage}
+            draggable={false}
+          />
+        </Box>
+        <Typography variant="h6" textAlign={"center"} marginBottom={1}>
+          {translations.postSuccess}
+        </Typography>
+      </Modal>
+      <Modal
+        width={380}
+        open={postAddErrorModal}
+        handleClose={() => {
+          setPostAddErrorModal(false);
+        }}
+        title={translations.error}
+      >
+        <Box className={classes.boxModalImage}>
+          <img src={errorPng} alt={translations.errorImage} draggable={false} />
+        </Box>
+        <Typography variant="h6" textAlign={"center"} marginBottom={1}>
+          {errorMsg}
+        </Typography>
+      </Modal>
     </div>
   );
 };

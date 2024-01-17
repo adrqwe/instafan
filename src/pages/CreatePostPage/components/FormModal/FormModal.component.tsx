@@ -6,6 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { useEffect, useState } from "react";
 
 import { IFormModalProps } from "./FormModal.types";
 import { useStyles } from "./FormModal.style";
@@ -23,6 +24,8 @@ const FormModal = ({
 }: IFormModalProps) => {
   const classes = useStyles();
 
+  const [disableButton, setDisableButton] = useState(false);
+
   const { translate } = useTranslationContext();
   const translations = translate("formModal");
 
@@ -31,6 +34,10 @@ const FormModal = ({
       setTextArea(text);
     }
   };
+
+  useEffect(() => {
+    setDisableButton(false);
+  }, [loading]);
 
   return (
     <Modal
@@ -74,7 +81,15 @@ const FormModal = ({
                 ></textarea>
                 <div className={classes.counter}>{textArea.length} / 400</div>
                 <div className={classes.buttonBox}>
-                  <Button variant="contained" onClick={sharePost}>
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      sharePost();
+                      setDisableButton(true);
+                    }}
+                    disabled={disableButton}
+                    className={`${disableButton && classes.shareButton}`}
+                  >
                     {translations.share}
                   </Button>
                 </div>
