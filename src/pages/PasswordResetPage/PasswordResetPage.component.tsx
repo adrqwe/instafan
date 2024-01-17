@@ -31,6 +31,7 @@ const PasswordResetPage = ({
   const { translate } = useTranslationContext();
   const translations = translate("passwordReset");
   const translationsLogin = translate("loginForm");
+  const translationsSignUp = translate("signUp");
 
   const classes = useStyles();
 
@@ -50,7 +51,7 @@ const PasswordResetPage = ({
 
   const [next, setNext] = useState(0);
 
-  const nextStep = () => setNext(next + 1);
+  const nextStep = () => setNext(1);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [commitMessage, setCommitMessage] = useState("");
 
@@ -130,6 +131,20 @@ const PasswordResetPage = ({
               onChange={setPassword}
               validation
               valid={validPassword}
+              title={
+                <div style={{ whiteSpace: "nowrap" }}>
+                  <div>{translationsSignUp.passwordIsInvalid}</div>
+                  <ul style={{ margin: 0 }}>
+                    <li>{translationsSignUp.passwordMinLength}</li>
+                    <li>{translationsSignUp.passwordRequirements}</li>
+                    <li>
+                      {
+                        translationsSignUp.passwordWithoutSpaceAndOtherCharacters
+                      }
+                    </li>
+                  </ul>
+                </div>
+              }
             />
           </CommitCode>
         );
@@ -186,6 +201,11 @@ const PasswordResetPage = ({
         onChange={setLogin}
         validation
         valid={validLogin}
+        title={
+          <div style={{ whiteSpace: "nowrap" }}>
+            {translations.addressIsInvalid}
+          </div>
+        }
       />
       {buttonNext(validLogin, sendConfirmAddressEmail)}
       <Box className={classes.separator}>

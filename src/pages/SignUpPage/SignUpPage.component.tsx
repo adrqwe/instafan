@@ -145,9 +145,9 @@ const SignUpPage = ({
   );
   const [day, setDay] = useState(1);
   const [dayList, setDayList] = useState<any>({ 1: 1 });
-  const [year, setYear] = useState(moment().year() - 6);
+  const [year, setYear] = useState(moment().year() - 7);
   const years = () => {
-    const currentYear = moment().year() - 6;
+    const currentYear = moment().year() - 7;
     let dict: any = {};
     for (let i = currentYear; i > currentYear - 100; i--) {
       dict[i] = i;
@@ -377,6 +377,11 @@ const SignUpPage = ({
           validation
           valid={validLogin}
           onBlur={sendCheckSignUpData}
+          title={
+            <div style={{ whiteSpace: "nowrap" }}>
+              {translations.addressIsInvalid}
+            </div>
+          }
         />
         <InputTextField
           placeholder={translations.fullName}
@@ -397,6 +402,16 @@ const SignUpPage = ({
           validation
           valid={validUsername}
           onBlur={sendCheckSignUpData}
+          title={
+            <div style={{ whiteSpace: "nowrap" }}>
+              <div>{translations.usernameIsInvalid}</div>
+              <ul style={{ margin: 0 }}>
+                <li>{translations.usernameMinLength}</li>
+                <li>{translations.withoutSpecialCharacters}</li>
+                <li>{translations.withoutWhiteSpace}</li>
+              </ul>
+            </div>
+          }
         />
         <InputTextField
           placeholder={translations.password}
@@ -408,6 +423,16 @@ const SignUpPage = ({
           validation
           valid={validPassword}
           onBlur={sendCheckSignUpData}
+          title={
+            <div style={{ whiteSpace: "nowrap" }}>
+              <div>{translations.passwordIsInvalid}</div>
+              <ul style={{ margin: 0 }}>
+                <li>{translations.passwordMinLength}</li>
+                <li>{translations.passwordRequirements}</li>
+                <li>{translations.passwordWithoutSpaceAndOtherCharacters}</li>
+              </ul>
+            </div>
+          }
         />
         <Typography className={classes.typography}>
           {translations.peopleWhoUse}

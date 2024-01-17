@@ -15,6 +15,8 @@ const InputTextField = ({
   type = "text",
   validation,
   valid,
+  title,
+  width,
   onBlur,
   onChange,
 }: IInputTextField) => {
@@ -73,6 +75,15 @@ const InputTextField = ({
     },
   };
 
+  const [showToolTip, setShowToolTip] = useState(false);
+
+  useEffect(() => {
+    if (!valid && checkVisible) {
+      setShowToolTip(true);
+      window.setTimeout(() => setShowToolTip(false), 2000);
+    }
+  }, [valid, checkVisible]);
+
   return (
     <Box
       className={`${classes.boxInput} ${className} ${
@@ -125,7 +136,22 @@ const InputTextField = ({
             {valid ? (
               <CheckCircleOutlineIcon color={"success"} />
             ) : (
-              <HighlightOffIcon color={"error"} />
+              <span className={classes.toolTipBox}>
+                <HighlightOffIcon color={"error"} />
+                <span
+                  className={`${classes.toolTip} ${
+                    showToolTip && classes.toolTipDisplay
+                  }`}
+                  style={{ width: `${width}px` }}
+                >
+                  {title}
+                </span>
+                <span
+                  className={`${classes.triangle} ${
+                    showToolTip && classes.toolTipDisplay
+                  }`}
+                ></span>
+              </span>
             )}
           </span>
         )}

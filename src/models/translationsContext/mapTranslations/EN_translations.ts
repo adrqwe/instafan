@@ -49,7 +49,7 @@ export const EN_translations = {
       terms: "Terms",
       topAccounts: "Top Accounts",
       credits:
-        " © 2023 Instafan by Adrian Turski (this website represents a challenge that allows me to showcase my current skills)",
+        "2024 Instafan by Adrian Turski (this website represents a challenge that allows me to showcase my current skills)",
       nameOfSelect: "Switch Display Language",
       nameOfSelectTheme: "Switch Display Theme",
       darkTheme: "Dark Theme",
@@ -91,6 +91,17 @@ export const EN_translations = {
       resend: "Resend Code.",
       confirmationCode: "Confirmation Code",
       emailImage: "Email Image",
+      addressIsInvalid: "This email address is invalid or in use",
+      usernameIsInvalid: "This username is invalid or in use",
+      usernameMinLength: "min. 4 characters",
+      withoutSpecialCharacters: "without special characters (ą, !, ö...)",
+      withoutWhiteSpace: "without space",
+      passwordIsInvalid: "Password is invalid:",
+      passwordMinLength: "min. 8 characters",
+      passwordRequirements:
+        "minimum: 1 uppercase letter, 1 lowercase letter, 1 special character",
+      passwordWithoutSpaceAndOtherCharacters:
+        "without spaces and characters ą, ż, ö...",
     },
     errorPage: {
       criticalError: "Critical Page Error! Please try again later.",
@@ -112,6 +123,7 @@ export const EN_translations = {
       passwordChangedImage: "Password Changed Image",
       passwordChangedInfo:
         "The password has been changed correctly! You will be redirected to the login page in a moment.",
+      addressIsInvalid: "This email address is invalid",
     },
     profileImage: {
       profilePicture: "Profile picture of",
@@ -142,6 +154,10 @@ export const EN_translations = {
       placeholderOfDescriptionInput: "Write a caption...",
       description: "Description",
       share: "Share",
+    },
+    workingProgressPage: {
+      notYetReady: "The site is not yet ready",
+      wrenchIcon: "Wrench Icon",
     },
   },
   availableLanguages: {

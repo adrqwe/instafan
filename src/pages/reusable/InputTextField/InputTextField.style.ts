@@ -112,4 +112,38 @@ export const useStyles = createUseStyles({
   checkInputHidden: {
     display: "none",
   },
+  toolTipBox: {
+    zIndex: 1,
+    display: "flex",
+    alignItems: "center",
+    position: "relative",
+    justifyContent: "center",
+    "&:hover span": {
+      display: "inline",
+    },
+    color: theme.palette.common.white,
+  },
+  toolTip: {
+    position: "absolute",
+    transform: "translateY(20px)",
+    top: "50%",
+    fontSize: 15,
+    zIndex: 10,
+    backgroundColor: theme.palette.grey[800],
+    padding: "2px 5px",
+    borderRadius: 5,
+    display: "none",
+  },
+  triangle: {
+    display: "none",
+    position: "absolute",
+    top: "29px",
+    width: 20,
+    aspectRatio: "1 / 1",
+    transform: "rotate(45deg)",
+    backgroundColor: theme.palette.grey[800],
+  },
+  toolTipDisplay: {
+    display: "inline",
+  },
 });

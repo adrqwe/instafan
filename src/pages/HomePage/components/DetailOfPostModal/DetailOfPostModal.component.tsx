@@ -53,6 +53,15 @@ const DetailOfPostModal = ({
     setShakeALittle(false);
     setHeartAnimation(false);
     setLike(Boolean(data.liked));
+
+    if (data.description) {
+      data.comments.unshift({
+        commentedBy: data.authorName,
+        commentId: -1,
+        comment: data.description,
+        userId: data.authorId,
+      });
+    }
   }, [data]);
 
   const shakeALittleAction = () => {
