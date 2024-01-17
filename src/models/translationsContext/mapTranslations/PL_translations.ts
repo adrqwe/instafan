@@ -49,7 +49,7 @@ export const PL_translations = {
       terms: "Regulamin",
       topAccounts: "Najpopularniejsze konta",
       credits:
-        " © 2023 Instafan autorstwa Adrian Turski (ta strona stanowi wyzwanie, które pozwala mi zaprezentować moje aktualne umiejętności)",
+        "2024 Instafan autorstwa Adrian Turski (ta strona stanowi wyzwanie, które pozwala mi zaprezentować moje aktualne umiejętności)",
       nameOfSelect: "Zmień Język Wyświetlania",
       nameOfSelectTheme: "Zmień Motyw Wyświetlania",
       darkTheme: "Ciemny Motyw",
@@ -91,6 +91,17 @@ export const PL_translations = {
       resend: "Wyślij kod ponownie.",
       confirmationCode: "Kod Potwierdzający",
       emailImage: "Obrazek pocztówki",
+      addressIsInvalid: "Ten adres e-mail jest nieprawidłowy lub jest w użyciu",
+      usernameIsInvalid: "Ta nazwa jest nieprawidłowa lub jest w użyciu",
+      usernameMinLength: "min. 4 znaki",
+      withoutSpecialCharacters: "bez znaków specjalnych (ą, !, ö...)",
+      withoutWhiteSpace: "brak spacji",
+      passwordIsInvalid: "Hasło nie spełnia wymagań:",
+      passwordMinLength: "min. 8 znaki",
+      passwordRequirements:
+        "minimum: 1 duża litera, 1 mała litera, 1 znak specjalny",
+      passwordWithoutSpaceAndOtherCharacters:
+        "bez spacji and znaków ą, ż, ö...",
     },
     errorPage: {
       criticalError: "Krytyczny błąd strony! Spróbuj ponownie później.",
@@ -112,6 +123,7 @@ export const PL_translations = {
       passwordChangedImage: "Obraz Zmieniono Hasło",
       passwordChangedInfo:
         "Hasło zostało zmienione poprawnie! Za chwile zostaniesz przeniesiony na stronę logowanie.",
+      addressIsInvalid: "Ten adres e-mail jest nieprawidłowy",
     },
     profileImage: {
       profilePicture: "Zdjęcie profilowe",
@@ -142,6 +154,10 @@ export const PL_translations = {
       placeholderOfDescriptionInput: "Napisz opis...",
       description: "Opis",
       share: "Opublikuj",
+    },
+    workingProgressPage: {
+      notYetReady: "Strona nie jest jeszcze gotowa",
+      wrenchIcon: "Ikona klucza",
     },
   },
   availableLanguages: {

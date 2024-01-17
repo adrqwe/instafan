@@ -9,6 +9,7 @@ import PasswordResetPage from "../pages/PasswordResetPage";
 import GUIInterface from "./GUIInterface";
 import { INavigatorProps } from "./Navigator.types";
 import CreatePostPage from "../pages/CreatePostPage";
+import WorkingProgressPage from "../pages/WorkingProgressPage";
 
 const Navigator = ({ setLoaderState }: INavigatorProps) => {
   useEffect(() => {
@@ -43,7 +44,7 @@ const Navigator = ({ setLoaderState }: INavigatorProps) => {
         path={routes.search}
         element={
           <GUIInterface>
-            <HomePage />
+            <WorkingProgressPage />
           </GUIInterface>
         }
       />
@@ -51,7 +52,7 @@ const Navigator = ({ setLoaderState }: INavigatorProps) => {
         path={routes.explore}
         element={
           <GUIInterface>
-            <HomePage />
+            <WorkingProgressPage />
           </GUIInterface>
         }
       />
@@ -59,7 +60,7 @@ const Navigator = ({ setLoaderState }: INavigatorProps) => {
         path={routes.messages}
         element={
           <GUIInterface>
-            <HomePage />
+            <WorkingProgressPage />
           </GUIInterface>
         }
       />
@@ -67,7 +68,7 @@ const Navigator = ({ setLoaderState }: INavigatorProps) => {
         path={routes.notifications}
         element={
           <GUIInterface>
-            <HomePage />
+            <WorkingProgressPage />
           </GUIInterface>
         }
       />

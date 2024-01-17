@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface IInputTextField {
   placeholder?: string;
   size?: "small" | "medium" | "large";
@@ -6,6 +8,8 @@ export interface IInputTextField {
   type?: "password" | "text" | string;
   validation?: boolean;
   valid?: boolean;
+  width?: number;
+  title?: ReactNode;
   onChange: React.Dispatch<React.SetStateAction<string>>;
   onBlur?: () => void;
 }

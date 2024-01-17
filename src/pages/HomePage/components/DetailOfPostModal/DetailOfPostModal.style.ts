@@ -62,7 +62,9 @@ export const useStyles = createUseStyles({
     display: "flex",
     alignItems: "center",
     borderBottom: `1px solid ${theme.palette.grey[900]}`,
+    width: "100%",
   },
+
   profilePictureBox: {
     height: 35,
     margin: 8,
@@ -126,6 +128,7 @@ export const useStyles = createUseStyles({
   },
   comment: {
     fontWeight: "normal",
+    wordBreak: "break-word",
   },
   commentFontSize: { fontSize: "0.95rem", marginTop: 8 },
   commentBox: {
