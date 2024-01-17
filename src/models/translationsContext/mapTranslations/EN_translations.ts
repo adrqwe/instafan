@@ -131,6 +131,12 @@ export const EN_translations = {
       drop: "Drag photos here",
       select: "Select from computer",
       altText: "Added Image",
+      postSuccess: "The post has been added successfully!",
+      successImage: "Success Icon",
+      success: "Success!",
+      error: "Error!",
+      errorImage: "Error Icon",
+      thisFileIsInvalid: "This file is invalid",
     },
     formModal: {
       placeholderOfDescriptionInput: "Write a caption...",

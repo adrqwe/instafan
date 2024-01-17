@@ -17,6 +17,7 @@ const ErrorPage = ({
   getResendCodePasswordResetFailure,
   getChangePasswordResponseFailure,
   getCheckExistTokenFailure,
+  getCreatePostFailure,
 }: IErrorPageProps) => {
   const classes = useStyles();
 
@@ -35,7 +36,8 @@ const ErrorPage = ({
       getConfirmAddressEmailFailure ||
       getResendCodePasswordResetFailure ||
       getChangePasswordResponseFailure ||
-      getCheckExistTokenFailure
+      getCheckExistTokenFailure ||
+      getCreatePostFailure
     ) {
       setError(true);
       document.body.style.overflow = "hidden";
@@ -50,6 +52,7 @@ const ErrorPage = ({
     getResendCodePasswordResetFailure,
     getChangePasswordResponseFailure,
     getCheckExistTokenFailure,
+    getCreatePostFailure,
   ]);
 
   return error ? (

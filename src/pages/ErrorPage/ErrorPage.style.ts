@@ -10,7 +10,7 @@ export const useStyles = createUseStyles({
     width: "100%",
     height: "100vh",
     backgroundColor: theme.palette.secondary.main,
-    zIndex: 100,
+    zIndex: 10000,
   },
   centerElement: {
     position: "absolute",

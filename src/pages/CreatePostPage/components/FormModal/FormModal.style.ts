@@ -89,4 +89,8 @@ export const useStyles = createUseStyles({
     marginTop: "auto",
     textAlign: "end",
   },
+  shareButton: {
+    color: `${theme.palette.grey[800]} !important`,
+    border: "1px solid",
+  },
 });

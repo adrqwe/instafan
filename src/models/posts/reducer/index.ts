@@ -7,6 +7,7 @@ const initialState: IPostsReducer = {
   addCommentResponse: { status: 100, detail: null, added: false },
   likeThePostResponse: { status: 100, detail: null, added: false },
   createPostResponse: { status: 100, detail: null, added: false },
+  createPostResponseError: null,
 };
 
 const postsReducer = (
@@ -29,7 +30,12 @@ const postsReducer = (
         ...state,
         createPostResponse: action.payload,
       };
-
+    //errors
+    case getType(postCreatePost.failure):
+      return {
+        ...state,
+        createPostResponseError: action.payload,
+      };
     default:
       return state;
   }
