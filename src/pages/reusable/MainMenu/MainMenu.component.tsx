@@ -47,6 +47,7 @@ const MainMenu = () => {
 
   const logoutAction = () => {
     localStorage.setItem("access_token", "");
+    sessionStorage.setItem("access_token", "");
     window.location.replace(routes.login);
   };
 

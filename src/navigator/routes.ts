@@ -10,6 +10,7 @@ enum routes {
   passwordReset = "/password/reset",
   account = "/accounts/edit",
   defaultPostLink = "/p/",
+  postLink = "/p/:id",
 }
 
 export default routes;

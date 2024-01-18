@@ -24,6 +24,9 @@ const GUIInterface = ({
       currentToken.token = getLogInDetails.token;
     } else {
       currentToken.token = localStorage.getItem("access_token");
+      if (!currentToken.token) {
+        currentToken.token = sessionStorage.getItem("access_token");
+      }
     }
 
     mountedCheckExistToken({ token: currentToken.token });

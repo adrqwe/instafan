@@ -213,6 +213,12 @@ const DetailOfPostModal = ({
                       placeholder={translations.addComment}
                       value={comment}
                       onChange={(e) => setComment(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          postSubmit();
+                          shakeALittleAction();
+                        }
+                      }}
                     />
                     <Button
                       variant="text"

@@ -10,6 +10,7 @@ import GUIInterface from "./GUIInterface";
 import { INavigatorProps } from "./Navigator.types";
 import CreatePostPage from "../pages/CreatePostPage";
 import WorkingProgressPage from "../pages/WorkingProgressPage";
+import SinglePostPage from "../pages/SinglePostPage";
 
 const Navigator = ({ setLoaderState }: INavigatorProps) => {
   useEffect(() => {
@@ -77,6 +78,14 @@ const Navigator = ({ setLoaderState }: INavigatorProps) => {
         element={
           <GUIInterface>
             <CreatePostPage />
+          </GUIInterface>
+        }
+      />
+      <Route
+        path={routes.postLink}
+        element={
+          <GUIInterface>
+            <SinglePostPage />
           </GUIInterface>
         }
       />
