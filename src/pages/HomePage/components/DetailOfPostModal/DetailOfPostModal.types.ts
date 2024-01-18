@@ -10,4 +10,5 @@ export interface IDetailOfPostModalProps {
   setComment: React.Dispatch<React.SetStateAction<string>>;
   postSubmit: () => void;
   quickComment: () => void;
+  share: () => void;
 }

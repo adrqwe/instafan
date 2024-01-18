@@ -159,6 +159,12 @@ export const EN_translations = {
       notYetReady: "The site is not yet ready",
       wrenchIcon: "Wrench Icon",
     },
+    accountPage: {
+      logout: "Logout",
+    },
+    homePage: {
+      copied: "Link copied!",
+    },
   },
   availableLanguages: {
     EN: "English",

@@ -437,13 +437,13 @@ const SignUpPage = ({
         <Typography className={classes.typography}>
           {translations.peopleWhoUse}
           <br />
-          <Link to="/search" className={`${classes.link} `}>
+          <Link to="" className={`${classes.link} `}>
             {translations.learnMore}
           </Link>
         </Typography>
         <Typography className={classes.typography}>
           {translations.agreeTerms}{" "}
-          <Link to="/search" className={`${classes.link} `}>
+          <Link to="" className={`${classes.link} `}>
             {translationsFooter.terms}.
           </Link>{" "}
           {translations.cookiesInformation}

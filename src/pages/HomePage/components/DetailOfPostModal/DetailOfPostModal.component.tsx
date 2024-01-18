@@ -35,6 +35,7 @@ const DetailOfPostModal = ({
   setComment,
   postSubmit,
   quickComment,
+  share,
 }: IDetailOfPostModalProps) => {
   const classes = useStyles();
 
@@ -189,7 +190,7 @@ const DetailOfPostModal = ({
                       style={{ color: theme.palette.common.white }}
                     />
                   </IconButton>
-                  <IconButton className={classes.actionIcon}>
+                  <IconButton className={classes.actionIcon} onClick={share}>
                     <SendOutlinedIcon
                       style={{ color: theme.palette.common.white }}
                     />

@@ -11,6 +11,7 @@ import { INavigatorProps } from "./Navigator.types";
 import CreatePostPage from "../pages/CreatePostPage";
 import WorkingProgressPage from "../pages/WorkingProgressPage";
 import SinglePostPage from "../pages/SinglePostPage";
+import AccountPage from "../pages/AccountPage";
 
 const Navigator = ({ setLoaderState }: INavigatorProps) => {
   useEffect(() => {
@@ -86,6 +87,14 @@ const Navigator = ({ setLoaderState }: INavigatorProps) => {
         element={
           <GUIInterface>
             <SinglePostPage />
+          </GUIInterface>
+        }
+      />
+      <Route
+        path={routes.account}
+        element={
+          <GUIInterface>
+            <AccountPage />
           </GUIInterface>
         }
       />

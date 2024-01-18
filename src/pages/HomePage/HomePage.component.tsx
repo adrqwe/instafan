@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { ImageList } from "@mui/material";
+import { ImageList, Snackbar } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import moment from "moment";
 
@@ -9,6 +9,7 @@ import ImageListItem from "../reusable/ImageListItem";
 import DetailOfPostModal from "./components/DetailOfPostModal";
 import { ISingleHomePageDataSuccessPayload } from "../../models/homePageData/types";
 import routes from "../../navigator/routes";
+import { useTranslationContext } from "../../models/translationsContext/translationsContext";
 
 let imageInteraction = 0;
 
@@ -24,6 +25,9 @@ const HomePage = ({
   mountedLikeThePost,
 }: IHomePageProps) => {
   const classes = useStyles();
+
+  const { translate } = useTranslationContext();
+  const translations = translate("homePage");
 
   const [selectedPost, setSelectedPost] = useState(0);
   const [singlePostLoading, setSinglePostLoading] = useState(true);
@@ -105,6 +109,20 @@ const HomePage = ({
     }
   };
 
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const handleCloseSnackbar = () => setSnackbarOpen(false);
+
+  const copyPostLink = () => {
+    setSnackbarOpen(true);
+    navigator.clipboard.writeText(
+      window.location.protocol +
+        "//" +
+        window.location.host +
+        routes.defaultPostLink +
+        selectedPost
+    );
+  };
+
   return (
     <div className={classes.gridDataContainer}>
       {!imagesIsLoaded && (
@@ -151,7 +169,15 @@ const HomePage = ({
           sendComment("😊");
         }}
         commentCanBeSend={checkCommentCanBeSendTimestamp()}
+        share={copyPostLink}
       ></DetailOfPostModal>
+      <Snackbar
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        open={snackbarOpen}
+        message={translations.copied}
+        autoHideDuration={2000}
+        onClose={handleCloseSnackbar}
+      />
     </div>
   );
 };
