@@ -13,7 +13,7 @@ const ReportText = () => {
   return (
     <Typography className={classes.typography}>
       {translationsLoginForm.reportTextStart}{" "}
-      <Link to="/search" className={`${classes.link} ${classes.reportLink}`}>
+      <Link to="" className={`${classes.link} ${classes.reportLink}`}>
         {translationsLoginForm.reportLinkText}
       </Link>{" "}
       {translationsLoginForm.reportTextEnd}

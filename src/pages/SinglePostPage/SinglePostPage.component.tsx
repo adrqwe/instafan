@@ -6,6 +6,7 @@ import {
   IconButton,
   Button,
   CircularProgress,
+  Snackbar,
 } from "@mui/material";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
@@ -41,12 +42,12 @@ const SinglePostPage = ({
   const params = useParams();
 
   const { translate } = useTranslationContext();
+  const translationsHomePage = translate("homePage");
   const translationsDetailOfPostModal = translate("detailOfPostModal");
 
   const [postId, setPostId] = useState<string | undefined>(params.id);
 
   useEffect(() => {
-    singleHomePageData.status = 100;
     setPostId(params.id);
   }, [params]);
 
@@ -56,6 +57,7 @@ const SinglePostPage = ({
 
   useEffect(() => {
     if (postId) {
+      singleHomePageData.status = 100;
       mountedSingleHomePageData({
         id: Number(postId),
         token: `${getCurrentToken}`,
@@ -157,6 +159,20 @@ const SinglePostPage = ({
     sendLikeThePost(Number(postId), like);
   }, [like]);
 
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const handleCloseSnackbar = () => setSnackbarOpen(false);
+
+  const copyPostLink = () => {
+    setSnackbarOpen(true);
+    navigator.clipboard.writeText(
+      window.location.protocol +
+        "//" +
+        window.location.host +
+        routes.defaultPostLink +
+        postId
+    );
+  };
+
   return (
     <div className={classesSingelPostPage.container}>
       {singleHomePageData.status === 200 && data ? (
@@ -221,7 +237,7 @@ const SinglePostPage = ({
                   style={{ color: theme.palette.secondary.light }}
                 />
               </IconButton>
-              <IconButton className={classes.actionIcon}>
+              <IconButton className={classes.actionIcon} onClick={copyPostLink}>
                 <SendOutlinedIcon
                   style={{ color: theme.palette.secondary.light }}
                 />
@@ -300,6 +316,13 @@ const SinglePostPage = ({
       ) : (
         <CircularProgress />
       )}
+      <Snackbar
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        open={snackbarOpen}
+        message={translationsHomePage.copied}
+        autoHideDuration={2000}
+        onClose={handleCloseSnackbar}
+      />
     </div>
   );
 };
