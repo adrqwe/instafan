@@ -38,7 +38,6 @@ const LoginForm = ({ getLogInDetails, mountedLogIn }: ILoginFormProps) => {
         variant="contained"
         className={classes.submitButton}
         onClick={sendLogIn}
-        type="submit"
       >
         {translations.logIn}
       </Button>
@@ -65,7 +64,7 @@ const LoginForm = ({ getLogInDetails, mountedLogIn }: ILoginFormProps) => {
       if (saveLoginDetails) {
         localStorage.setItem("access_token", getLogInDetails.token);
       } else {
-        localStorage.setItem("access_token", "");
+        sessionStorage.setItem("access_token", getLogInDetails.token);
       }
       navigate(routes.homePage);
     }
@@ -75,7 +74,11 @@ const LoginForm = ({ getLogInDetails, mountedLogIn }: ILoginFormProps) => {
     <form
       className={classes.form}
       autoComplete="on"
-      action="javascript:void(0);"
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          sendLogIn();
+        }
+      }}
     >
       <Header margin="50px 0" />
       <InputTextField
