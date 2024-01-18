@@ -80,7 +80,7 @@ const DetailOfPostModal = ({
 
   useEffect(() => {
     scrollToEnd();
-  }, [loading, data]);
+  }, [data]);
 
   return (
     <Modal
