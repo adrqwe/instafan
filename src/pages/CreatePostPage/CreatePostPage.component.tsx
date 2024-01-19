@@ -79,7 +79,7 @@ const CreatePostPage = ({
       acceptedFiles.find(
         (e: string) => e === (formData.get("image") as File).type
       ) &&
-      (formData.get("image") as File).size < 3000000
+      (formData.get("image") as File).size <= 3000000
     ) {
       imageReader.onloadend = () => {
         setLoadingModal(false);
@@ -93,10 +93,12 @@ const CreatePostPage = ({
       setImagePreviewSrc("");
       handleCloseModal();
       if (formData.get("image")) {
-        setErrorMsg(translations.thisFileIsInvalid);
-        if ((formData.get("image") as File).size < 3000000) {
+        if ((formData.get("image") as File).size > 3000000) {
           setErrorMsg(translations.thisFileIsTooBig);
+        } else {
+          setErrorMsg(translations.thisFileIsInvalid);
         }
+
         setPostAddErrorModal(true);
         setOpenModal(false);
       }

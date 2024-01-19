@@ -17,6 +17,9 @@ async def getCreatePost(
     if form.content_type not in ["image/jpeg", "image/png", "image/gif"]:
         return {"status": 500, "detail": "File is not a photo", "added": False}
 
+    if form.size > 3000000:
+        return {"status": 500, "detail": "File is too large", "added": False}
+
     decode_token = decodeJWT(token)
     if not decode_token or not decode_token.account_created:
         return {"status": 500, "detail": "Token is invalid!", "added": False}
