@@ -97,4 +97,7 @@ export const useStyles = createUseStyles({
     width: "90%",
     marginBottom: 15,
   },
+  resendInvalid: {
+    color: theme.palette.grey.A200,
+  },
 });

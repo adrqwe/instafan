@@ -149,6 +149,7 @@ export const EN_translations = {
       error: "Error!",
       errorImage: "Error Icon",
       thisFileIsInvalid: "This file is invalid",
+      thisFileIsTooBig: "This file is too large (3MB limit)",
     },
     formModal: {
       placeholderOfDescriptionInput: "Write a caption...",
