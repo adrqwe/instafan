@@ -174,7 +174,11 @@ const SignUpPage = ({
 
   const sendConfirmEmailCode = () => {
     mountedConfirmCodeSignUp({ code: code, token: getAuthToken.token });
+    setCommitValid(false);
   };
+
+  const [resendValid, setResendValid] = useState(true);
+  const [commitValid, setCommitValid] = useState(true);
 
   const currentScreen = () => {
     switch (next) {
@@ -191,8 +195,12 @@ const SignUpPage = ({
             commitMessage={commitSuccess}
             onResend={resend}
             setCode={setCode}
-            onSubmit={buttonCommit(code.length === 6, sendConfirmEmailCode)}
+            onSubmit={buttonCommit(
+              code.length === 6 && commitValid,
+              sendConfirmEmailCode
+            )}
             backButton={buttonBack}
+            resendValid={resendValid}
           />
         );
     }
@@ -227,6 +235,7 @@ const SignUpPage = ({
   useEffect(() => {
     if (getCommitCodeResponse.status === 500) {
       setCommitError([getCommitCodeResponse.detail]);
+      setCommitValid(true);
     }
     if (getCommitCodeResponse.status === 200) {
       setModalAccountCreate(true);
@@ -236,8 +245,9 @@ const SignUpPage = ({
 
   const resend = () => {
     setCommitError([]);
-    setCommitSuccess(getResendResponse.detail);
+    setCommitSuccess("");
     mountedResendCodeSignUp({ token: getAuthToken.token });
+    setResendValid(false);
   };
 
   useEffect(() => {
@@ -249,6 +259,7 @@ const SignUpPage = ({
       setCommitError([]);
       setCommitSuccess(getResendResponse.detail);
     }
+    setResendValid(true);
   }, [getResendResponse]);
 
   const buttonNext = (valid: boolean, onClick?: () => void) => {
@@ -356,7 +367,11 @@ const SignUpPage = ({
       <Typography className={classes.typography} marginBottom={1}>
         {translations.realDate}
       </Typography>
-      {buttonNext(true, sendSignUpData)}
+
+      {buttonNext(
+        Boolean(Object.keys(dayList).find((e: string) => e === day.toString())),
+        sendSignUpData
+      )}
       {buttonBack()}
     </span>
   );

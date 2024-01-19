@@ -16,6 +16,7 @@ const CommitCode = ({
   commitMessage,
   onSubmit,
   children,
+  resendValid,
   onResend,
   setCode,
   backButton,
@@ -41,12 +42,20 @@ const CommitCode = ({
         {translations.theConfirmationCode}
         {email}
         {". "}
-        <span
-          onClick={onResend}
-          className={`${classes.birthdayTypography} ${classes.modalOpenLink} ${classes.noSelect} ${classes.resendLink}`}
-        >
-          {translations.resend}
-        </span>
+        {resendValid ? (
+          <span
+            onClick={onResend}
+            className={`${classes.birthdayTypography} ${classes.modalOpenLink} ${classes.noSelect} ${classes.resendLink}`}
+          >
+            {translations.resend}
+          </span>
+        ) : (
+          <span
+            className={`${classes.birthdayTypography} ${classes.modalOpenLink} ${classes.noSelect} ${classes.resendLink} ${classes.resendInvalid}`}
+          >
+            {translations.resend}
+          </span>
+        )}
       </Typography>
 
       <span className={classes.selects}>

@@ -25,7 +25,7 @@ def getResendCode(
             }
 
         detail = response.detail[0]
-        if float(detail[0]) - 480 < time.time():
+        if float(detail[0]) - 540 < time.time():
             response = setConfirmCode(user_id, 600)
 
             if not response:

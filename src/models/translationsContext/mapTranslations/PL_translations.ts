@@ -97,7 +97,7 @@ export const PL_translations = {
       withoutSpecialCharacters: "bez znaków specjalnych (ą, !, ö...)",
       withoutWhiteSpace: "brak spacji",
       passwordIsInvalid: "Hasło nie spełnia wymagań:",
-      passwordMinLength: "min. 8 znaki",
+      passwordMinLength: "min. 8 znaków",
       passwordRequirements:
         "minimum: 1 duża litera, 1 mała litera, 1 znak specjalny",
       passwordWithoutSpaceAndOtherCharacters:
@@ -149,6 +149,7 @@ export const PL_translations = {
       error: "Błąd!",
       errorImage: "Ikona błędu",
       thisFileIsInvalid: "Ten plik jest niepoprawny",
+      thisFileIsTooBig: "Ten plik jest za duży (limit 3MB)",
     },
     formModal: {
       placeholderOfDescriptionInput: "Napisz opis...",

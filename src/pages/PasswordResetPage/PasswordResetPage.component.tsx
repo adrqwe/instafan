@@ -55,6 +55,8 @@ const PasswordResetPage = ({
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [commitMessage, setCommitMessage] = useState("");
 
+  const [resendValid, setResendValid] = useState(true);
+
   useEffect(() => {
     if (getResendCodePasswordReset.status === 500) {
       setCommitMessage("");
@@ -64,11 +66,14 @@ const PasswordResetPage = ({
       setErrorMessages([]);
       setCommitMessage(getResendCodePasswordReset.detail);
     }
+
+    setResendValid(true);
   }, [getResendCodePasswordReset]);
 
   useEffect(() => {
     if (getConfirmAddressEmail.status === 500) {
       setErrorMessages([getConfirmAddressEmail.detail]);
+      setEmailSended(false);
     }
     if (getConfirmAddressEmail.status === 200) {
       nextStep();
@@ -81,6 +86,7 @@ const PasswordResetPage = ({
   useEffect(() => {
     if (getChangePasswordResponse.status === 500) {
       setErrorMessages([getChangePasswordResponse.detail]);
+      setPasswordSended(false);
     }
     if (getChangePasswordResponse.status === 200) {
       setModalPasswordIsChanged(true);
@@ -98,7 +104,11 @@ const PasswordResetPage = ({
       code: code,
       password: hashPassword(password),
     });
+
+    setPasswordSended(true);
   };
+
+  const [passwordSended, setPasswordSended] = useState(false);
 
   const currentScreen = () => {
     switch (next) {
@@ -116,11 +126,14 @@ const PasswordResetPage = ({
               mountedResendCodePasswordReset({
                 token: getConfirmAddressEmail.token,
               });
+              setResendValid(false);
+              setErrorMessages([]);
             }}
             onSubmit={buttonNext(
-              code.length === 6 && validPassword,
+              code.length === 6 && validPassword && !passwordSended,
               sendChangePassword
             )}
+            resendValid={resendValid}
           >
             <InputTextField
               placeholder={translations.newPassword}
@@ -151,8 +164,11 @@ const PasswordResetPage = ({
     }
   };
 
+  const [emailSended, setEmailSended] = useState(false);
+
   const sendConfirmAddressEmail = () => {
     mountedConfirmAddressEmail({ email: login });
+    setEmailSended(true);
   };
 
   const buttonNext = (valid: boolean, onClick?: () => void) => {
@@ -207,7 +223,7 @@ const PasswordResetPage = ({
           </div>
         }
       />
-      {buttonNext(validLogin, sendConfirmAddressEmail)}
+      {buttonNext(validLogin && !emailSended, sendConfirmAddressEmail)}
       <Box className={classes.separator}>
         <hr />
         <Typography fontSize="small" className={classes.orText}>
