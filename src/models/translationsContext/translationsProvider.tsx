@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
-import { TransactionContext } from "./translationsContext";
 
+import { TransactionContext } from "./translationsContext";
 import {
   EN_translations,
   PL_translations,

@@ -1,4 +1,4 @@
-import { deprecated, createAsyncAction } from "typesafe-actions";
+import { deprecated } from "typesafe-actions";
 
 import { LOADER_STATE } from "../constants/constants";
 

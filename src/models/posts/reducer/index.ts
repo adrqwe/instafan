@@ -30,7 +30,6 @@ const postsReducer = (
         ...state,
         createPostResponse: action.payload,
       };
-    //errors
     case getType(postCreatePost.failure):
       return {
         ...state,

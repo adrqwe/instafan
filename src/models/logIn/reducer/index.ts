@@ -31,7 +31,6 @@ const logInReducer = (
         ...state,
         currentToken: action.payload,
       };
-    //errors
     case getType(postLogIn.failure):
       return {
         ...state,

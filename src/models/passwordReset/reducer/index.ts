@@ -36,7 +36,6 @@ const passwordResetReducer = (
         ...state,
         changePasswordResponse: action.payload,
       };
-    //errors
     case getType(postConfirmAddressEmail.failure):
       return {
         ...state,

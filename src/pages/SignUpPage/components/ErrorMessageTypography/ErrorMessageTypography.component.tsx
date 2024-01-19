@@ -1,4 +1,5 @@
 import { Typography } from "@mui/material";
+
 import { useStyles } from "./ErrorMessageTypography.style";
 import { IErrorMessageTypography } from "./ErrorMessageTypography.types";
 

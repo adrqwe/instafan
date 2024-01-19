@@ -42,7 +42,7 @@ export const PL_translations = {
       hide: "Ukryj",
     },
     footer: {
-      help: "Help",
+      help: "Pomoc",
       about: "Informacje",
       blog: "Blog",
       privacy: "Prywatność",

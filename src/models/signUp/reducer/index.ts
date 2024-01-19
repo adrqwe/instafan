@@ -44,8 +44,6 @@ const signUpReducer = (
         ...state,
         resendResponse: action.payload,
       };
-
-    //errors
     case getType(postCheckSignUp.failure):
       return {
         ...state,
