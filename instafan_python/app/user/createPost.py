@@ -1,4 +1,5 @@
 import time
+import io
 
 from fastapi import UploadFile
 from decouple import config
@@ -7,8 +8,10 @@ from app.user.model.model import User
 from app.auth.auth_handler import decodeJWT
 from app.auth.signUp.singUp import randomCode
 from app.sql.mysqlConnector import mysqlConnector
+from app.user.sendFileToCloud import sendFileToCloud
 
 UPLOAD_DIR = config("UPLOAD_DIR")
+STORAGE_URL = config("STORAGE_URL")
 
 
 async def getCreatePost(
@@ -28,16 +31,20 @@ async def getCreatePost(
 
     try:
         image = await form.read()
-        savePath = UPLOAD_DIR + fileName
+        savePath = STORAGE_URL + UPLOAD_DIR + "/" + fileName
 
-        with open(savePath, "wb") as file:
+        with io.BytesIO() as file:
             file.write(image)
-            file.close()
+            file.seek(0)
+            gcs = sendFileToCloud(file, fileName)
 
     except OSError:
-        return {"status": 500, "detail": "Upload error!", "added": False}
+        return {"status": 500, "detail": "Upload error! Try again.", "added": False}
 
-    sql = f"INSERT INTO `posts` (`id`, `user_id`, `count_of_likes`, `image`, `description`) VALUES (NULL, (SELECT `id` FROM `users` WHERE `email`='{decode_token.user_id}'), '0', 'http://localhost/uploads/{fileName}', '{description}')"
+    if gcs.status == 500:
+        return {"status": 500, "detail": "Upload error! Try again.", "added": False}
+
+    sql = f"INSERT INTO `posts` (`id`, `user_id`, `count_of_likes`, `image`, `description`) VALUES (NULL, (SELECT `id` FROM `users` WHERE `email`='{decode_token.user_id}'), '0', '{savePath}', '{description}')"
     response = mysqlConnector(sql, commit=True)
 
     if response.status == 500:

@@ -113,6 +113,7 @@ const CreatePostPage = ({
 
   const sharePostAction = () => {
     if (getCheckExistTokenDetails.valid && getCurrentToken) {
+      setLoadingModal(true);
       var form = formData;
       form.append("token", getCurrentToken);
       form.append("description", textArea);
@@ -137,7 +138,7 @@ const CreatePostPage = ({
       setErrorMsg(getCreatePostResponse.detail);
       setPostAddErrorModal(true);
     }
-
+    setLoadingModal(false);
     getCreatePostResponse.status = 100;
   }, [getCreatePostResponse]);
 

@@ -26,3 +26,6 @@ class User:
         status: int
         detail: str
         added: bool
+
+    class SendFileToCloudModel(BaseModel):
+        status: int

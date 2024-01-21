@@ -50,6 +50,8 @@ const DetailOfPostModal = ({
 
   const [heartAnimation, setHeartAnimation] = useState(false);
 
+  const [currentData, setCurrentData] = useState(data);
+
   useEffect(() => {
     setShakeALittle(false);
     setHeartAnimation(false);
@@ -63,6 +65,7 @@ const DetailOfPostModal = ({
         userId: data.authorId,
       });
     }
+    setCurrentData(data);
   }, [data]);
 
   const shakeALittleAction = () => {
@@ -140,34 +143,36 @@ const DetailOfPostModal = ({
                   </button>
                 </Box>
                 <Box className={classes.commentsBox} ref={commentsDiv}>
-                  {data.comments &&
-                    data.comments.map(({ comment, commentedBy, commentId }) => {
-                      return (
-                        <Box className={classes.commentBox} key={commentId}>
-                          <div className={classes.profilePictureBox}>
-                            <ProfileImage
-                              image={defaultProfileImage}
-                              name={commentedBy}
-                            />
-                          </div>
-                          <Typography
-                            className={`${classes.username} ${classes.commentFontSize}`}
-                          >
-                            {commentedBy} •{" "}
-                            <span
-                              className={`${classes.comment} ${classes.commentFontSize}`}
+                  {currentData.comments &&
+                    currentData.comments.map(
+                      ({ comment, commentedBy, commentId }) => {
+                        return (
+                          <Box className={classes.commentBox} key={commentId}>
+                            <div className={classes.profilePictureBox}>
+                              <ProfileImage
+                                image={defaultProfileImage}
+                                name={commentedBy}
+                              />
+                            </div>
+                            <Typography
+                              className={`${classes.username} ${classes.commentFontSize}`}
                             >
-                              {comment}
-                            </span>
-                          </Typography>
-                          <IconButton className={classes.likeComment}>
-                            <FavoriteBorderOutlinedIcon
-                              className={classes.likeCommentIcon}
-                            />
-                          </IconButton>
-                        </Box>
-                      );
-                    })}
+                              {commentedBy} •{" "}
+                              <span
+                                className={`${classes.comment} ${classes.commentFontSize}`}
+                              >
+                                {comment}
+                              </span>
+                            </Typography>
+                            <IconButton className={classes.likeComment}>
+                              <FavoriteBorderOutlinedIcon
+                                className={classes.likeCommentIcon}
+                              />
+                            </IconButton>
+                          </Box>
+                        );
+                      }
+                    )}
                 </Box>
                 <Box className={classes.addCommentBox}>
                   <IconButton
